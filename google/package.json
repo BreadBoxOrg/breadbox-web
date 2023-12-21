@@ -1,0 +1,24 @@
+{
+  "name": "lp_api",
+  "version": "1.0.0",
+  "description": "Create a script that communicates with google sheets",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danbergeron3/LP_API.git"
+  },
+  "author": "Daniel Bergeron",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danbergeron3/LP_API/issues"
+  },
+  "homepage": "https://github.com/danbergeron3/LP_API#readme",
+  "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
+    "googleapis": "^105.0.0"
+  }
+}
