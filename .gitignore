@@ -3,3 +3,4 @@
 # dependencies (i use a dev container for my dev stuff which is why I have /.devcontainer in here)
 /.devcontainer 
 /.github
+/node_modules
