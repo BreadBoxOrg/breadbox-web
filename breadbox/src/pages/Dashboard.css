@@ -1,0 +1,22 @@
+.dashboard {
+  color: black;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto); 
+  padding: 20px; 
+}
+
+.welcome-section {
+    color: #1ADBA9;
+    position: fixed;
+    margin-left: 30px; 
+  }
+  
+  .welcome-section h1 {
+    font-size: 50px; 
+    font-weight: 1;
+    margin-bottom: 10px;
+    font-weight: normal; 
+  }
