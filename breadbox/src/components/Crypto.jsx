@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts';
 
 function Crypto() {
   const [cryptoData, setCryptoData] = useState([]);
@@ -79,13 +79,18 @@ function Crypto() {
           </span>
         )}
       </div>
-
+        
+        
       <ResponsiveContainer width={"100%"} height={250}>
-        <LineChart data={cryptoData.map(item => ({ date: new Date(item[0]).toLocaleDateString(), price: item[1] }))}>
-          <XAxis dataKey="date" stroke="#ccc" />
-          <YAxis domain={['dataMin', 'dataMax']} stroke="#ccc" tickFormatter={(value) => value.toLocaleString()} />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
+        <LineChart data={cryptoData.map(item => ({ date: new Date(item[0]).toLocaleDateString(), price: item[1] })) } margin={{
+            top: 5,
+            right: 0, 
+            left: -100, 
+          }}>
+          
+          <XAxis axisLine={false} dataKey="date" tick={false} />
+          <YAxis axisLine={false} domain={['dataMin', 'dataMax']} tick={false} tickFormatter={(value) => value.toLocaleString()} />
+          <Tooltip content={<CustomTooltip />} cursor={false}/>
           <Line type="monotone" dataKey="price" stroke="#2ecc71" dot={false} />
         </LineChart>
       </ResponsiveContainer>
@@ -93,5 +98,5 @@ function Crypto() {
   );
 }
 
-// todo: remove x and y axis and combine info within the tooltip for a cleaner look
+// todo: combine info within the tooltip
 export default Crypto;
