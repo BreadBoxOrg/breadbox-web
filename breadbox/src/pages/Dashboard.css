@@ -1,22 +1,32 @@
-.dashboard {
-  color: black;
-  min-height: 100vh;
+.parent {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 10px;
-  grid-auto-rows: minmax(100px, auto); 
-  padding: 20px; 
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 40px;
+  grid-row-gap: 50px;
 }
 
-.welcome-section {
-    color: #1ADBA9;
-    position: fixed;
-    margin-left: 30px; 
-  }
-  
-  .welcome-section h1 {
-    font-size: 50px; 
-    font-weight: 1;
-    margin-bottom: 10px;
-    font-weight: normal; 
-  }
+.div1 { grid-area: 1 / 1 / 6 / 2; } /* div1 for sidebar */
+.div2 { grid-area: 2 / 2 / 4 / 4; } /* div2 for money earned widget */
+.div3 { grid-area: 2 / 4 / 4 / 6; } /* div3 for recurring costs widget */
+.div4 { grid-area: 4 / 4 / 6 / 6; } /* div4 for widget in progress */
+.div5 { grid-area: 4 / 3 / 6 / 4; } /* div5 for FedWatch interest rate/Crypto price tracker */
+.div6 { grid-area: 4 / 2 / 6 / 3; } /* div6 for Networth (top) and savings goal widget (bottom) */
+.div7 { grid-area: 1 / 6 / 6 / 7; } /* div7 for chat bot assistant window (this will be clicked to slide out div, implement later) */
+.div8 { grid-area: 1 / 2 / 2 / 4; } /* div8 for Header */
+.div9 { grid-area: 1 / 4 / 2 / 6; } /* div9 for chat bot assistant button */
+
+/* [HEADER PROPERTIES] */
+.div8  {
+  padding: 70px;
+}
+    .div8 h1 {
+      color: #1ADBA9;
+    }
+
+    .div8 p {
+      color: #8f8f8f;
+    }
+
+
+

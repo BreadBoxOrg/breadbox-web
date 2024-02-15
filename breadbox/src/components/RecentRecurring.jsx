@@ -12,7 +12,7 @@ const data = [
 
 function RecentRecurring() {
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true); // fix it to use false, right now true = closed, false = open smh
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const onPieEnter = (_, index) => {
