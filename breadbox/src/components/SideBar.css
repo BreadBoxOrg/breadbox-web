@@ -1,8 +1,70 @@
+body{
+  margin-left: 250px;
+  color: #1ADBA9;
+}
 .logo{
   height: 128px;
   width: 128px;
+  display: flex;
+  margin: 0px auto 0px auto;
 }
-.profilePic{
-  height: 50px;
-  width: 50px;
+.NavBar {
+  width: 230px;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.NavBar ul{
+  margin-top: 150px;
+  list-style-type: none;
+  color: gray;
+  font-weight: bold;
+}
+.NavBar li{
+  padding-bottom: 50px;
+}
+.NavBar a{
+  transition: color 0.8s ease;
+  padding-left: 30px;
+  font-size: 18px;
+  text-decoration: none;
+}
+.NavBar a:visited{
+  color: inherit;
+}
+.NavbarFooter{
+  margin-top: auto;
+  color: white;
+  background-color: #1ADBA9;
+  padding-bottom: 12px;
+}
+.NavbarFooter .profilePic{
+  margin: 10px 15px 0px 15px;
+  height: 40px;
+  width: 40px;
+  float: left;
+  border-radius: 10px;
+}
+.NavbarFooter h3{
+  font-size: 20px;
+  margin: 0;
+  padding-top: 10px;
+}
+.NavbarFooter p{
+  margin: 0px 0px;
+  font-size: 12px;
+  color: gray;
+}
+.NavBarIcons{
+  color: white;
+  transform: scale(1.8);
+  vertical-align: text-bottom;
+}
+.NavBar .active a{
+  color: white;
 }

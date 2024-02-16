@@ -1,5 +1,5 @@
 import React from 'react';
-import{Link} from 'react-router-dom';
+import{Link, useLocation} from 'react-router-dom';
 import './SideBar.css'
 import Logo from '../images/BreadBox_Logo.png';
 import placeholder from '../images/placeholder.jpg';
@@ -8,25 +8,29 @@ import  ShoppingCartIcon  from '@mui/icons-material/ShoppingCart';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DescriptionIcon from '@mui/icons-material/Description';
 
+
 const NavbarLayout = () =>{
+    
+    const location = useLocation(); 
+    
     return(
         <div className='NavBar'>
             <img className='logo' src={Logo} alt="Logo"></img>
             <ul>
-                <li>
-                    <AssessmentIcon />
+                <li className={location.pathname === '/' ? 'active' : ''}>
+                    <AssessmentIcon className="NavBarIcons" />
                     <Link to="/">Dashboard</Link>
                 </li>
-                <li>
-                    <ShoppingCartIcon />
+                <li className={location.pathname === '/expenses' ? 'active' : ''}>
+                    <ShoppingCartIcon className="NavBarIcons"/>
                     <Link to="/expenses">Expenses</Link>
                 </li>
-                <li>
-                    <DescriptionIcon />
+                <li className={location.pathname === '/finances' ? 'active' : ''}>
+                    <DescriptionIcon className="NavBarIcons"/>
                     <Link to="/finances">Finances</Link>
                 </li>
-                <li>
-                    <SettingsIcon />
+                <li className={location.pathname === '/settings' ? 'active' : ''}>
+                    <SettingsIcon className="NavBarIcons"/>
                     <Link to="/settings">Settings</Link>    
                 </li>
             </ul>
