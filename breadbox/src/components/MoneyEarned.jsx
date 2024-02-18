@@ -1,52 +1,40 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Button, Menu, MenuItem, Paper, Typography } from '@mui/material';
 
-const data = [
-    {
-      name: 'January', amt: 2400,
-    },
-    {
-      name: 'February', amt: 2210,
-    },
-    {
-      name: 'March', amt: 2290,
-    },
-    {
-      name: 'April', amt: 2000,
-    },
-    {
-      name: 'May', amt: 2181,
-    },
-    {
-      name: 'June', amt: 2500,
-    },
-  ];
+const data = [ // cleanup
+  { name: 'January', amt: 2400 },
+  { name: 'February', amt: 2210 },
+  { name: 'March', amt: 2290 },
+  { name: 'April', amt: 2000 },
+  { name: 'May', amt: 2181 },
+  { name: 'June', amt: 2500 },
+];
 
 function MoneyEarned() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null); // using dropdown from MUI
+  const [selectedOption, setSelectedOption] = useState("Monthly");
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  /* const generateColor = (index, isActive) => {
-    const hue = (360 * index) / data.length;
-    const lightness = isActive ? 85 : 70;
-    return `hsl(${hue}, 100%, ${lightness}%)`;
-  }; */
+  const handleClose = (option) => {
+    if (option) {
+      setSelectedOption(option);
+    }
+    setAnchorEl(null);
+  };
 
   return (
     <div style={{ position: 'relative', width: '800px', margin: 'auto' }}>
-      <div style={{
-        position: 'relative',
+      <Paper elevation={3} sx={{
         margin: 'auto',
-        backgroundColor: '#1E1E1E',
         padding: '20px',
         borderRadius: '20px',
-        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
+        backgroundColor: '#1E1E1E',
         color: 'white',
-        paddingBottom: '60px',
-        zIndex: 3
+        paddingBottom: '60px'
       }}>
         <div style={{
           borderBottom: '2px solid #2ecc71',
@@ -56,43 +44,49 @@ function MoneyEarned() {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <h2 style={{ margin: 0 }}>Money Earned</h2>
-          <div style={{ position: 'relative' }}>
-            <button onClick={toggleDropdown} style={{
-              backgroundColor: '#2C2C2E',
-              color: 'white',
-              padding: '10px 20px',
-              border: '1px solid #2ecc71',
-              borderRadius: '10px',
-              cursor: 'pointer',
-              fontSize: '16px',
-              outline: 'none'
-            }}>
-              Monthly ▼
-            </button>
-            {dropdownOpen && (
-              <div style={{
-                position: 'absolute',
-                backgroundColor: '#2C2C2E',
-                marginTop: '5px',
+           <Typography variant="h5" sx={{ margin: 0, color: 'white' }}>Money Earned</Typography> {/* slowly changing to MUI styling */}
+          <div>
+            <Button
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+              sx={{
+                backgroundColor: '#2C2C2E', 
+                color: 'white', 
+                border: '1px solid #2ecc71', 
                 borderRadius: '10px',
-                padding: '10px',
-                boxShadow: '0 2px 5px rgba(0, 0, 0, 0.5)',
-                zIndex: 4
-              }}>
-                <div style={{ padding: '10px', cursor: 'pointer' }}>Monthly</div>
-                <div style={{ padding: '10px', cursor: 'pointer' }}>Quarterly</div>
-                <div style={{ padding: '10px', cursor: 'pointer' }}>Yearly</div>
-              </div>
-            )}
+                textTransform: 'none',
+                '&:hover': {
+                  backgroundColor: '#3C3C3E', // slightly darker on hover
+                },
+              }}
+            >
+              {selectedOption} ▼
+            </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={() => handleClose()}
+              sx={{
+                '& .MuiPaper-root': {
+                  backgroundColor: '#2C2C2E',
+                  color: 'white',
+                },
+                
+              }}
+            >
+              <MenuItem onClick={() => handleClose("Monthly")}>Monthly</MenuItem>
+              <MenuItem onClick={() => handleClose("Quarterly")}>Quarterly</MenuItem>
+              <MenuItem onClick={() => handleClose("Yearly")}>Yearly</MenuItem>
+            </Menu>
           </div>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart
-              width={500}
-              height={300}
               data={data}
               margin={{
                 top: 5,
@@ -109,7 +103,7 @@ function MoneyEarned() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
+      </Paper>
     </div>
   );
 }
