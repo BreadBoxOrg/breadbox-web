@@ -38,7 +38,7 @@ function RecentRecurring() {
   };
 
   return (
-    <div style={{ position: 'relative', width: '800px', margin: 'auto' }}>
+    <div style={{ position: 'relative', width: '700px', margin: 'auto' }}>
       <div style={{
         position: 'relative',
         margin: 'auto',
@@ -90,7 +90,7 @@ function RecentRecurring() {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <ResponsiveContainer width="100%" height={400}>
+          <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
                 data={data}

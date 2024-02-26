@@ -27,7 +27,7 @@ function MoneyEarned() {
   };
 
   return (
-    <div style={{ position: 'relative', width: '800px', margin: 'auto' }}>
+    <div style={{ position: 'relative', width: '780px', margin: 'auto' }}>
       <Paper elevation={3} sx={{
         margin: 'auto',
         padding: '20px',
