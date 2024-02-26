@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import Transactions from './Transactions';
-
-const data = [
-  { name: 'Apple Music', value: 50000 },
-  { name: 'Amazon Prime', value: 25000 },
-  { name: 'Utilities', value: 15000 },
-  { name: 'Capital One', value: 7000 },
-  { name: 'AMEX', value: 3000 },
-];
+import { RecentRecurringMockData as data } from './mock_data/mockData';
 
 function RecentRecurring() {
   const [activeIndex, setActiveIndex] = useState(-1);

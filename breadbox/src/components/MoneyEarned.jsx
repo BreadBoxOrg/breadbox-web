@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Button, Menu, MenuItem, Paper, Typography } from '@mui/material';
-
-const data = [ // cleanup
-  { name: 'January', amt: 2400 },
-  { name: 'February', amt: 2210 },
-  { name: 'March', amt: 2290 },
-  { name: 'April', amt: 2000 },
-  { name: 'May', amt: 2181 },
-  { name: 'June', amt: 2500 },
-];
+import { MoneyEarnedMockData as data } from './mock_data/mockData';
 
 function MoneyEarned() {
   const [anchorEl, setAnchorEl] = useState(null); // using dropdown from MUI
