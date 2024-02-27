@@ -65,10 +65,11 @@ function Crypto() {
     <div style={{
       backgroundColor: '#0a0a0a',
       padding: '10px',
-      borderRadius: '10px',
+      borderRadius: '20px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
       position: 'relative',
       width: '400px',
+      height: '325px'
     }}>
       <div style={{
         paddingBottom: '10px',
