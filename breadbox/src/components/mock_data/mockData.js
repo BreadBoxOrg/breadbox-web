@@ -15,3 +15,11 @@ export const RecentRecurringMockData = [
   { name: 'June', amt: 2500 },
 ];
 
+
+export const MockSavingsGoalData = [
+  { amount: '$15,000', position: '0%' }, // Adjusted to start from the beginning of the bar
+  { amount: '$30,000', position: '25%' },
+  { amount: '$45,000', position: '50%' },
+  { amount: '$60,000', position: '75%' } // Assuming 75% is the current progress
+];
+

@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
+import { MockSavingsGoalData as data } from './mock_data/mockData';
 
 function SavingsGoal() {
   const [tooltip, setTooltip] = useState({ show: false, amount: '' });
 
-  const milestones = [
-    { amount: '$15,000', position: '0%' }, // Adjusted to start from the beginning of the bar
-    { amount: '$30,000', position: '25%' },
-    { amount: '$45,000', position: '50%' },
-    { amount: '$60,000', position: '75%' } // Assuming 75% is the current progress
-  ];
+
 
   const showTooltip = (amount) => {
     setTooltip({ show: true, amount });
@@ -43,7 +39,7 @@ function SavingsGoal() {
           backgroundColor: '#2ecc71',
           borderRadius: '10px'
         }}></div>
-        {milestones.map((milestone, index) => (
+        {data.map((milestone, index) => (
           <React.Fragment key={index}>
             <div
               style={{
