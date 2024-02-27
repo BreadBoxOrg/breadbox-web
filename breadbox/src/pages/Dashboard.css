@@ -9,14 +9,14 @@
   max-width: 100vw;
 }
 
-.div2 { grid-area: 2 / 1 / 4 / 3;}
-.div3 { grid-area: 2 / 3 / 4 / 4; z-index: 5;}
-.div4 { grid-area: 4 / 3 / 6 / 4;}
-.div5 { grid-area: 4 / 2 / 6 / 3;}
-.div6 { grid-area: 4 / 1 / 6 / 2; display: flex; flex-direction: column; justify-content: space-between;} 
-.div7 { grid-area: 1 / 5 / 6 / 6;}
-.div8 { grid-area: 1 / 1 / 2 / 3; padding: 20px;}
-.div9 { grid-area: 1 / 3 / 2 / 5;}
+.div2 { grid-area: 2 / 1 / 4 / 3;} /* div2 for money earned widget */
+.div3 { grid-area: 2 / 3 / 4 / 4; z-index: 5;} /* div3 for recurring costs widget */
+.div4 { grid-area: 4 / 3 / 6 / 4;} /* div4 for widget in progress */
+.div5 { grid-area: 4 / 2 / 6 / 3;} /* div5 for FedWatch interest rate/Crypto price tracker */
+.div6 { grid-area: 4 / 1 / 6 / 2; display: flex; flex-direction: column; justify-content: space-between;} /* div6 for stacked widgets (networth & savingsgoal) */
+.div7 { grid-area: 1 / 5 / 6 / 6;} /* div7 for chat bot assistant window (this will be clicked to slide out div, implement later) */
+.div8 { grid-area: 1 / 1 / 2 / 3; padding: 20px;} /* div8 for Header */
+.div9 { grid-area: 1 / 3 / 2 / 5;} /* div9 for chat bot assistant button */
 
 /* [HEADER PROPERTIES] */
 .div8 h1 {
