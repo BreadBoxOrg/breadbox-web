@@ -1,8 +1,4 @@
-body{
-  margin-left: 250px;
-  color: #1ADBA9;
-}
-.logo{
+.side-bar-logo{
   height: 128px;
   width: 128px;
   display: flex;
@@ -71,4 +67,3 @@ body{
 .NavBar .active a{
   color: white;
 }
-

@@ -15,11 +15,11 @@ const NavbarLayout = () =>{
     
     return(
         <div className='NavBar'>
-            <img className='logo' src={Logo} alt="Logo"></img>
+            <img className='side-bar-logo' src={Logo} alt="Logo"></img>
             <ul>
-                <li className={location.pathname === '/' ? 'active' : ''}>
+                <li className={location.pathname === '/dashboard' ? 'active' : ''}>
                     <AssessmentIcon className="NavBarIcons" />
-                    <Link to="/">Dashboard</Link>
+                    <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li className={location.pathname === '/expenses' ? 'active' : ''}>
                     <ShoppingCartIcon className="NavBarIcons"/>

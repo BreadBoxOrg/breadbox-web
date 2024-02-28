@@ -1,10 +1,10 @@
 import React from "react";
-import NavBar from "./routes/NavBarRoutes.js";
+import BreadBox from "./routes/routes.js";
 import './index.css'
 
 function App() {
   return (<>
-          <NavBar />
+          <BreadBox />
           </>);
 }
 
