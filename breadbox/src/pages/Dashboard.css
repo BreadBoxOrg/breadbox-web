@@ -18,7 +18,7 @@ body.dashboard{
 .div5 { grid-area: 4 / 2 / 6 / 3;} /* div5 for FedWatch interest rate/Crypto price tracker */
 .div6 { grid-area: 4 / 1 / 6 / 2; display: flex; flex-direction: column; justify-content: space-between;} /* div6 for stacked widgets (networth & savingsgoal) */
 .div7 { grid-area: 1 / 5 / 6 / 6;} /* div7 for chat bot assistant window (this will be clicked to slide out div, implement later) */
-.div8 { grid-area: 1 / 1 / 2 / 3; padding: 20px;} /* div8 for Header */
+.div8 { grid-area: 1 / 1 / 2 / 3;} /* div8 for Header */
 .div9 { grid-area: 1 / 3 / 2 / 5;} /* div9 for chat bot assistant button */
 
 /* [HEADER PROPERTIES] */
