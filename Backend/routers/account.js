@@ -11,6 +11,7 @@ router
     .post((req, res) => {
         console.log("/post");
         res.status(200).json({message: "/post"});
+
     })
     .put((req, res) => {
         console.log("/put");

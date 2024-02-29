@@ -17,8 +17,6 @@ app.get("/", (req, res) => {
     res.status(200).json({message: "get server test"});
 });
 
-// write
-
 // create
 app.post("/", (req, res) => {
     console.log("Posting");
@@ -44,6 +42,10 @@ app.delete("/", (req, res) => {
 
 //routers
 
+// allows json to be used in routes 
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
 const incomeRouter = require('./routers/income');
 app.use('/income', incomeRouter);
 
@@ -52,9 +54,6 @@ app.use('/account', accountRouter);
 
 const costsRouter = require('./routers/costs');
 app.use('/costs', costsRouter);
-
-const recurringCostsRouter = require('./routers/recurring-costs');
-app.use('/recurring-costs', recurringCostsRouter);
 
 const userRouter = require('./routers/user');
 app.use('/user', userRouter);
