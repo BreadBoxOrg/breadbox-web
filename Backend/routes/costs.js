@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const costModel = require('../Module/CostsSchema');
-const addCost = require('../Module/costsFunctions');
+const costModel = require('../models/costs-schema');
+const addCost = require('../utils/costsFunctions');
 require('dotenv').config();
 
 // db connection for mongodb without mongoose
