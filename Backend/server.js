@@ -44,19 +44,19 @@ app.delete("/", (req, res) => {
 
 //routers
 
-const incomeRouter = require('./routers/income');
+const incomeRouter = require('./routes/income');
 app.use('/income', incomeRouter);
 
-const accountRouter = require('./routers/account');
+const accountRouter = require('./routes/account');
 app.use('/account', accountRouter);
 
-const costsRouter = require('./routers/costs');
+const costsRouter = require('./routes/costs');
 app.use('/costs', costsRouter);
 
-const recurringCostsRouter = require('./routers/recurring-costs');
+const recurringCostsRouter = require('./routes/recurring-costs');
 app.use('/recurring-costs', recurringCostsRouter);
 
-const userRouter = require('./routers/user');
+const userRouter = require('./routes/user');
 app.use('/user', userRouter);
 
 // listeners
