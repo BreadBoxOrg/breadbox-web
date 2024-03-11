@@ -23,3 +23,15 @@ export const MockSavingsGoalData = [
   { amount: '$60,000', position: '75%' } // Assuming 75% 
 ];
 
+export const userInfo = [
+  { firstName: 'John' },
+  { lastName: 'Doe' },
+  { email: 'BreadBox@email.com' }
+];
+
+export const userlinkedAccounts = [
+  {name: "Bank of America", lastFourDigits: 4082},
+  {name: "Chase Bank", lastFourDigits: 2157},
+  {name: "Bank of America", lastFourDigits: 4117},
+  {name: "Citizens Bank", lastFourDigits: 3890},
+];
