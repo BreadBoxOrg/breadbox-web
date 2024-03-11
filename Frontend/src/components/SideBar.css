@@ -5,8 +5,8 @@
   margin: 0px auto 0px auto;
 }
 .NavBar {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
   width: 230px;
   background-color: black;
   position: fixed;
@@ -40,13 +40,14 @@
   color: white;
   background-color: #1ADBA9;
   padding-bottom: 12px;
+  border-bottom-right-radius: 20px;
 }
-.NavbarFooter .profilePic{
+.NavbarFooter .footer-profilePic{
   margin: 10px 15px 0px 15px;
   height: 40px;
   width: 40px;
   float: left;
-  border-radius: 20px;
+  border-radius: 12px;
 }
 .NavbarFooter h3{
   font-size: 20px;
