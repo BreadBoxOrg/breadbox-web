@@ -34,4 +34,5 @@ export const userlinkedAccounts = [
   {name: "Chase Bank", lastFourDigits: 2157},
   {name: "Bank of America", lastFourDigits: 4117},
   {name: "Citizens Bank", lastFourDigits: 3890},
+  {name: "TD Bank", lastFourDigits: 1964},
 ];

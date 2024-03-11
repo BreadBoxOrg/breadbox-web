@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavbarLayout from "../components/SideBar";
 import './Settings.css';
 import ProfilePic from "../images/placeholder.jpg";
@@ -26,6 +26,17 @@ const Settings = () =>{
         { value: 'email', label: 'Email'},
         { value: 'phone-number', label: 'Phone Number'},
     ];
+
+    const [accounts, setAccounts] = useState([]);
+    
+    useEffect(() => {
+        setAccounts(userlinkedAccounts);
+    }, []);
+
+    const handleRemoveAccount = (removeIndex) => {
+        const updatedAccounts = accounts.filter((_, i) => i !== removeIndex);
+        setAccounts(updatedAccounts); 
+    };
 
     return(<>
             <body className="settings">
@@ -62,12 +73,13 @@ const Settings = () =>{
                                 </button>
                             </h2>
                             <ul className='linkedBankAccounts'>
-                                {userlinkedAccounts.map((bank, index) => (
+                                {accounts.map((bank, index) => (
                                 <li key={index}>
                                     <span className='bank-account-details'>
                                         {bank.name} - {bank.lastFourDigits}
                                     </span>
-                                    <ClearIcon className='remove-bank'/>
+                                    <ClearIcon className='remove-bank' 
+                                    onClick={() => handleRemoveAccount(index)} />
                                 </li>
                                 ))}
                             </ul>

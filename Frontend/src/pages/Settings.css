@@ -116,8 +116,14 @@ body.settings{
     width: 200px;
 }
 .remove-bank{
+    color: rgb(103, 1, 1);
+    transform: scale(1.5);
     padding-left: 5px;
-    vertical-align: text-bottom;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.remove-bank:hover{
+    color: red;
 }
 .general{
     background-color: #141516;
