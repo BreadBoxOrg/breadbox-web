@@ -9,6 +9,7 @@ import ProfileInfoBox from '../components/ProfileInfoBox.jsx';
 import { userInfo } from '../components/mock_data/mockData.js';
 import { userlinkedAccounts } from '../components/mock_data/mockData.js';
 import ClearIcon from '@mui/icons-material/Clear';
+import Popup from "reactjs-popup";
 
 const Settings = () =>{
 
@@ -28,15 +29,24 @@ const Settings = () =>{
     ];
 
     const [accounts, setAccounts] = useState([]);
+    const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
     
     useEffect(() => {
         setAccounts(userlinkedAccounts);
     }, []);
 
     const handleRemoveAccount = (removeIndex) => {
-        const updatedAccounts = accounts.filter((_, i) => i !== removeIndex);
-        setAccounts(updatedAccounts); 
+        setConfirmDeleteIndex(removeIndex);
     };
+
+    const handleConfirmDelete = () => {
+        const updatedAccounts = accounts.filter((_, i) => i !== confirmDeleteIndex);
+        setAccounts(updatedAccounts);
+        setConfirmDeleteIndex(null);
+    }
+    const handleCancelDelete = () => {
+        setConfirmDeleteIndex(null);
+    }
 
     return(<>
             <body className="settings">
@@ -82,6 +92,13 @@ const Settings = () =>{
                                     onClick={() => handleRemoveAccount(index)} />
                                 </li>
                                 ))}
+                                <Popup open={confirmDeleteIndex !== null} onClose={handleCancelDelete}>
+                                    <div className='delete-account-pop-up'>
+                                        <p>Are you sure you want to delete this account?</p>
+                                        <button className='pop-up-button-yes' onClick={handleConfirmDelete}>Yes</button>
+                                        <button className='pop-up-button-no' onClick={handleCancelDelete}>No</button>
+                                    </div>
+                                </Popup>
                             </ul>
                         </div>
                     </div>

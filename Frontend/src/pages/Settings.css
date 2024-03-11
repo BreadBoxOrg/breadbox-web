@@ -117,13 +117,45 @@ body.settings{
 }
 .remove-bank{
     color: rgb(103, 1, 1);
-    transform: scale(1.5);
+    transform: scale(1.3);
     padding-left: 5px;
     vertical-align: middle;
     cursor: pointer;
 }
 .remove-bank:hover{
     color: red;
+}
+/*Styling for pop up confirmation */
+.popup-content {
+    font-weight: bold;
+    text-align: center;
+    font-size: 24px;
+    background-color: #1ADBA9;  
+    width: 50%;  
+    padding: 10px;
+    border-radius: 50px;
+}
+.popup-overlay {  
+    background: rgba(0, 0, 0, 0.7);
+}
+.pop-up-button-no, .pop-up-button-yes{
+    border: 1px solid black;
+    border-radius: 15px;
+    font-size: 20px;
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.pop-up-button-yes:hover{
+    background: red;
+}
+.pop-up-button-no:hover{
+    background: darkgray;
+}
+.pop-up-button-no:focus, .pop-up-button-yes:focus {
+    outline: 0;
 }
 .general{
     background-color: #141516;
