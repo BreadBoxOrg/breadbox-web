@@ -1,0 +1,144 @@
+body.settings{
+    margin-left: 275px;
+    overflow-x: auto;
+}
+.SettingsHeader h1 {
+    padding-top: 14px;
+    color: #1ADBA9;
+    font-size: 40px;
+    margin-bottom: 0px;
+}
+.button-layout{
+    margin-left: 1300px;
+}
+.log-out-button {
+    width: 200px;
+    height: 40px;
+    color: white;
+    background-color: #651819;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+}
+.settingslayout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 25px;
+    width: 1500px;
+}
+.left-column{
+    color: white;
+    font-weight: bold;
+    height: 700px;
+}
+.account{
+    background-color: #141516;
+    border-radius: 25px;
+    height: 50%;
+    margin-bottom: 25px;
+}
+.profile-firstName{
+    margin-left: 25px;
+    display: flex;
+    flex-direction: column;
+    float: left;
+}
+.profile-lastName{
+    margin-right: 25px;
+    display: flex;
+    flex-direction: column;
+    float: right;
+}
+.profile-email{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+.settings-profilePic{
+    height: 85px;
+    width: 85px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    border-radius: 16px;
+    margin-bottom: 10px;
+}
+.account h2{
+    margin-bottom: 0px;
+}
+.account h2, .general h2, .linkedaccounts h2{
+    color: white;
+    font-size: 24px;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+.linkedaccounts h2{
+    margin-bottom: 25px;
+}
+.linkedaccounts{
+    background-color: #141516;
+    border-radius: 25px;
+    height: 50%;
+}
+.plaid-button{
+    margin-left: 295px;
+    border-radius: 15px;
+    background-color: #109f7a;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+    padding: 2px 8px;
+}
+.plaid-button img{
+    width: 25px;
+    height: 25px;
+    filter: invert(1);
+}
+.linkedBankAccounts{
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 45px;
+    padding-left: 25px;
+}
+.bank-account-details{
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #2d2d2e;
+    width: 200px;
+}
+.remove-bank{
+    padding-left: 5px;
+    vertical-align: text-bottom;
+}
+.general{
+    background-color: #141516;
+    border-radius: 25px;
+    height: 725px;
+}
+.general ul{
+    color: white;
+    list-style: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+.general li{
+    padding: 30px;
+}
+.notifications span{
+    color: white;
+    font-weight: bold;
+    margin: 50px;
+}
+.notification-selection-options{
+    display: flex;
+    gap: 250px;
+}
