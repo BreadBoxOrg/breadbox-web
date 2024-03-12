@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { ResponsiveContainer } from 'recharts';
 
-const data = [
-  {/* add whatever data for widget testing */}
-];
+
 
 function Boilerplate() {
   const [dropdownOpen, setDropdownOpen] = useState(false); 

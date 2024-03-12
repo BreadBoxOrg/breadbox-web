@@ -35,7 +35,7 @@ function SavingsGoal() {
           top: 0,
           bottom: 0,
           left: 0,
-          right: '25%', // Adjusted to show current progress
+          right: '25%', // show current progress
           backgroundColor: '#2ecc71',
           borderRadius: '10px'
         }}></div>

@@ -4,7 +4,7 @@ import { Button, Menu, MenuItem, Paper, Typography } from '@mui/material';
 import { MoneyEarnedMockData as data } from './mock_data/mockData';
 
 function MoneyEarned() {
-  const [anchorEl, setAnchorEl] = useState(null); // using dropdown from MUI
+  const [anchorEl, setAnchorEl] = useState(null); // dropdown from MUI
   const [selectedOption, setSelectedOption] = useState("Monthly");
 
   const handleClick = (event) => {

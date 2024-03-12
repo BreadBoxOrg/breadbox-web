@@ -1,0 +1,94 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .transactionList {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .period {
+    color: #1ADBA9;
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .transaction {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    justify-content: space-between;
+  }
+  
+  
+  .transactionIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .grocery {
+    background-color: #0085FF;
+  }
+  
+  .transportation {
+    background-color: #8C38FF;
+  }
+  
+  .housing {
+    background-color: #FF9E00;
+  }
+  
+  .foodanddrink {
+    background-color: #FF4D4D;
+  }
+  
+  .entertainment {
+    background-color: #00C875;
+  }
+  
+  .transactionDetails {
+    flex: 1;
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+  }
+  
+  .transactionCategory {
+    font-weight: bold;
+    margin-bottom: 5px; 
+  }
+  .transaction:hover {
+    background-color: #4b555f; 
+  }
+
+  .transactionTime {
+    color: #8f8f8f;
+    font-size: 12px;
+  }
+  
+  .transactionAmount {
+    color: #1ADBA9;
+    font-weight: bold;
+  }
+
+  .transactionAmountAndTime {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
