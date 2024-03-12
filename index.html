@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <button id="link-button">Link Account</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script type="text/javascript">
+(async function($) {
+  var handler = Plaid.create({
+    // Create a new link_token to initialize Link
+    token: (await $.post('http://localhost:3000/create_link_token')).link_token,
+    onLoad: function() {
+      // Optional, called when Link loads
+    },
+    onSuccess: function(public_token, metadata) {
+      // Send the public_token to your app server.
+      // The metadata object contains info about the institution the
+      // user selected and the account ID or IDs, if the
+      // Account Select view is enabled.
+      $.post('http://localhost:3000/exchange_public_token', {
+        public_token: public_token,
+      });
+    },
+    onExit: function(err, metadata) {
+      // The user exited the Link flow.
+      if (err != null) {
+        // The user encountered a Plaid API error prior to exiting.
+      }
+      // metadata contains information about the institution
+      // that the user selected and the most recent API request IDs.
+      // Storing this information can be helpful for support.
+    },
+    onEvent: function(eventName, metadata) {
+      // Optionally capture Link flow events, streamed through
+      // this callback as your users connect an Item to Plaid.
+      // For example:
+      // eventName = "TRANSITION_VIEW"
+      // metadata  = {
+      //   link_session_id: "123-abc",
+      //   mfa_type:        "questions",
+      //   timestamp:       "2017-09-14T14:42:19.350Z",
+      //   view_name:       "MFA",
+      // }
+    }
+  });
+
+  $('#link-button').on('click', function(e) {
+    handler.open();
+  });
+})(jQuery);
+</script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+        <script type>
+        (async ($) => {
+            const fetchLinkToken = async () => {
+                const response = await fetch('http://localhost:3000/create-link-token');
+                const { linkToken } = await response.json();
+                return linkToken;
+            };
+
+            const handler = Plaid.create({
+                token: await fetchLinkToken(),
+                onSuccess: async (publicToken, metadata) => {
+                    console.log(publicToken);
+                    console.log(metadata);
+                    await fetch('http://localhost:3000/token-exchange', {
+                        method: 'Post',
+                        body: JSON.stringify({publicToken}),
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                },
+                onExit: async (error, metadata) => {
+                    console.log(error);
+                    console.log(metadata);
+                },
+                onEvent: async (metadata) => {
+                    console.log(metadata);
+                }
+            });
+            $('#link-button').on('click', function(e){handler.open(); });
+        })(jQuery);   -->
+        </script>
+    </body>
+</html>
