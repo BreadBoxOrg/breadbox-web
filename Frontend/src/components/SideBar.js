@@ -18,7 +18,11 @@ const NavbarLayout = () =>{
     
     return(
         <div className='NavBar'>
-            <img className='side-bar-logo' src={Logo} alt="Logo"></img>
+            <div className='logo-container'>
+                <Link to="/dashboard">
+                    <img className='side-bar-logo' src={Logo} alt="Logo"></img>
+                </Link>
+            </div>
             <ul>
                 <li className={location.pathname === '/dashboard' ? 'active' : ''}>
                     <AssessmentIcon className="NavBarIcons" />
