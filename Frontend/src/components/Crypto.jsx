@@ -9,7 +9,7 @@ function Crypto() {
   const [coinSymbol, setCoinSymbol] = useState('');
   const [priceTrend, setPriceTrend] = useState('');
 
-  const fetchData = async () => { // fetchdata redone
+  const fetchData = async () => { 
     try {
       const [historicalResponse, detailsResponse] = await Promise.all([
         axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart', {
