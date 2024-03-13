@@ -182,7 +182,7 @@ const getTransactions = async (req, res, next) => {
         //const monthly_transactions = [...added].sort(compareTxnsByDateAscending).slice(-30);
         res.json({recently_transactions: recently_added});
       })
-      .catch(next(new AppError('Could not get transactions')));
+      .catch(next);
 }
   
 const getBalance = (req, res, next ) => {
@@ -192,9 +192,9 @@ const getBalance = (req, res, next ) => {
             access_token: ACCESS_TOKEN,
             });
             console.log(balanceResponse);
-            //res.json(balanceResponse.data);
+            res.json(balanceResponse.data);
         })
-        .catch(next(new AppError('Could not get balance')));
+        .catch(next);
 }
 //     app.get('/api/balance', function (request, response, next) {
 //         Promise.resolve()
@@ -217,7 +217,7 @@ const getAccounts = (req, res, next ) => {
             console.log(balanceResponse);
             res.json(balanceResponse.data);
         })
-        .catch(next(new AppError('Could not get accounts')));
+        .catch(next);
 }
 //     app.get('/api/accounts', function (request, response, next) {
 //         Promise.resolve()
