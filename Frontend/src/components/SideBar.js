@@ -4,18 +4,25 @@ import './SideBar.css'
 import Logo from '../images/BreadBox_Logo.png';
 import placeholder from '../images/placeholder.jpg';
 import AssessmentIcon from '@mui/icons-material/Assessment';
-import  ShoppingCartIcon  from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon  from '@mui/icons-material/ShoppingCart';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DescriptionIcon from '@mui/icons-material/Description';
-
+import { userInfo } from './mock_data/mockData';
 
 const NavbarLayout = () =>{
     
     const location = useLocation(); 
+
+    const FullName = userInfo.find(item => item.firstName)?.firstName + ' ' +
+                        userInfo.find(item => item.lastName)?.lastName;
     
     return(
         <div className='NavBar'>
-            <img className='side-bar-logo' src={Logo} alt="Logo"></img>
+            <div className='logo-container'>
+                <Link to="/dashboard">
+                    <img className='side-bar-logo' src={Logo} alt="Logo"></img>
+                </Link>
+            </div>
             <ul>
                 <li className={location.pathname === '/dashboard' ? 'active' : ''}>
                     <AssessmentIcon className="NavBarIcons" />
@@ -35,9 +42,9 @@ const NavbarLayout = () =>{
                 </li>
             </ul>
             <div className='NavbarFooter'>
-                <img className='profilePic' src={placeholder} alt='placeholder'></img>
-                <h3>BreadboxTest</h3>
-                <p>BreadBox@gmail.com</p>
+                <img className='footer-profilePic' src={placeholder} alt='placeholder'></img>
+                <h3>{FullName}</h3>
+                <p>{userInfo.find(item => item.email)?.email}</p>
             </div>
         </div>
         
