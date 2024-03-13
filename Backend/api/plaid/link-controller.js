@@ -23,13 +23,6 @@ const PLAID_PRODUCTS = (process.env.PLAID_PRODUCTS || Products.Transactions).spl
   console.log("Plaid Products:", PLAID_PRODUCTS);
   
 const PLAID_REDIRECT_URI = process.env.PLAID_REDIRECT_URI || '';
-const PORT1 = 3000;
-// const plaidClient = new plaid.Client({
-//     clientID: PLAID_CLIENT_ID,
-//     secret: PLAID_SECRET,
-//     env: PLAID_ENV,
-
-// }); 
 
 const configuration = new Configuration({
     basePath: PlaidEnvironments[PLAID_ENV],
