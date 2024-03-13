@@ -24,7 +24,7 @@
 (async function($) {
   var handler = Plaid.create({
     // Create a new link_token to initialize Link
-    token: (await $.post('http://localhost:3000/create_link_token')).link_token,
+    token: (await $.post('http://localhost:3000/link/create_link_token')).link_token,
     onLoad: function() {
       // Optional, called when Link loads
     },
@@ -33,7 +33,7 @@
       // The metadata object contains info about the institution the
       // user selected and the account ID or IDs, if the
       // Account Select view is enabled.
-      $.post('http://localhost:3000/exchange_public_token', {
+      $.post('http://localhost:3000/link/exchange_link_token', {
         public_token: public_token,
       });
     },
@@ -70,7 +70,7 @@
         <script type>
         (async ($) => {
             const fetchLinkToken = async () => {
-                const response = await fetch('http://localhost:3000/create-link-token');
+                const response = await fetch('http://localhost:3000/link/create-link-token');
                 const { linkToken } = await response.json();
                 return linkToken;
             };
@@ -80,7 +80,7 @@
                 onSuccess: async (publicToken, metadata) => {
                     console.log(publicToken);
                     console.log(metadata);
-                    await fetch('http://localhost:3000/token-exchange', {
+                    await fetch('http://localhost:3000/link/token-exchange', {
                         method: 'Post',
                         body: JSON.stringify({publicToken}),
                         headers: {
