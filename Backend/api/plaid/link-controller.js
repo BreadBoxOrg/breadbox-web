@@ -7,7 +7,8 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const cors = require('cors');
 const AppError = require('../../middleware/appError');
-const Transaction = require('../../utils/transactionClass');
+const Transaction = require('../../utils/transaction');
+const TransactionRecuring = require('../../utils/transactionRecurring');
 
 const PLAID_CLIENT_ID = process.env.PLAID_CLIENT_ID;
 const PLAID_SECRET = process.env.PLAID_SECRET;
@@ -162,7 +163,7 @@ const getTransactions = async (req, res, next) => {
         // Return the 8 most recent transactions
         const recently_added = [...added].sort(compareTxnsByDateAscending).slice(-8);
         //const monthly_transactions = [...added].sort(compareTxnsByDateAscending).slice(-30);
-        const transactionList = [];
+        let transactionList = [];
         let i = 0;
         recently_added.forEach(plaidTransactions => {
           console.log(`${plaidTransactions.date}`);
@@ -181,17 +182,41 @@ const getTransactions = async (req, res, next) => {
         });
 
         req = {
-          access_token: accessToken,
-          account_ids : accountIds
+          access_token: ACCESS_TOKEN,
         };
+        let transactionRecuringList = [];
         try {
           const response = await client.transactionsRecurringGet(req);
           let inflowStreams = response.data.inflow_streams;
           let outflowStreams = response.data.outflow_streams;
+          console.log(inflowStreams);
+          console.log(`out----------------------------------------------------------->`);
+          console.log(outflowStreams);
+
+         
+          outflowStreams.forEach(outflowTransactions => {
+          console.log(`OUTFLOW: ${outflowTransactions}`);
+          let breadboxTransactionRecuring = new TransactionRecuring({
+            accountId: outflowTransactions.account_id,
+            amount: outflowTransactions.last_amount.amount,
+            first_date: outflowTransactions.first_date,
+            last_date: outflowTransactions.last_date,
+            frequency: outflowTransactions.frequency,
+            catagory: outflowTransactions.category,
+            merchantName: outflowTransactions.merchant_name,
+            isActive: outflowTransactions.is_active,
+          });
+          transactionRecuringList.push(breadboxTransactionRecuring);
+        });
         } catch (err)  {
           console.log(`RECURING_TRANSACTION_DEBUG: ${err}`);
         }
-        res.json(transactionList);
+
+        
+        res.status(200).json({
+          one_time_cost: transactionList,
+          recuring_cost: transactionRecuringList
+        });
       })
       .catch(next);
 }
