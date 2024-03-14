@@ -21,3 +21,8 @@ async function getPlaidAccounts() {
     }
 }
 
+
+module.exports = {
+    getPlaidTransactions,
+    getPlaidAccounts,
+}
