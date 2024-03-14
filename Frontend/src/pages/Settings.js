@@ -10,6 +10,9 @@ import { userInfo } from '../components/mock_data/mockData.js';
 import { userlinkedAccounts } from '../components/mock_data/mockData.js';
 import ClearIcon from '@mui/icons-material/Clear';
 import Popup from "reactjs-popup";
+import Button from "plaid-threads/Button";
+import LinkComponent from '../components/LinkComponent.jsx';
+
 
 const Settings = () =>{
 
@@ -57,7 +60,7 @@ const Settings = () =>{
                         <button className="log-out-button">Log Out</button>
                     </Link>
                 </div>
-                <body className="settingslayout">
+                <div className="settingslayout">
                     <div className="left-column">
                         <div className="account">
                             <h2>Account</h2>
@@ -77,10 +80,11 @@ const Settings = () =>{
                         </div>
                         <div className="linkedaccounts">
                             <h2>Linked Accounts
-                                <button className='plaid-button'>
+                                {/* <button className='plaid-button'>
                                     <img alt="Plaid Logo" src={PlaidLogo}></img>
                                     Link Your Account With Plaid
-                                </button>
+                                </button> */}
+                                <LinkComponent/>
                             </h2>
                             <ul className='linkedBankAccounts'>
                                 {accounts.map((bank, index) => (
@@ -129,7 +133,7 @@ const Settings = () =>{
                             </div>
                         </div>
                     </div>
-                </body>
+                </div>
             </body>
             </>);
 }
