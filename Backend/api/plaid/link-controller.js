@@ -6,7 +6,9 @@ const util = require('util');
 const bodyParser = require('body-parser');
 const moment = require('moment');
 const cors = require('cors');
-const AppError = require('../../middleware/appError')
+const AppError = require('../../middleware/appError');
+const Transaction = require('../../utils/transaction');
+const TransactionRecuring = require('../../utils/transactionRecurring');
 
 const PLAID_CLIENT_ID = process.env.PLAID_CLIENT_ID;
 const PLAID_SECRET = process.env.PLAID_SECRET;
@@ -143,8 +145,7 @@ const getTransactions = async (req, res, next) => {
           try {
             const res = await client.transactionsSync(req);
             const data = res.data;
-            console.log(data);
-  
+            //console.log(data);
             // Add this page of results
             added = added.concat(data.added);
             modified = modified.concat(data.modified);
@@ -156,24 +157,66 @@ const getTransactions = async (req, res, next) => {
             console.log("Error:", error);
             return next(new AppError('Could sync transactions'));
           }
-          // const res = await client.transactionsSync(req)
-          // const data = res.data;
-          // console.log(data);
-
-          // // Add this page of results
-          // added = added.concat(data.added);
-          // modified = modified.concat(data.modified);
-          // removed = removed.concat(data.removed);
-          // hasMore = data.has_more;
-          // // Update cursor to the next cursor
-          // cursor = data.next_cursor;
         }
   
         const compareTxnsByDateAscending = (a, b) => (a.date > b.date) - (a.date < b.date);
         // Return the 8 most recent transactions
         const recently_added = [...added].sort(compareTxnsByDateAscending).slice(-8);
         //const monthly_transactions = [...added].sort(compareTxnsByDateAscending).slice(-30);
-        res.json({recently_transactions: recently_added});
+        let transactionList = [];
+        let i = 0;
+        recently_added.forEach(plaidTransactions => {
+          console.log(`${plaidTransactions.date}`);
+          let breadboxTransaction = new Transaction({
+            accountId: plaidTransactions.account_id, 
+            accountOwner: plaidTransactions.account_owner,
+            amount: plaidTransactions.amount,
+            date: plaidTransactions.date,
+            catagory: plaidTransactions.category,
+            merchantName: plaidTransactions.merchant_name,
+            paymentChannel: plaidTransactions.payment_channel, 
+            paymentMeta: plaidTransactions.payment_meta.payee
+          });
+          console.log(`Transaction #[${++i}]: ${breadboxTransaction}`);
+          transactionList.push(breadboxTransaction);
+        });
+
+        req = {
+          access_token: ACCESS_TOKEN,
+        };
+        let transactionRecuringList = [];
+        try {
+          const response = await client.transactionsRecurringGet(req);
+          let inflowStreams = response.data.inflow_streams;
+          let outflowStreams = response.data.outflow_streams;
+          console.log(inflowStreams);
+          console.log(`out----------------------------------------------------------->`);
+          console.log(outflowStreams);
+
+         
+          outflowStreams.forEach(outflowTransactions => {
+          console.log(`OUTFLOW: ${outflowTransactions}`);
+          let breadboxTransactionRecuring = new TransactionRecuring({
+            accountId: outflowTransactions.account_id,
+            amount: outflowTransactions.last_amount.amount,
+            first_date: outflowTransactions.first_date,
+            last_date: outflowTransactions.last_date,
+            frequency: outflowTransactions.frequency,
+            catagory: outflowTransactions.category,
+            merchantName: outflowTransactions.merchant_name,
+            isActive: outflowTransactions.is_active,
+          });
+          transactionRecuringList.push(breadboxTransactionRecuring);
+        });
+        } catch (err)  {
+          console.log(`RECURING_TRANSACTION_DEBUG: ${err}`);
+        }
+
+        
+        res.status(200).json({
+          one_time_cost: transactionList,
+          recuring_cost: transactionRecuringList
+        });
       })
       .catch(next);
 }
