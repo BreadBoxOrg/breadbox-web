@@ -121,7 +121,7 @@ const Transactions = () => {
 
     return (
       <ThemeProvider theme={theme}>
-        <div style={{ height: 'auto', width: '100%', backgroundColor: '#1E1E1E'}}>
+        <div style={{ height: '300px', width: '100%', backgroundColor: '#1E1E1E'}}>
           <Typography variant="h6" component="div" style={{ color: 'white'}}>
             Recent Transactions
           </Typography>
