@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getPlaidAccounts } from '../utils/http';
 
 function Networth() {
-  const [netWorth, setNetWorth] = useState([]); // HOLDS DATA
+  const [netWorth, setNetWorth] = useState(0); // HOLDS DATA
+  const [includeDebt, setIncludeDebt] = useState(false); // HOLDS TOGGLE STATE
 
   useEffect(() => {
     function calculateNetWorth() {
@@ -10,11 +11,13 @@ function Networth() {
       promise.then((accountsData) => {
         if (accountsData && accountsData.accounts) {
           let totalNetWorth = 0;
+          
           accountsData.accounts.forEach(account => {
-            // sometimes available balance can be null, so if it is it can fall back and use currentbalance -- but prioritize current if possible 
             const balanceToUse = account.balances.available !== null ? account.balances.available : account.balances.current;
             if (account.type === 'loan') {
-              totalNetWorth -= balanceToUse; // minus loans/debts
+              if (includeDebt) {
+                totalNetWorth -= balanceToUse; // minus loans/debts
+              }
             } else {
               totalNetWorth += balanceToUse; // add balances
             }
@@ -26,9 +29,9 @@ function Networth() {
         console.error("Error calculating net worth:", err);
       });
     }
-  
+    
     calculateNetWorth();
-  }, []);
+  }, [includeDebt]); // ADD includeDebt TO DEPENDENCY ARRAY
   
   
   return (
@@ -58,6 +61,9 @@ function Networth() {
       }}>
         ${netWorth.toLocaleString()}
       </div>
+      <button onClick={() => setIncludeDebt(!includeDebt)}>
+        {includeDebt ? "Exclude Debt" : "Include Debt"}
+      </button>
     </div>
   );
 }
