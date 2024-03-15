@@ -1,12 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import Transactions from './Transactions';
 import { RecentRecurringMockData as data } from './mock_data/mockData';
+import { getPlaidTransactions } from '../utils/http';
+
 
 function RecentRecurring() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [drawerOpen, setDrawerOpen] = useState(true); // fix it to use false, right now true = closed, false = open smh
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [transactionData, setTransactionData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
+
+  useEffect(() => {
+    async function fetchTransactions() {
+      const promise = getPlaidTransactions();
+      promise.then((transactions) => { 
+        // create local transaction object list
+        let transactionsDisplayList = [];
+        //console.log(transactions.recuring_cost);
+        // loop through transactions.recuring_costs
+        transactions.recuring_cost.forEach( item => {
+          // create temp object add name and amount 
+          const displayItem = {
+            name: item.accountId.merchantName,
+            value: item.accountId.amount
+          };
+          transactionsDisplayList.push(displayItem);
+        });
+
+        setTransactionData(transactionsDisplayList);
+      }).catch((err) => { console.log(err)});
+
+    }
+
+    fetchTransactions();
+  }, []);
 
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
@@ -25,7 +53,7 @@ function RecentRecurring() {
   };
 
   const generateColor = (index, isActive) => {
-    const hue = (360 * index) / data.length;
+    const hue = (360 * index) / transactionData.length;
     const lightness = isActive ? 85 : 70;
     return `hsl(${hue}, 100%, ${lightness}%)`;
   };
@@ -86,7 +114,7 @@ function RecentRecurring() {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
-                data={data}
+                data={transactionData}
                 cx="30%"
                 cy="50%"
                 labelLine={false}
@@ -97,7 +125,7 @@ function RecentRecurring() {
                 paddingAngle={2}
                 dataKey="value"
               >
-                {data.map((entry, index) => (
+                {transactionData.map((entry, index) => (
                   <Cell 
                     key={`cell-${index}`} 
                     fill={generateColor(index, index === activeIndex)}

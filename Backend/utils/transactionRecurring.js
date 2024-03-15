@@ -1,6 +1,6 @@
 class TransactionRecuringObject  {
     constructor(accountId, amount, first_date, last_date, frequency, catagory,
-        merchantName, isActive) {
+        merchantName, isActive, currency) {
         this.accountId = accountId;
         this.amount = amount;
         this.first_date = first_date;
@@ -9,6 +9,7 @@ class TransactionRecuringObject  {
         this.catagory = catagory;
         this.merchantName = merchantName;
         this.isActive = isActive;
+        this.currency = currency;
     }
 }
 
