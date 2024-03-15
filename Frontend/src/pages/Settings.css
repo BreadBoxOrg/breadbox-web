@@ -71,35 +71,39 @@ body.settings{
 .account h2{
     margin-bottom: 0px;
 }
-.account h2, .general h2, .linkedaccounts h2{
+.account h2, .general h2 {
     color: white;
     font-size: 24px;
     padding-left: 20px;
     padding-top: 20px;
 }
 .linkedaccounts h2{
-    margin-bottom: 25px;
+    margin-bottom: 50px;
+}
+.linked-accounts-header{
+    padding-left: 20px;
+    padding-top: 20px;
 }
 .linkedaccounts{
+    overflow-y: auto;
     background-color: #141516;
     border-radius: 25px;
     height: 50%;
 }
 .plaid-button{
-    margin-left: 295px;
+    margin-left: 150px;
+    margin-top: 5px;
+    height: 40px;
     border-radius: 15px;
     background-color: #109f7a;
-    border: none;
     cursor: pointer;
-    display: inline-flex;
     align-items: center;
     color: white;
-    font-size: 14px;
-    padding: 2px 8px;
+    font-size: 20px;
 }
 .plaid-button img{
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
     filter: invert(1);
 }
 .linkedBankAccounts{
@@ -109,7 +113,7 @@ body.settings{
     grid-gap: 45px;
     padding-left: 25px;
 }
-.bank-account-details{
+.account-details{
     padding: 10px;
     border-radius: 50px;
     background-color: #2d2d2e;
@@ -127,10 +131,11 @@ body.settings{
 }
 /*Styling for pop up confirmation */
 .popup-content {
+    color: white;
     font-weight: bold;
     text-align: center;
     font-size: 24px;
-    background-color: white;  
+    background-color: #26292B;  
     width: 50%;  
     padding: 10px;
     border-radius: 50px;
@@ -139,7 +144,7 @@ body.settings{
     background: rgba(0, 0, 0, 0.7);
 }
 .pop-up-button-no, .pop-up-button-yes{
-    border: 1px solid black;
+    border: none;
     border-radius: 15px;
     font-size: 20px;
     width: 100px;
@@ -152,7 +157,7 @@ body.settings{
     background: red;
 }
 .pop-up-button-no:hover{
-    background: darkgray;
+    background: #1ADBA9;
 }
 .pop-up-button-no:focus, .pop-up-button-yes:focus {
     outline: 0;

@@ -8,11 +8,9 @@ import NotificationOptions from '../components/NotificationOptions.jsx';
 import ProfileInfoBox from '../components/ProfileInfoBox.jsx';
 import { userInfo } from '../components/mock_data/mockData.js';
 import { userlinkedAccounts } from '../components/mock_data/mockData.js';
-import ClearIcon from '@mui/icons-material/Clear';
-import Popup from "reactjs-popup";
 import Button from "plaid-threads/Button";
 import LinkComponent from '../components/LinkComponent.jsx';
-
+import AccountList from '../components/LinkedAccountsList.jsx';
 
 const Settings = () =>{
 
@@ -31,13 +29,14 @@ const Settings = () =>{
         { value: 'phone-number', label: 'Phone Number'},
     ];
 
-    const [accounts, setAccounts] = useState([]);
+    /*const [accounts, setAccounts] = useState([]);
     const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
     
     useEffect(() => {
         setAccounts(userlinkedAccounts);
     }, []);
 
+    
     const handleRemoveAccount = (removeIndex) => {
         setConfirmDeleteIndex(removeIndex);
     };
@@ -50,6 +49,7 @@ const Settings = () =>{
     const handleCancelDelete = () => {
         setConfirmDeleteIndex(null);
     }
+    */
 
     return(<>
             <body className="settings">
@@ -79,13 +79,14 @@ const Settings = () =>{
                             </div>    
                         </div>
                         <div className="linkedaccounts">
-                            <h2>Linked Accounts
+                            <h2><span className='linked-accounts-header'>Linked Accounts</span>
                                 {/* <button className='plaid-button'>
                                     <img alt="Plaid Logo" src={PlaidLogo}></img>
                                     Link Your Account With Plaid
                                 </button> */}
                                 <LinkComponent/>
                             </h2>
+                            {/*
                             <ul className='linkedBankAccounts'>
                                 {accounts.map((bank, index) => (
                                 <li key={index}>
@@ -104,6 +105,8 @@ const Settings = () =>{
                                     </div>
                                 </Popup>
                             </ul>
+                            */}
+                            <AccountList />
                         </div>
                     </div>
                     <div className="right-column">
