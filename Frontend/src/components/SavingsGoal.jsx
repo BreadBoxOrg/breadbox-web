@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getPlaidAccounts } from '../utils/http'; // Adjust the import path as necessary
+import { getPlaidAccounts } from '../utils/http'; 
 
 function SavingsGoal() {
   const [tooltip, setTooltip] = useState({ show: false, amount: '' });
