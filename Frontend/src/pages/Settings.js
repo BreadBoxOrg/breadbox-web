@@ -11,6 +11,7 @@ import { userlinkedAccounts } from '../components/mock_data/mockData.js';
 import Button from "plaid-threads/Button";
 import LinkComponent from '../components/LinkComponent.jsx';
 import AccountList from '../components/LinkedAccountsList.jsx';
+import ExportToCSVButton from '../components/ExportCSVButton.jsx';
 
 const Settings = () =>{
 
@@ -116,7 +117,7 @@ const Settings = () =>{
                                     <li>Option 1</li>
                                     <li>Option 2</li>
                                     <li>Option 3</li>
-                                    <li>Option 4</li>
+                                    <li><ExportToCSVButton /></li>
                                 </ul>
                             <div className="notifications">
                                 <h2>Notifications</h2>
