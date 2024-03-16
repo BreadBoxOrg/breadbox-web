@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import NavbarLayout from "../components/SideBar";
 import './Settings.css';
 import ProfilePic from "../images/placeholder.jpg";
-import PlaidLogo from "../images/Plaid_Logo.png"
 import { Link } from 'react-router-dom';
 import NotificationOptions from '../components/NotificationOptions.jsx';
 import ProfileInfoBox from '../components/ProfileInfoBox.jsx';
 import { userInfo } from '../components/mock_data/mockData.js';
-import { userlinkedAccounts } from '../components/mock_data/mockData.js';
-import Button from "plaid-threads/Button";
+//import { userlinkedAccounts } from '../components/mock_data/mockData.js';
 import LinkComponent from '../components/LinkComponent.jsx';
 import AccountList from '../components/LinkedAccountsList.jsx';
-import ExportToCSVButton from '../components/ExportCSVButton.jsx';
+import AccountDataCSV from '../components/ExportAccountsCSV.jsx';
+import TransactionDataCSV from '../components/ExportTranscationsCSV.jsx';
 
 const Settings = () =>{
 
@@ -80,13 +79,12 @@ const Settings = () =>{
                             </div>    
                         </div>
                         <div className="linkedaccounts">
-                            <h2><span className='linked-accounts-header'>Linked Accounts</span>
+                            <span className='linked-accounts-header'>Linked Accounts</span>
                                 {/* <button className='plaid-button'>
                                     <img alt="Plaid Logo" src={PlaidLogo}></img>
                                     Link Your Account With Plaid
                                 </button> */}
-                                <LinkComponent/>
-                            </h2>
+                            <LinkComponent/>
                             {/*
                             <ul className='linkedBankAccounts'>
                                 {accounts.map((bank, index) => (
@@ -117,7 +115,7 @@ const Settings = () =>{
                                     <li>Option 1</li>
                                     <li>Option 2</li>
                                     <li>Option 3</li>
-                                    <li><ExportToCSVButton /></li>
+                                    <li><AccountDataCSV /><TransactionDataCSV /></li>
                                 </ul>
                             <div className="notifications">
                                 <h2>Notifications</h2>

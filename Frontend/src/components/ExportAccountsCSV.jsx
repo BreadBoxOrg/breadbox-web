@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CsvDownloadButton from 'react-json-to-csv'
 import { getPlaidAccounts } from "../utils/http.js";
 
-function ExportToCSVButton () {
+function AccountDataCSV () {
 
     const [plaidAccounts, setPlaidAccounts] = useState([]);
 
@@ -11,9 +11,11 @@ function ExportToCSVButton () {
             try {
                 const allAccounts = await getPlaidAccounts();
                 const accountList = allAccounts.accounts.map(item => ({
-                    id: item.account_id,
                     name: item.name,
-                    mask: item.mask
+                    mask: item.mask,
+                    avaiable_balance: item.balances.available,
+                    current_balance: item.balances.current,
+                    account_type: item.subtype, 
                 }));
                 setPlaidAccounts(accountList);
             } catch (error) {
@@ -36,11 +38,13 @@ function ExportToCSVButton () {
         textAlign: 'center'
     };
 
-    if (plaidAccounts === null) {
-        return <div>Loading...</div>;
-    }
-
-    return(<><CsvDownloadButton data={plaidAccounts} style={buttonStyle}>Export Data To CSV</CsvDownloadButton></>);
+    return(<>
+        {plaidAccounts.length > 0 && (
+            <CsvDownloadButton data={plaidAccounts} filename="account_data" style={buttonStyle}>
+                Export Account Data
+            </CsvDownloadButton>
+        )}
+    </>);
 }
 
-export default ExportToCSVButton;
+export default AccountDataCSV;

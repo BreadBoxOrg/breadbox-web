@@ -77,12 +77,10 @@ body.settings{
     padding-left: 20px;
     padding-top: 20px;
 }
-.linkedaccounts h2{
-    margin-bottom: 50px;
-}
 .linked-accounts-header{
+    color: white;
+    font-size: 24px;
     padding-left: 20px;
-    padding-top: 20px;
 }
 .linkedaccounts{
     overflow-y: auto;
@@ -92,7 +90,7 @@ body.settings{
 }
 .plaid-button{
     margin-left: 150px;
-    margin-top: 5px;
+    margin-top: 25px;
     height: 40px;
     border-radius: 15px;
     background-color: #109f7a;
@@ -107,6 +105,7 @@ body.settings{
     filter: invert(1);
 }
 .linkedBankAccounts{
+    padding-top: 25px;
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr;
