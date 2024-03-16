@@ -36,7 +36,7 @@ function MoneyEarned() {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-           <Typography variant="h5" sx={{ margin: 0, color: 'white' }}>Money Earned</Typography> {/* slowly changing to MUI styling */}
+          <Typography variant="h5" sx={{ margin: 0, color: 'white' }}>Money Earned</Typography> {/* slowly changing to MUI styling */}
           <div>
             <Button
               aria-controls="simple-menu"

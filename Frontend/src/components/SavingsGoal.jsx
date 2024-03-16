@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { getPlaidAccounts } from '../utils/http'; 
+import { getPlaidAccounts } from '../utils/http';
+import { Select, MenuItem, FormControl, InputLabel, ThemeProvider, createTheme } from '@mui/material';
 
 function SavingsGoal() {
   const [tooltip, setTooltip] = useState({ show: false, amount: '' });
   const [accounts, setAccounts] = useState([]);
   const [selectedAccountId, setSelectedAccountId] = useState('');
   const [progressPercentage, setProgressPercentage] = useState(0);
-  const goalAmount = 60000; 
+  const goalAmount = 60000;
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
 
   const milestones = [
     { amount: goalAmount * 0.25, position: '25%' },
@@ -54,74 +60,86 @@ function SavingsGoal() {
   };
 
   return (
-    <div style={{
-      backgroundColor: '#1E1E1E',
-      padding: '20px',
-      borderRadius: '20px',
-      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
-      color: 'white',
-      position: 'relative',
-      width: '300px',
-      minHeight: '150px' 
-    }}>
-      <div style={{ marginBottom: '10px' }}>
-        <select value={selectedAccountId} onChange={handleAccountChange} style={{ padding: '5px' }}>
-          {accounts.map(account => (
-            <option key={account.account_id} value={account.account_id}>
-              {account.name} ({account.mask})
-            </option>
-          ))}
-        </select>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <div style={{ fontSize: '18px' }}>Savings Goal</div>
-        <div style={{ fontSize: '12px' }}>${goalAmount.toLocaleString()} Goal</div>
-      </div>
-      <div style={{ position: 'relative', height: '20px', backgroundColor: '#2C2C2E', borderRadius: '10px' }}>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: `${100 - progressPercentage}%`, 
-          backgroundColor: '#2ecc71',
-          borderRadius: '10px'
-        }}></div>
-        {milestones.map((milestone, index) => (
-          <React.Fragment key={index}>
-            <div
-              style={{
-                position: 'absolute',
-                left: milestone.position,
-                top: '50%',
-                transform: 'translate(-50%, -40px)',
-                whiteSpace: 'nowrap',
-                visibility: tooltip.show && tooltip.amount === milestone.amount ? 'visible' : 'hidden'
-              }}
+    <ThemeProvider theme={darkTheme}>
+      <div style={{
+        backgroundColor: '#1E1E1E',
+        padding: '20px',
+        borderRadius: '20px',
+        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
+        color: 'white',
+        position: 'relative',
+        width: '300px',
+        minHeight: '150px' 
+      }}>
+        <div style={{ marginBottom: '10px' }}>
+          <FormControl fullWidth>
+            <InputLabel id="account-select-label" style={{ color: 'white' }}>Account</InputLabel>
+            <Select
+              labelId="account-select-label"
+              id="account-select"
+              value={selectedAccountId}
+              label="Account"
+              onChange={handleAccountChange}
+              style={{ color: 'white', backgroundColor: '#333', borderColor: 'white' }}
             >
-              {milestone.amount}
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                left: milestone.position,
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-                height: '20px',
-                width: '20px',
-                borderRadius: '50%',
-                backgroundColor: parseFloat(milestone.position) <= progressPercentage ? '#2ecc71' : '#555', 
-                cursor: 'pointer',
-                zIndex: 1
-              }}
-              onMouseEnter={() => showTooltip(milestone.amount)}
-              onMouseLeave={hideTooltip}
-            ></div>
-          </React.Fragment>
-        ))}
+              {accounts.map(account => (
+                <MenuItem key={account.account_id} value={account.account_id} style={{ color: 'white', backgroundColor: '#333' }}>
+                  {account.name} ({account.mask})
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <div style={{ fontSize: '18px' }}>Savings Goal</div>
+          <div style={{ fontSize: '12px' }}>${goalAmount.toLocaleString()} Goal</div>
+        </div>
+        <div style={{ position: 'relative', height: '20px', backgroundColor: '#2C2C2E', borderRadius: '10px' }}>
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: `${100 - progressPercentage}%`, 
+            backgroundColor: '#2ecc71',
+            borderRadius: '10px'
+          }}></div>
+          {milestones.map((milestone, index) => (
+            <React.Fragment key={index}>
+              <div
+                style={{
+                  position: 'absolute',
+                  left: milestone.position,
+                  top: '50%',
+                  transform: 'translate(-50%, -40px)',
+                  whiteSpace: 'nowrap',
+                  visibility: tooltip.show && tooltip.amount === milestone.amount ? 'visible' : 'hidden'
+                }}
+              >
+                {milestone.amount}
+              </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  left: milestone.position,
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  height: '20px',
+                  width: '20px',
+                  borderRadius: '50%',
+                  backgroundColor: parseFloat(milestone.position) <= progressPercentage ? '#2ecc71' : '#555', 
+                  cursor: 'pointer',
+                  zIndex: 1
+                }}
+                onMouseEnter={() => showTooltip(milestone.amount)}
+                onMouseLeave={hideTooltip}
+              ></div>
+            </React.Fragment>
+          ))}
+        </div>
+        <div style={{ fontSize: '14px', marginTop: '10px' }}>{progressPercentage}% to complete</div>
       </div>
-      <div style={{ fontSize: '14px', marginTop: '10px' }}>{progressPercentage}% to complete</div>
-    </div>
+    </ThemeProvider>
   );
 }
 

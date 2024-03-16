@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getPlaidAccounts } from '../utils/http';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 function Networth() {
   const [netWorth, setNetWorth] = useState(0); // HOLDS DATA
   const [includeDebt, setIncludeDebt] = useState(false); // HOLDS TOGGLE STATE
-
+  
   useEffect(() => {
     function calculateNetWorth() {
       const promise = getPlaidAccounts();
@@ -23,16 +25,13 @@ function Networth() {
             }
           });
           setNetWorth(totalNetWorth);
-          console.log(totalNetWorth);
         }
       }).catch((err) => {
         console.error("Error calculating net worth:", err);
       });
     }
-    
     calculateNetWorth();
   }, [includeDebt]); // ADD includeDebt TO DEPENDENCY ARRAY
-  
   
   return (
     <div style={{
@@ -61,9 +60,26 @@ function Networth() {
       }}>
         ${netWorth.toLocaleString()}
       </div>
-      <button onClick={() => setIncludeDebt(!includeDebt)}>
-        {includeDebt ? "Exclude Debt" : "Include Debt"}
-      </button>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={includeDebt}
+            onChange={() => setIncludeDebt(!includeDebt)}
+            sx={{
+              '& .MuiSwitch-switchBase.Mui-checked': {
+                color: 'green', '& + .MuiSwitch-track': { backgroundColor: 'green' },
+              },
+              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                backgroundColor: 'lightgrey',
+              },
+              '& .MuiSwitch-switchBase': {
+                color: 'red', '& + .MuiSwitch-track': { backgroundColor: 'lightgrey' },
+              },
+            }}
+          />
+        }
+        label={includeDebt ? "Exclude Debt" : "Include Debt"}
+      />
     </div>
   );
 }
