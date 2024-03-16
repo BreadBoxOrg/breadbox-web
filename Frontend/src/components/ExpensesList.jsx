@@ -1,37 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, Cell } from 'recharts';
-import { ExpensesPeriodMockData } from '../components/mock_data/mockData';
+import { getPlaidTransactions } from '../utils/http';
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import styles from './ExpensesList.module.css';
 
 const ExpensesList = () => {
-  const sortedData = [...ExpensesPeriodMockData].sort((a, b) => {
-    const aPeriod = a.period.split('-');
-    const bPeriod = b.period.split('-');
-    const aStart = new Date(`2024-03-${aPeriod[0].padStart(2, '0')}`);
-    const bStart = new Date(`2024-03-${bPeriod[0].padStart(2, '0')}`);
-    return bStart.getTime() - aStart.getTime();
-  });
-
+  const [transactionsData, setTransactionsData] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredBarIndex, setHoveredBarIndex] = useState(-1);
 
-  const handleClick = (data, index) => {
-    setActiveIndex(index);
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const fetchedTransactions = await getPlaidTransactions();
+        processFetchedTransactions(fetchedTransactions);
+        setActiveIndex(0); 
+      } catch (error) {
+        console.error('Failed to fetch transactions:', error);
+      }
+    };
+    fetchTransactions();
+  }, []);
+
+  const processFetchedTransactions = (fetchedTransactions) => {
+    let processedData = {};
+
+    fetchedTransactions.one_time_cost.forEach((transaction) => {
+      const { date, amount } = transaction.accountId;
+      const [year, month] = date.split('-').slice(0, 2);
+      const periodKey = `${year}-${month}`;
+
+      if (!processedData[periodKey]) {
+        processedData[periodKey] = {
+          period: periodKey,
+          transactions: []
+        };
+      }
+
+      processedData[periodKey].transactions.push({
+        category: transaction.accountId.catagory[0],
+        amount,
+        time: 'Unknown',
+        place: transaction.accountId.merchantName || 'Unknown'
+      });
+    });
+
+    const processedArray = Object.values(processedData).sort((a, b) => a.period.localeCompare(b.period));
+    setTransactionsData(processedArray);
   };
 
-  const dataForChart = sortedData.map((period) => ({
+  const nextBar = () => {
+    setActiveIndex(prevIndex => (prevIndex + 1) % transactionsData.length);
+  };
+
+  const prevBar = () => {
+    setActiveIndex(prevIndex => (prevIndex - 1 + transactionsData.length) % transactionsData.length);
+  };
+
+  const dataForChart = transactionsData.map((period, index) => ({
     name: period.period,
-    total: period.transactions.reduce((acc, transaction) => acc + Math.abs(transaction.amount), 0)
+    total: period.transactions.reduce((acc, transaction) => acc + Math.abs(transaction.amount), 0),
+    index 
   }));
 
   return (
     <div className={styles.container}>
       <BarChart
         width={600}
-        height={150}
+        height={200}
         data={dataForChart}
         margin={{
-          top: 10, right: 10, left: 10, bottom: 10,
+          top: 10, right: 30, left: 30, bottom: 10,
         }}
         barGap={2}
         barSize={50}
@@ -39,20 +80,27 @@ const ExpensesList = () => {
         <Bar
           dataKey="total"
           fill="#1ADBA9"
-          onClick={handleClick}
+          onClick={(data) => setActiveIndex(data.index)}
           onMouseOver={(data, index) => setHoveredBarIndex(index)}
           onMouseOut={() => setHoveredBarIndex(-1)}
         >
           {dataForChart.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={index === hoveredBarIndex ? '#76b2ff' : '#104fe1'} />
+            <Cell key={`cell-${index}`} fill={index === activeIndex ? '#76b2ff' : index === hoveredBarIndex ? '#76b2ff' : '#104fe1'} />
           ))}
         </Bar>
       </BarChart>
-
-      {activeIndex !== null && (
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
+        <IconButton onClick={prevBar} aria-label="previous" sx={{ color: 'white' }}>
+          <ArrowBackIosIcon />
+        </IconButton>
+        <IconButton onClick={nextBar} aria-label="next" sx={{ color: 'white' }}>
+          <ArrowForwardIosIcon />
+        </IconButton>
+      </div>
+      {activeIndex >= 0 && activeIndex < transactionsData.length && (
         <div className={styles.transactionList} style={{ maxHeight: '600px', overflowY: 'auto', maxWidth: '100%' }}>
-          <h3 className={styles.period}>{sortedData[activeIndex].period}</h3>
-          {sortedData[activeIndex].transactions.map((transaction, idx) => (
+          <h3 className={styles.period}>{transactionsData[activeIndex].period}</h3>
+          {transactionsData[activeIndex].transactions.map((transaction, idx) => (
             <div key={idx} className={styles.transaction}>
               <div className={styles.transactionIcon}>
                 <span className={`${styles.icon} ${styles[transaction.category.toLowerCase()]}`}></span>
