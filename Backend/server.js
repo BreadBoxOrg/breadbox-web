@@ -88,6 +88,9 @@ app.use('/user', userRouter);
 const linkRouter = require('./routes/link-routes');
 app.use('/link', linkRouter);
 
+const chatRouter = require('./routes/chat-routes');
+app.use('/chat', chatRouter);
+
 app.all('*', (req, res, next)=> { 
   next(new AppError(`Can't find ${req.originalUrl}`, 404)); //throw error if using a non-existant route.
 });
