@@ -13,9 +13,16 @@ const NavbarLayout = () =>{
     
     const location = useLocation(); 
 
-    const FullName = userInfo.find(item => item.firstName)?.firstName + ' ' +
-                        userInfo.find(item => item.lastName)?.lastName;
-    
+    let FullName = sessionStorage.getItem('firstName') + ' ' + sessionStorage.getItem('lastName');
+    let Email = sessionStorage.getItem('email');
+
+    if(!sessionStorage.getItem('firstName') || !sessionStorage.getItem('lastName')){
+        FullName = userInfo.find(item => item.firstName)?.firstName + ' ' + userInfo.find(item => item.lastName)?.lastName;    
+    }
+    if(!Email){
+        Email = userInfo.find(item => item.email)?.email;
+    }
+
     return(
         <div className='NavBar'>
             <div className='logo-container'>
@@ -44,7 +51,7 @@ const NavbarLayout = () =>{
             <div className='NavbarFooter'>
                 <img className='footer-profilePic' src={placeholder} alt='placeholder'></img>
                 <h3>{FullName}</h3>
-                <p>{userInfo.find(item => item.email)?.email}</p>
+                <p>{Email}</p>
             </div>
         </div>
         

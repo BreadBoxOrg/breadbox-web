@@ -51,6 +51,30 @@ const Settings = () =>{
     }
     */
 
+    const [firstName, setFirstName] = useState(sessionStorage.getItem('firstName') || userInfo.find(item => item.firstName)?.firstName);
+    const [lastName, setLastName] = useState(sessionStorage.getItem('lastName') || userInfo.find(item => item.lastName)?.lastName);
+    const [email, setEmail] = useState(sessionStorage.getItem('email') || userInfo.find(item => item.email)?.email);
+    const [isEditing, setIsEditing] = useState(false);
+
+    const handleEditProfile = () => {
+        setIsEditing(true);
+    };
+
+     const handleSaveProfile = () => {
+        sessionStorage.setItem('firstName', firstName);
+        sessionStorage.setItem('lastName', lastName);
+        sessionStorage.setItem('email', email);
+        setIsEditing(false);
+    };
+
+    const handleCancelEdit = () => {
+        // Reset the form fields to the current sessionStorage values
+        setFirstName(sessionStorage.getItem('firstName') || '');
+        setLastName(sessionStorage.getItem('lastName') || '');
+        setEmail(sessionStorage.getItem('email') || '');
+        setIsEditing(false);
+    };
+
     return(<>
             <body className="settings">
                 <NavbarLayout />
@@ -63,19 +87,53 @@ const Settings = () =>{
                 <div className="settingslayout">
                     <div className="left-column">
                         <div className="account">
-                            <h2>Account</h2>
+                            <h2>
+                                Account
+                                {isEditing ? (
+                                    <>
+                                        <button className='account-edit-save' onClick={handleSaveProfile}>Save</button>
+                                        <button className='account-edit-cancel' onClick={handleCancelEdit}>Cancel</button>
+                                    </>
+                                    ) : (
+                                    <button className='account-edit-profile' onClick={handleEditProfile}>Edit Profile</button>
+                                    )}
+                            </h2>
                             <img className="settings-profilePic" src={ProfilePic} alt='placeholder'></img>
                             <div className='profile-firstName'>
                                 <span>First Name</span>
-                                <ProfileInfoBox text={userInfo.find(item => item.firstName)?.firstName} />
+                                {isEditing ? (
+                                    <input className='account-input-box'
+                                        type="text"
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e.target.value)}
+                                    />
+                                    ) : (
+                                    <ProfileInfoBox text={firstName} />
+                                    )}
                             </div>
                             <div className='profile-lastName'>
                                 <span>Last Name</span>
-                                <ProfileInfoBox text={userInfo.find(item => item.lastName)?.lastName} />
+                                {isEditing ? (
+                                    <input className='account-input-box'
+                                        type="text"
+                                        value={lastName}
+                                        onChange={(e) => setLastName(e.target.value)}
+                                    />
+                                    ) : (
+                                    <ProfileInfoBox text={lastName} />
+                                    )}
                             </div>
                             <div className='profile-email'>
                                 <span>Email</span>
-                                <ProfileInfoBox text={userInfo.find(item => item.email)?.email} />
+                                {isEditing ? (
+                                    <input className='account-input-box'
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                    ) : (
+                                    <ProfileInfoBox text={email} />
+                                    )}
                             </div>    
                         </div>
                         <div className="linkedaccounts">
@@ -112,9 +170,9 @@ const Settings = () =>{
                         <div className="general">
                             <h2>General</h2>
                                 <ul>
-                                    <li>Option 1</li>
+                                    {/*<li>Option 1</li>
                                     <li>Option 2</li>
-                                    <li>Option 3</li>
+                                    <li>Option 3</li>*/}
                                     <li><AccountDataCSV /><TransactionDataCSV /></li>
                                 </ul>
                             <div className="notifications">
