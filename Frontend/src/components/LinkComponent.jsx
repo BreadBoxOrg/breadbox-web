@@ -43,6 +43,7 @@ const LinkComponent = () => {
       const data = await response.json();
       console.log('Access Token:', data.access_token);
       // You can now use the access token to make Plaid requests
+      window.location.reload();
     } else {
       console.error('Failed to exchange public token');
     }

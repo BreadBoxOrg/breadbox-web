@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import NavbarLayout from "../components/SideBar";
 import './Settings.css';
 import ProfilePic from "../images/placeholder.jpg";
-import PlaidLogo from "../images/Plaid_Logo.png"
 import { Link } from 'react-router-dom';
 import NotificationOptions from '../components/NotificationOptions.jsx';
 import ProfileInfoBox from '../components/ProfileInfoBox.jsx';
 import { userInfo } from '../components/mock_data/mockData.js';
-import { userlinkedAccounts } from '../components/mock_data/mockData.js';
-import ClearIcon from '@mui/icons-material/Clear';
-import Popup from "reactjs-popup";
-import Button from "plaid-threads/Button";
+//import { userlinkedAccounts } from '../components/mock_data/mockData.js';
 import LinkComponent from '../components/LinkComponent.jsx';
-
+import AccountList from '../components/LinkedAccountsList.jsx';
+import AccountDataCSV from '../components/ExportAccountsCSV.jsx';
+import TransactionDataCSV from '../components/ExportTranscationsCSV.jsx';
+import ProfilePicChange from '../components/ProfilePic.jsx';
 
 const Settings = () =>{
 
@@ -21,7 +20,6 @@ const Settings = () =>{
     const NotiWhenOptions = [
         { value: 'low-funds', label: 'Low Funds'},
         { value: 'deposited-funds', label: 'Deposited Funds'},
-        { value: 'other', label: 'Other'},
     ];
 
     const [selectedNotificationBy, setNotificationBy] = useState('');
@@ -31,13 +29,14 @@ const Settings = () =>{
         { value: 'phone-number', label: 'Phone Number'},
     ];
 
-    const [accounts, setAccounts] = useState([]);
+    /*const [accounts, setAccounts] = useState([]);
     const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
     
     useEffect(() => {
         setAccounts(userlinkedAccounts);
     }, []);
 
+    
     const handleRemoveAccount = (removeIndex) => {
         setConfirmDeleteIndex(removeIndex);
     };
@@ -50,6 +49,40 @@ const Settings = () =>{
     const handleCancelDelete = () => {
         setConfirmDeleteIndex(null);
     }
+    */
+
+    const [firstName, setFirstName] = useState(sessionStorage.getItem('firstName') || userInfo.find(item => item.firstName)?.firstName);
+    const [lastName, setLastName] = useState(sessionStorage.getItem('lastName') || userInfo.find(item => item.lastName)?.lastName);
+    const [email, setEmail] = useState(sessionStorage.getItem('email') || userInfo.find(item => item.email)?.email);
+    const [profilePic, setProfilePic] = useState(sessionStorage.getItem('profilePic') || ProfilePic);
+    const [isEditing, setIsEditing] = useState(false);
+
+    const handleEditProfile = () => {
+        setIsEditing(true);
+    };
+
+     const handleSaveProfile = () => {
+        sessionStorage.setItem('firstName', firstName);
+        sessionStorage.setItem('lastName', lastName);
+        sessionStorage.setItem('email', email);
+        sessionStorage.setItem('profilePic', profilePic);
+        setIsEditing(false);
+    };
+
+    const handleCancelEdit = () => {
+        // Reset the form fields to the current sessionStorage values
+        setFirstName(sessionStorage.getItem('firstName') || '');
+        setLastName(sessionStorage.getItem('lastName') || '');
+        setEmail(sessionStorage.getItem('email') || '');
+        setProfilePic(sessionStorage.getItem('profilePic') || '');
+        setIsEditing(false);
+    };
+
+     // Retrieve profile pic from sessionStorage
+
+    const handleProfilePicChange = (newProfilePic) => {
+        setProfilePic(newProfilePic); // Update profile pic in state
+    };
 
     return(<>
             <body className="settings">
@@ -63,29 +96,40 @@ const Settings = () =>{
                 <div className="settingslayout">
                     <div className="left-column">
                         <div className="account">
-                            <h2>Account</h2>
-                            <img className="settings-profilePic" src={ProfilePic} alt='placeholder'></img>
+                            <h2>
+                                Account
+                                {isEditing ? (
+                                    <>
+                                        <button className='account-edit-save' onClick={handleSaveProfile}>Save</button>
+                                        <button className='account-edit-cancel' onClick={handleCancelEdit}>Cancel</button>
+                                    </>
+                                    ) : (
+                                    <button className='account-edit-profile' onClick={handleEditProfile}>Edit Profile</button>
+                                    )}
+                            </h2>
+                            {/*<img className="settings-profilePic" src={ProfilePic} alt='placeholder'></img>*/}
+                            <ProfilePicChange profilePic={profilePic} onProfilePicChange={handleProfilePicChange} isEditing={isEditing}/>
                             <div className='profile-firstName'>
                                 <span>First Name</span>
-                                <ProfileInfoBox text={userInfo.find(item => item.firstName)?.firstName} />
+                                <ProfileInfoBox text={firstName} isEditable={isEditing}  onChangeText={setFirstName}/>
                             </div>
                             <div className='profile-lastName'>
                                 <span>Last Name</span>
-                                <ProfileInfoBox text={userInfo.find(item => item.lastName)?.lastName} />
+                                <ProfileInfoBox text={lastName} isEditable={isEditing}  onChangeText={setLastName}/>
                             </div>
                             <div className='profile-email'>
                                 <span>Email</span>
-                                <ProfileInfoBox text={userInfo.find(item => item.email)?.email} />
+                                <ProfileInfoBox text={email} isEditable={isEditing}  onChangeText={setEmail}/>
                             </div>    
                         </div>
                         <div className="linkedaccounts">
-                            <h2>Linked Accounts
+                            <span className='linked-accounts-header'>Linked Accounts</span>
                                 {/* <button className='plaid-button'>
                                     <img alt="Plaid Logo" src={PlaidLogo}></img>
                                     Link Your Account With Plaid
                                 </button> */}
-                                <LinkComponent/>
-                            </h2>
+                            <LinkComponent/>
+                            {/*
                             <ul className='linkedBankAccounts'>
                                 {accounts.map((bank, index) => (
                                 <li key={index}>
@@ -104,16 +148,18 @@ const Settings = () =>{
                                     </div>
                                 </Popup>
                             </ul>
+                            */}
+                            <AccountList />
                         </div>
                     </div>
                     <div className="right-column">
                         <div className="general">
                             <h2>General</h2>
                                 <ul>
-                                    <li>Option 1</li>
+                                    {/*<li>Option 1</li>
                                     <li>Option 2</li>
-                                    <li>Option 3</li>
-                                    <li>Option 4</li>
+                                    <li>Option 3</li>*/}
+                                    <li><AccountDataCSV /><TransactionDataCSV /></li>
                                 </ul>
                             <div className="notifications">
                                 <h2>Notifications</h2>
