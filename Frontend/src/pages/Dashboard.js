@@ -7,7 +7,7 @@ import Networth from '../components/Networth.jsx';
 import SavingsGoal from '../components/SavingsGoal.jsx';
 import NavbarLayout from '../components/SideBar.js';
 import CashFlow from '../components/Cashflow.jsx';
-import ChatBotAssistant from '../components/chabot/ChatBot.jsx';
+import ChatBotAssistant from '../components/chatbot/ChatBot.jsx';
 
 function Dashboard() {
   const today = new Date();
