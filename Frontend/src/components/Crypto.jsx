@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
 
 function Crypto() {
   const [cryptoData, setCryptoData] = useState([]);
@@ -9,7 +9,7 @@ function Crypto() {
   const [coinSymbol, setCoinSymbol] = useState('');
   const [priceTrend, setPriceTrend] = useState('');
 
-  const fetchData = async () => { 
+  const fetchData = async () => {
     try {
       const [historicalResponse, detailsResponse] = await Promise.all([
         axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart', {
@@ -61,10 +61,11 @@ function Crypto() {
     return null;
   };
 
+  const gradientId = `priceTrendGradient-${priceTrend}`;
+
   return (
     <div style={{
       backgroundColor: '#0a0a0a',
-      padding: '10px',
       borderRadius: '20px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
       position: 'relative',
@@ -77,33 +78,38 @@ function Crypto() {
         display: 'flex',
         flexDirection: 'column',
       }}>
-        <span style={{ fontSize: '1.2em', fontWeight: 'bold', color: 'white' }}>
+        <span style={{ fontSize: '1.2em', fontWeight: 'bold', color: 'white', padding: '10px'}}>
           {`${coinName} (${coinSymbol}) `}
           <span style={{ color: priceTrend === 'up' ? 'green' : 'red' }}>
             {priceTrend === 'up' ? '▲' : '▼'}
           </span>
         </span>
         {currentPrice && (
-          <span style={{ fontSize: '1.5em', fontWeight: 'bold', marginTop: '5px', color: 'white' }}> ${currentPrice.toLocaleString()}
+          <span style={{ fontSize: '1.5em', fontWeight: 'bold', color: 'white', marginLeft: '10px'}}> ${currentPrice.toLocaleString()}
           </span>
         )}
       </div>
 
       <ResponsiveContainer width={"100%"} height={250}>
-        <LineChart data={cryptoData.map(item => ({ date: new Date(item[0]).toLocaleDateString(), price: item[1] }))} margin={{
-            top: 5,
-            right: 0,
-            left: -100,
-          }}>
+        <AreaChart data={cryptoData.map(item => ({ date: new Date(item[0]).toLocaleDateString(), price: item[1] }))} margin={{
+          top: 5,
+          right: 0,
+          left: -100,
+        }}>
+          <defs>
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0.8}/>
+              <stop offset="79%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0}/>
+            </linearGradient>
+          </defs>
           <XAxis axisLine={false} dataKey="date" tick={false} />
           <YAxis axisLine={false} domain={['dataMin', 'dataMax']} tick={false} tickFormatter={(value) => value.toLocaleString()} />
           <Tooltip content={<CustomTooltip />} cursor={false}/>
-          <Line type="monotone" dataKey="price" stroke={priceTrend === 'up' ? 'green' : 'red'} dot={false} strokeWidth={4} />
-        </LineChart>
+          <Area type="monotone" dataKey="price" stroke={priceTrend === 'up' ? 'green' : 'red'} fillOpacity={1} fill={`url(#${gradientId})`} strokeWidth={2} />
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   );
 }
 
-// todo: give user option to search for their own crypto of choice
 export default Crypto;

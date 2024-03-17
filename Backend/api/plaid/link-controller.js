@@ -175,7 +175,8 @@ const getTransactions = async (req, res, next) => {
             catagory: plaidTransactions.category,
             merchantName: plaidTransactions.merchant_name,
             paymentChannel: plaidTransactions.payment_channel, 
-            paymentMeta: plaidTransactions.payment_meta.payee
+            paymentMeta: plaidTransactions.payment_meta.payee,
+            currency: plaidTransactions.iso_currency_code,
           });
           console.log(`Transaction #[${++i}]: ${breadboxTransaction}`);
           transactionList.push(breadboxTransaction);
@@ -202,9 +203,10 @@ const getTransactions = async (req, res, next) => {
             first_date: outflowTransactions.first_date,
             last_date: outflowTransactions.last_date,
             frequency: outflowTransactions.frequency,
-            catagory: outflowTransactions.category,
+            catagory: outflowTransactions.personal_finance_category,
             merchantName: outflowTransactions.merchant_name,
             isActive: outflowTransactions.is_active,
+            currency: outflowTransactions.iso_currency_code,
           });
           transactionRecuringList.push(breadboxTransactionRecuring);
         });
