@@ -17,13 +17,13 @@ function RecentRecurring() {
       promise.then((transactions) => { 
         // create local transaction object list
         let transactionsDisplayList = [];
-        //console.log(transactions.recuring_cost);
+        console.log(transactions.recuring_cost);
         // loop through transactions.recuring_costs
         transactions.recuring_cost.forEach( item => {
           // create temp object add name and amount 
           const displayItem = {
-            name: item.accountId.merchantName,
-            value: item.accountId.amount
+            name: item.merchantName,
+            value: item.amount
           };
           transactionsDisplayList.push(displayItem);
         });
