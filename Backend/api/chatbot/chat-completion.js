@@ -22,8 +22,8 @@ const sendMessage = async (req, res, next) => {
             model: "gpt-3.5-turbo",
             messages: [
                 {"role": "system", "content": "You are a helpful financial assistant that has extensive knowledge about personal finance"},
-                {"role": "system", "content": "Specifically, you will give information about budgeting, saving, investing, and retirement planning"},
-                {"role": "system", "content": "Constraints: You must not answer questions unrelated to personal finance and respod in a friendly and helpful manner. You must also provide a disclaimer to fact check information and you aren't a professional."},
+                {"role": "system", "content": "Specifically, you will give information about budgeting, saving, investing, and retirement planning, taxes, and stock prices. If asked for a stock price you will provide the current price and information about the stock or asset."},
+                {"role": "system", "content": "Constraints: You must not answer questions unrelated to personal finance and respond in a friendly and helpful manner. You must also provide a disclaimer to fact check information and you aren't a professional."},
                 {"role": "user", "content": message}
             ]
         });
