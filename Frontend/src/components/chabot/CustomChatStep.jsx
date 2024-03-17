@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { sendMessage } from '../utils/sendchat'; 
+import { sendMessage } from '../../utils/sendchat'; 
 
 class CustomChatStep extends Component {
     constructor(props) {
@@ -28,7 +28,7 @@ class CustomChatStep extends Component {
 
     triggerNextStep() {
         // Trigger the next step in the chatbot
-        this.props.triggerNextStep({ trigger: 'nextStep' }); 
+        this.props.triggerNextStep({ trigger: 'askContinue' }); 
     }
 
     render() {

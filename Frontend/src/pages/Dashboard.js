@@ -7,7 +7,7 @@ import Networth from '../components/Networth.jsx';
 import SavingsGoal from '../components/SavingsGoal.jsx';
 import NavbarLayout from '../components/SideBar.js';
 import CashFlow from '../components/Cashflow.jsx';
-import ChatBotAssistant from '../components/ChatBot.jsx';
+import ChatBotAssistant from '../components/chabot/ChatBot.jsx';
 
 function Dashboard() {
   const today = new Date();
@@ -23,9 +23,9 @@ function Dashboard() {
           <div className={styles.div4}> <CashFlow/> </div>
           <div className={styles.div5}> <Crypto/> </div>
           <div className={styles.div6}><Networth/> <SavingsGoal/> </div>
-          <div className={styles.div7}><ChatBotAssistant/> </div>
+          <div className={styles.div7}> </div>
           <div className={styles.div8}><h1>Welcome, BreadboxTest</h1><p>{date}</p></div>
-          <div className={styles.div9}> </div>
+          <div className={styles.div9}> <ChatBotAssistant/></div>
         </div>
       </body>
     </>
