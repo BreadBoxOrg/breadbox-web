@@ -35,7 +35,7 @@ class CustomChatStep extends Component {
         const { loading, message } = this.state;
 
         if (loading) {
-            return <div>Sending message...</div>;
+            return <div>...</div>;
         }
 
         return (
