@@ -35,7 +35,7 @@ const theme = {
       position: sticky;
     }
     .rsc-input {
-      background-color: #1ADBB0;
+      background-color: #beffee;
       margin-top: 0px;
       position: absolute;
       color: black; 
