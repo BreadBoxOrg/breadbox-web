@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Popup from 'reactjs-popup';
 import NavbarLayout from "../components/SideBar";
 import './Settings.css';
 import ProfilePic from "../images/placeholder.jpg";
@@ -28,6 +29,35 @@ const Settings = () =>{
         { value: 'email', label: 'Email'},
         { value: 'phone-number', label: 'Phone Number'},
     ];
+
+    const [inputValue, setInputValue] = useState('');
+    const [popupOpen, setPopupOpen] = useState(false);
+    const [popupMessage, setPopupMessage] = useState('');
+
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
+    const handleSubmit = () => {
+        let message = "";
+        if (selectedNotificationBy === 'email') {
+            // Simulate email submission
+            message = `Email Submitted: ${inputValue}`;
+        } else if (selectedNotificationBy === 'phone-number') {
+            // Simulate phone number submission
+            message = `Phone Number Submitted: ${inputValue}`;
+        }
+        setPopupMessage(message);
+        setPopupOpen(true);
+    };
+
+    const handleNotificationByChange = (selectedOption) => {
+        setNotificationBy(selectedOption.value);
+    };
+
+    const handleNotificationWhenChange = (selectedOption) => {
+        setNotificationWhen(selectedOption.value);
+    };
 
     /*const [accounts, setAccounts] = useState([]);
     const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
@@ -167,14 +197,34 @@ const Settings = () =>{
                                 <div className='notification-selection-options'>
                                     <NotificationOptions 
                                         value={selectedNotificationWhen}
-                                        onChange={setNotificationWhen}
+                                        onChange={handleNotificationWhenChange}
                                         options={NotiWhenOptions}
                                         />
                                     <NotificationOptions 
                                         value={selectedNotificationBy}
-                                        onChange={setNotificationBy}
+                                        onChange={handleNotificationByChange}
                                         options={NotificationBy}
                                     />
+                                </div>
+                                <div>
+                                    {(selectedNotificationBy !== '' && selectedNotificationWhen !== '') && (
+                                        <div className='input-email-phone-container'>
+                                            <input className='input-email-phone'
+                                                type={selectedNotificationBy === 'email' ? 'email' : 'tel'}
+                                                value={inputValue}
+                                                onChange={handleInputChange}
+                                                placeholder={
+                                                    selectedNotificationBy === 'email'
+                                                    ? 'Enter Email'
+                                                    : 'Enter Phone Number'
+                                                }
+                                            />
+                                            <button className='submit-email-phone' onClick={handleSubmit}>Submit</button>
+                                        </div>
+                                    )}
+                                    <Popup open={popupOpen} onClose={() => setPopupOpen(false)}>
+                                        {popupMessage}
+                                    </Popup>
                                 </div>
                             </div>
                         </div>

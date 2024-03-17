@@ -15,7 +15,7 @@ function ProfilePicChange({ profilePic, onProfilePicChange, isEditing}) {
 
   const style= {
         cursor: isEditing ? 'pointer' : 'auto',
-        border: isEditing ? '2px solid #007bff' : 'none' // Apply border when editing
+        border: isEditing ? '3px solid #007bff' : 'none' // Apply border when editing
       }
 
   return (
