@@ -15,12 +15,16 @@ const NavbarLayout = () =>{
 
     let FullName = sessionStorage.getItem('firstName') + ' ' + sessionStorage.getItem('lastName');
     let Email = sessionStorage.getItem('email');
+    let ProfilePic = sessionStorage.getItem('profilePic');
 
     if(!sessionStorage.getItem('firstName') || !sessionStorage.getItem('lastName')){
         FullName = userInfo.find(item => item.firstName)?.firstName + ' ' + userInfo.find(item => item.lastName)?.lastName;    
     }
     if(!Email){
         Email = userInfo.find(item => item.email)?.email;
+    }
+    if(!sessionStorage.getItem('profilePic')){
+        ProfilePic = placeholder;
     }
 
     return(
@@ -49,7 +53,7 @@ const NavbarLayout = () =>{
                 </li>
             </ul>
             <div className='NavbarFooter'>
-                <img className='footer-profilePic' src={placeholder} alt='placeholder'></img>
+                <img className='footer-profilePic' src={ProfilePic} alt='placeholder'></img>
                 <h3>{FullName}</h3>
                 <p>{Email}</p>
             </div>
