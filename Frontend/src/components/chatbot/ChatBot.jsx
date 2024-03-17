@@ -8,7 +8,7 @@ import logo from '../../images/BreadBox_Logo.svg'
 import styled from 'styled-components';
 
 const theme = {
-    background: 'black',
+    background: 'linear-gradient(180deg, black 45%, #98F2C1 150%)',
     fontFamily: 'Helvetica Neue',
     headerBgColor: '#1ADBA9',
     headerFontColor: '222222',
