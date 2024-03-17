@@ -11,6 +11,7 @@ import LinkComponent from '../components/LinkComponent.jsx';
 import AccountList from '../components/LinkedAccountsList.jsx';
 import AccountDataCSV from '../components/ExportAccountsCSV.jsx';
 import TransactionDataCSV from '../components/ExportTranscationsCSV.jsx';
+import ProfilePicChange from '../components/ProfilePic.jsx';
 
 const Settings = () =>{
 
@@ -19,7 +20,6 @@ const Settings = () =>{
     const NotiWhenOptions = [
         { value: 'low-funds', label: 'Low Funds'},
         { value: 'deposited-funds', label: 'Deposited Funds'},
-        { value: 'other', label: 'Other'},
     ];
 
     const [selectedNotificationBy, setNotificationBy] = useState('');
@@ -54,6 +54,7 @@ const Settings = () =>{
     const [firstName, setFirstName] = useState(sessionStorage.getItem('firstName') || userInfo.find(item => item.firstName)?.firstName);
     const [lastName, setLastName] = useState(sessionStorage.getItem('lastName') || userInfo.find(item => item.lastName)?.lastName);
     const [email, setEmail] = useState(sessionStorage.getItem('email') || userInfo.find(item => item.email)?.email);
+    const [profilePic, setProfilePic] = useState(sessionStorage.getItem('profilePic') || ProfilePic);
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEditProfile = () => {
@@ -64,6 +65,7 @@ const Settings = () =>{
         sessionStorage.setItem('firstName', firstName);
         sessionStorage.setItem('lastName', lastName);
         sessionStorage.setItem('email', email);
+        sessionStorage.setItem('profilePic', profilePic);
         setIsEditing(false);
     };
 
@@ -72,7 +74,14 @@ const Settings = () =>{
         setFirstName(sessionStorage.getItem('firstName') || '');
         setLastName(sessionStorage.getItem('lastName') || '');
         setEmail(sessionStorage.getItem('email') || '');
+        setProfilePic(sessionStorage.getItem('profilePic') || '');
         setIsEditing(false);
+    };
+
+     // Retrieve profile pic from sessionStorage
+
+    const handleProfilePicChange = (newProfilePic) => {
+        setProfilePic(newProfilePic); // Update profile pic in state
     };
 
     return(<>
@@ -98,42 +107,19 @@ const Settings = () =>{
                                     <button className='account-edit-profile' onClick={handleEditProfile}>Edit Profile</button>
                                     )}
                             </h2>
-                            <img className="settings-profilePic" src={ProfilePic} alt='placeholder'></img>
+                            {/*<img className="settings-profilePic" src={ProfilePic} alt='placeholder'></img>*/}
+                            <ProfilePicChange profilePic={profilePic} onProfilePicChange={handleProfilePicChange} isEditing={isEditing}/>
                             <div className='profile-firstName'>
                                 <span>First Name</span>
-                                {isEditing ? (
-                                    <input className='account-input-box'
-                                        type="text"
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                    />
-                                    ) : (
-                                    <ProfileInfoBox text={firstName} />
-                                    )}
+                                <ProfileInfoBox text={firstName} isEditable={isEditing}  onChangeText={setFirstName}/>
                             </div>
                             <div className='profile-lastName'>
                                 <span>Last Name</span>
-                                {isEditing ? (
-                                    <input className='account-input-box'
-                                        type="text"
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
-                                    />
-                                    ) : (
-                                    <ProfileInfoBox text={lastName} />
-                                    )}
+                                <ProfileInfoBox text={lastName} isEditable={isEditing}  onChangeText={setLastName}/>
                             </div>
                             <div className='profile-email'>
                                 <span>Email</span>
-                                {isEditing ? (
-                                    <input className='account-input-box'
-                                        type="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                    ) : (
-                                    <ProfileInfoBox text={email} />
-                                    )}
+                                <ProfileInfoBox text={email} isEditable={isEditing}  onChangeText={setEmail}/>
                             </div>    
                         </div>
                         <div className="linkedaccounts">
