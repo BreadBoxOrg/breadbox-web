@@ -1,15 +1,58 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Button, Menu, MenuItem, Paper, Typography } from '@mui/material';
-import { MoneyEarnedMockData as data } from './mock_data/mockData';
+import { getPlaidMonthlyIncome } from '../utils/http';
+// import { MoneyEarnedMockData as data } from './mock_data/mockData';
 
 function MoneyEarned() {
   const [anchorEl, setAnchorEl] = useState(null); // dropdown from MUI
   const [selectedOption, setSelectedOption] = useState("Monthly");
 
+  const [incomeData, setIncomeData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
+
+  useEffect(() => {
+    async function fetchIncome() {
+      
+      const promise = getPlaidMonthlyIncome("2024-01-20");
+      promise.then((income) => { 
+        // create local transaction object list
+        let incomeDisplayList = [];
+        console.log("DEBUG_INCOME: " + income.monthly_break_down);
+        console.log("DEBUG_INCOME: " + income.yearly_total);
+        console.log("DEBUG_INCOME: " + income.error);
+        // loop through transactions.recuring_costs
+        const monthNames = [
+          "January", "February", "March", 
+          "April", "May", "June", 
+          "July", "August", "September", 
+          "October", "November", "December"
+        ];
+        
+        for(let i = 0; i < 6; i++) {
+          // create temp object add name and amount 
+          let item = income.monthly_break_down[i];
+          console.log(item);
+          let displayMonth = monthNames[item.month-1];
+          let integerAmount =  Math.floor(item.income);          
+          console.log(integerAmount);
+          const displayItem = {
+            name: displayMonth,
+            amt: integerAmount    
+          };
+          incomeDisplayList.push(displayItem);
+        }
+
+        setIncomeData(incomeDisplayList);
+      }).catch((err) => { console.log(err)});
+
+    }
+    fetchIncome();
+  }, []);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  
 
   const handleClose = (option) => {
     if (option) {
@@ -79,7 +122,7 @@ function MoneyEarned() {
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart
-              data={data}
+              data={incomeData}
               margin={{
                 top: 5,
                 right: 30,

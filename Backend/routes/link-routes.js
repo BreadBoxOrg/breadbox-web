@@ -1,12 +1,20 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();
-const {createToken, exchangeToken, getTransactions, getBalance, getAccounts} = require('../api/plaid/link-controller')
+const {createToken,
+    exchangeToken,
+    plaidGetBalance,
+    plaidGetAccounts,
+    plaidGetTransactions,
+    plaidGetIncomeStream,
+    plaidGetTotalMonthlyIncome} = require('../api/plaid/link-controller')
 
 router.post('/create_link_token', createToken);
 router.post('/exchange_link_token', exchangeToken);
-router.get('/transactions', getTransactions);
-router.get('/balance', getBalance);
-router.get('/accounts', getAccounts);
+router.get('/transactions', plaidGetTransactions);
+router.get('/balance',  plaidGetBalance);
+router.get('/accounts', plaidGetAccounts);
+router.get('/recurringIncome', plaidGetIncomeStream);
+router.post('/totalMonthlyIncome', plaidGetTotalMonthlyIncome);
 
 module.exports = router;

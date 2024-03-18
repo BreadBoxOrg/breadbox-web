@@ -21,26 +21,97 @@ async function getPlaidAccounts() {
     }
 }
 
-// example use 
-try {
-    const promise = getPlaidTransactions();
-    promise.then((data) => {
-        // Assuming data is the JSON structure you've provided
-        // console.log('-------------------------------------------------');
-        // console.log("One Time Cost:", data.one_time_cost);
-        // console.log("Recurring Cost:", data.recuring_cost); // Note: It should be 'recurring_cost' if that's the correct key
-        // console.log('-------------------------------------------------');
-    }).catch((err) => {
-        // Handle any errors that occur during the fetch
-        console.log("Error fetching data:", err);
-    });
-} catch (err) {
-    console.log(err);
+async function getPlaidRecurringIncome() {
+    try { 
+        const response = await fetch(`http://localhost:3000/link/recurringIncome`, {
+            method: 'GET',
+        });
+        const income = await response.json();
+        return income;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+async function getPlaidMonthlyIncome(date) {
+    try { 
+        const response = await fetch(`http://localhost:3000/link/totalMonthlyIncome`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ date: date}) // Send the date to the server
+        });
+        const income = await response.json();
+        return income;
+    } catch (err) {
+        console.error('Error:', err);
+    }
 }
 
 
+
+// test Drivers 
 // try {
-//     getPlaidAccounts();
+//     const test1 = getPlaidMonthlyIncome("2021-01-23");
+//     test1.then((data) => {
+    
+//         // Assuming data is the JSON structure you've provided
+//         console.log('-------------------------------------------------');
+//         console.log("Incoming", data);
+//         console.log('-------------------------------------------------');
+//     }).catch((err) => {
+//         // Handle any errors that occur during the fetch
+//         console.log("Error fetching data:", err);
+//     });
+// } catch (err) {
+//     console.log(err);
+// }
+
+// try {
+//     const test2 = getPlaidRecurringIncome();
+//     test2.then((data) => {
+    
+//         // Assuming data is the JSON structure you've provided
+//         console.log('-------------------------------------------------');
+//         console.log("Incoming", data);
+//         console.log('-------------------------------------------------');
+//     }).catch((err) => {
+//         // Handle any errors that occur during the fetch
+//         console.log("Error fetching data:", err);
+//     });
+// } catch (err) {
+//     console.log(err);
+// }
+
+// try {
+//     const test3 = getPlaidAccounts();
+//     test3.then((data) => {
+    
+//         // Assuming data is the JSON structure you've provided
+//         console.log('-------------------------------------------------');
+//         console.log("Incoming", data);
+//         console.log('-------------------------------------------------');
+//     }).catch((err) => {
+//         // Handle any errors that occur during the fetch
+//         console.log("Error fetching data:", err);
+//     });
+// } catch (err) {
+//     console.log(err);
+// }
+
+// try {
+//     const test4 = getPlaidTransactions();
+//     test4.then((data) => {
+    
+//         // Assuming data is the JSON structure you've provided
+//         console.log('-------------------------------------------------');
+//         console.log("Incoming", data);
+//         console.log('-------------------------------------------------');
+//     }).catch((err) => {
+//         // Handle any errors that occur during the fetch
+//         console.log("Error fetching data:", err);
+//     });
 // } catch (err) {
 //     console.log(err);
 // }
@@ -48,4 +119,6 @@ try {
 module.exports = {
     getPlaidTransactions,
     getPlaidAccounts,
-}
+    getPlaidMonthlyIncome,
+    getPlaidRecurringIncome
+};
