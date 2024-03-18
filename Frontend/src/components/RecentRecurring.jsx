@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import Transactions from './Transactions';
-import { RecentRecurringMockData as data } from './mock_data/mockData';
+// import { RecentRecurringMockData as data } from './mock_data/mockData';
 import { getPlaidTransactions } from '../utils/http';
 
 

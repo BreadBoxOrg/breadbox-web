@@ -38,11 +38,11 @@ function InvestmentGoals() {
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
         color: 'white',
         position: 'relative',
-        width: '700px',
+        width: '580px',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height: '300px',
+        height: '280px',
       }}
     >
       <div
