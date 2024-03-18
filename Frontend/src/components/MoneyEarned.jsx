@@ -69,7 +69,8 @@ function MoneyEarned() {
         borderRadius: '20px',
         backgroundColor: '#1E1E1E',
         color: 'white',
-        paddingBottom: '60px'
+        paddingBottom: '60px',
+        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)'
       }}>
         <div style={{
           borderBottom: '2px solid #2ecc71',
@@ -78,6 +79,7 @@ function MoneyEarned() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center'
+
         }}>
           <Typography variant="h5" sx={{ margin: 0, color: 'white' }}>Money Earned</Typography> {/* slowly changing to MUI styling */}
           <div>
@@ -120,7 +122,7 @@ function MoneyEarned() {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={250}>
             <BarChart
               data={incomeData}
               margin={{

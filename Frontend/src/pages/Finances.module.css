@@ -1,10 +1,12 @@
 
-
+body.finances{
+    margin-left: 2px;
+  }
 .parent {
     display: grid;
     grid-template-columns: repeat(6, 1fr); 
     grid-template-rows: auto;
-    gap: 80px;
+    gap: 70px;
     row-gap: 20px;
     padding: 10px;
     overflow-x: auto;

@@ -25,8 +25,8 @@ function Dashboard() {
           <div className={styles.div6}><Networth/> <SavingsGoal/> </div>
           <div className={styles.div7}> </div>
           <div className={styles.div8}><h1>Welcome, BreadboxTest</h1><p>{date}</p></div>
-          <div className={styles.div9}> <ChatBotAssistant/></div>
-        </div>
+          <div className={styles.div9}><ChatBotAssistant /> </div>
+          </div>
       </body>
     </>
   );

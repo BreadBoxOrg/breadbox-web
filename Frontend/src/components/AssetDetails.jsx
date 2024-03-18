@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, } from 'recharts';
 
 function AssetDetails() {
   const [stockData, setStockData] = useState([]);
   const [currentPrice, setCurrentPrice] = useState(null);
-  const [stockSymbol, setStockSymbol] = useState('AAPL'); // hardcoded 
+  const [stockSymbol, setStockSymbol] = useState('AAPL');
   const [priceTrend, setPriceTrend] = useState('');
 
-  const stockOptions = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB']; //hardcoded  (all of these stock options would be made by calling our own API to give me the required data)
+  const stockOptions = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB'];
 
   const fetchData = async (symbol) => {
     try {
       const historicalResponse = await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}`, {
         params: {
           serietype: 'line',
-          timeseries: 30, 
-          apikey: '', //env
+          timeseries: 30,
+          apikey: process.env.REACT_APP_FMP_API, //env
         },
       });
 
@@ -46,8 +46,10 @@ function AssetDetails() {
     setStockSymbol(symbol);
   };
 
+  const gradientId = `priceTrendGradient-${priceTrend}`;
+
   return (
-    <div style={{ display: 'flex', backgroundColor: '#0a0a0a', padding: '10px', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', position: 'relative' }}>
+    <div style={{ display: 'flex', backgroundColor: '#0a0a0a', padding: '10px', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', position: 'relative', width: '600px'}}>
       <div style={{ marginRight: '20px' }}>
         {stockOptions.map((symbol) => (
           <div key={symbol} onClick={() => handleStockSelection(symbol)} style={{ cursor: 'pointer', color: 'white', padding: '10px', borderBottom: '1px solid grey' }}>
@@ -62,12 +64,18 @@ function AssetDetails() {
         </div>
 
         <ResponsiveContainer width="100%" height="70%">
-          <LineChart data={stockData} margin={{ top: 5, right: 20, left: 10, bottom: 0 }}>
+          <AreaChart data={stockData} margin={{ top: 5, right: 20, left: 10, bottom: 0 }}>
+            <defs>
+              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0.8}/>
+                <stop offset="95%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0}/>
+              </linearGradient>
+            </defs>
             <XAxis dataKey="date" axisLine={false} tickLine={false} />
             <YAxis domain={['dataMin', 'dataMax']} axisLine={false} tickLine={false} tickFormatter={(value) => `$${value.toLocaleString()}`} />
             <Tooltip content={<CustomTooltip />} cursor={false} />
-            <Line type="monotone" dataKey="price" stroke={priceTrend === 'up' ? 'green' : 'red'} dot={false} strokeWidth={2} />
-          </LineChart>
+            <Area type="monotone" dataKey="price" stroke={priceTrend === 'up' ? 'green' : 'red'} fillOpacity={1} fill={`url(#${gradientId})`} strokeWidth={2} />
+          </AreaChart>
         </ResponsiveContainer>
       </div>
     </div>
