@@ -28,7 +28,6 @@
     "react-simple-chatbot": "^0.6.1",
     "reactjs-popup": "^2.0.6",
     "recharts": "^2.12.0",
-    "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
