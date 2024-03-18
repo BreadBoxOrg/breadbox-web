@@ -3,8 +3,8 @@ import { ThemeProvider } from 'styled-components';
 import CustomChatStep from './CustomChatStep.jsx';
 import logo from '../../images/BreadBox_Logo.svg'
 import Draggable from 'react-draggable';
-// import { Resizable } from 'react-resizable';
-// import 'react-resizable/css/styles.css';
+import { ResizableBox } from 'react-resizable';
+import 'react-resizable/css/styles.css';
 // import logo from '../../images/BreadBox_Logo.png';
 import styled from 'styled-components';
 
@@ -102,13 +102,14 @@ const steps = [
 ];
 
 const config = {
-    // botAvatar: logo,
-    floating: true,
+  // botAvatar: logo,
+  floating: true,
 };
 
 function ChatBotAssistant() {
     return (
       <Draggable>
+        <ResizableBox width={300} height={400}>
           <ThemeProvider theme={theme}>
             <StyledChatBot 
               headerTitle="BreadBox Assistant"
@@ -118,6 +119,7 @@ function ChatBotAssistant() {
               floating={true}
             />
           </ThemeProvider>
+        </ResizableBox>
       </Draggable>
     );
 }
