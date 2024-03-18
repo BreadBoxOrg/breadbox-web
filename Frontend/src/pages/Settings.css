@@ -68,48 +68,70 @@ body.settings{
     border-radius: 16px;
     margin-bottom: 10px;
 }
+.account-edit-profile, .account-edit-save, .account-edit-cancel{
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 10px;
+    color: white;
+    font-size: 18px;
+    border: none;
+    background-color: #109f7a;
+}
+.account-edit-profile{
+    margin-left: 475px;
+}
+.account-edit-save{
+    margin-left: 450px;
+}
+.account-edit-cancel{
+    margin-left: 5px;
+}
 .account h2{
     margin-bottom: 0px;
 }
-.account h2, .general h2, .linkedaccounts h2{
+.account h2, .general h2 {
     color: white;
     font-size: 24px;
     padding-left: 20px;
     padding-top: 20px;
 }
-.linkedaccounts h2{
-    margin-bottom: 25px;
+.linked-accounts-header{
+    color: white;
+    font-size: 24px;
+    padding-left: 20px;
 }
 .linkedaccounts{
+    overflow-y: auto;
     background-color: #141516;
     border-radius: 25px;
     height: 50%;
 }
 .plaid-button{
-    margin-left: 295px;
+    margin-left: 150px;
+    margin-top: 25px;
+    height: 40px;
     border-radius: 15px;
     background-color: #109f7a;
-    border: none;
     cursor: pointer;
-    display: inline-flex;
     align-items: center;
     color: white;
-    font-size: 14px;
-    padding: 2px 8px;
+    font-size: 20px;
 }
 .plaid-button img{
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
     filter: invert(1);
 }
 .linkedBankAccounts{
+    padding-top: 25px;
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 45px;
     padding-left: 25px;
 }
-.bank-account-details{
+.account-details{
     padding: 10px;
     border-radius: 50px;
     background-color: #2d2d2e;
@@ -127,10 +149,11 @@ body.settings{
 }
 /*Styling for pop up confirmation */
 .popup-content {
+    color: white;
     font-weight: bold;
     text-align: center;
     font-size: 24px;
-    background-color: white;  
+    background-color: #26292B;  
     width: 50%;  
     padding: 10px;
     border-radius: 50px;
@@ -139,7 +162,7 @@ body.settings{
     background: rgba(0, 0, 0, 0.7);
 }
 .pop-up-button-no, .pop-up-button-yes{
-    border: 1px solid black;
+    border: none;
     border-radius: 15px;
     font-size: 20px;
     width: 100px;
@@ -152,7 +175,7 @@ body.settings{
     background: red;
 }
 .pop-up-button-no:hover{
-    background: darkgray;
+    background: #1ADBA9;
 }
 .pop-up-button-no:focus, .pop-up-button-yes:focus {
     outline: 0;
@@ -179,4 +202,29 @@ body.settings{
 .notification-selection-options{
     display: flex;
     gap: 250px;
+}
+.input-email-phone-container{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input-email-phone{
+    width: 250px;
+    text-align: center;
+    height: 50px;
+    border-radius: 20px;
+    font-size: 20px;
+}
+.submit-email-phone{
+    cursor: pointer;
+    width: 100px;
+    color: white;
+    font-weight: bold;
+    margin-left: 5px;
+    height: 50px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1ADBA9;
+    font-size: 18px;
 }
