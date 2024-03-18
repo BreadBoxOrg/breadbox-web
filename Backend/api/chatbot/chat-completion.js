@@ -15,7 +15,6 @@ const sendMessage = async (req, res, next) => {
     const message = req.body.message;
 
     console.log(message);
-    console.log(openai);
     let completion;
     try {
         completion = await openai.chat.completions.create({
@@ -27,6 +26,7 @@ const sendMessage = async (req, res, next) => {
                 {"role": "user", "content": message}
             ]
         });
+        console.log(completion);
         res.json({completion: completion, status: 200});
     } catch (error) {  
         return next(new AppError("Error in sending message", 500));
