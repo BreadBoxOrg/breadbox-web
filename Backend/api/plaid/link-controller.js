@@ -110,10 +110,10 @@ const createToken = async (req, res, next) => {
       const accessToken = tokenResponse.data.access_token;
       ACCESS_TOKEN = accessToken;
       const itemID = tokenResponse.data.item_id;
-      console.log('-------------------------------------------------------------------------------------------');
+      console.log('-------------------------------------------------------------------');
       console.log(accessToken);
       console.log(itemID);
-      console.log('-----------------------------------------------------------------------------------------------');
+      console.log('-------------------------------------------------------------------');
       res.status(200).json({ public_token_exchange: 'complete' });
     } catch (error) {
       console.log("Error:", error);
