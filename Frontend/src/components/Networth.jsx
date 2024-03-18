@@ -42,7 +42,7 @@ function Networth() {
       color: 'white',
       position: 'relative',
       width: '300px',
-      height: '100px',
+      height: '80px',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',

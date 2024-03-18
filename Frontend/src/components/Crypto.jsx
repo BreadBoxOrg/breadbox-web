@@ -70,7 +70,7 @@ function Crypto() {
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
       position: 'relative',
       width: '400px',
-      height: '325px'
+      height: '350px'
     }}>
       <div style={{
         paddingBottom: '10px',
