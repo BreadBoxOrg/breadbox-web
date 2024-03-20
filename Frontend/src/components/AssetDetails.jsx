@@ -49,22 +49,22 @@ function AssetDetails() {
   const gradientId = `priceTrendGradient-${priceTrend}`;
 
   return (
-    <div style={{ display: 'flex', backgroundColor: '#0a0a0a', padding: '10px', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', position: 'relative', width: '600px'}}>
-      <div style={{ marginRight: '20px' }}>
+    <div style={{ display: 'flex', backgroundColor: '#0a0a0a', padding: '0.5vw', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', position: 'relative', width: '100%'}}>
+      <div style={{ marginRight: '2vw' }}>
         {stockOptions.map((symbol) => (
-          <div key={symbol} onClick={() => handleStockSelection(symbol)} style={{ cursor: 'pointer', color: 'white', padding: '10px', borderBottom: '1px solid grey' }}>
+          <div key={symbol} onClick={() => handleStockSelection(symbol)} style={{ cursor: 'pointer', color: 'white', padding: '0.5vw', borderBottom: '1px solid grey' }}>
             {symbol}
           </div>
         ))}
       </div>
-      <div style={{ flex: 1, height: '350px' }}>
+      <div style={{ flex: 1, height: '328px' }}>
         <div style={{ color: 'white'}}>
           <h2>{stockSymbol}</h2>
           <h3>${currentPrice ? currentPrice.toLocaleString() : 'Loading...'}</h3>
         </div>
 
         <ResponsiveContainer width="100%" height="70%">
-          <AreaChart data={stockData} margin={{ top: 5, right: 20, left: 10, bottom: 0 }}>
+          <AreaChart data={stockData} margin={{ top: 5, right: 0, left: 10, bottom: 0 }}>
             <defs>
               <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0.8}/>

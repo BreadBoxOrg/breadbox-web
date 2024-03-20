@@ -33,16 +33,16 @@ function InvestmentGoals() {
     <div
       style={{
         backgroundColor: '#1E1E1E',
-        padding: '20px',
+        padding: '0.5vw',
         borderRadius: '20px',
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
         color: 'white',
         position: 'relative',
-        width: '580px',
+        width: '100%',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height: '280px',
+        height: '300px',
       }}
     >
       <div

@@ -59,7 +59,7 @@ function RecentRecurring() {
   };
 
   return (
-    <div style={{ position: 'relative', width: '700px', margin: 'auto' }}>
+    <div style={{ position: 'relative', width: '100%', margin: 'auto' }}>
       <div style={{
         position: 'relative',
         margin: 'auto',

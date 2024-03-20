@@ -36,17 +36,16 @@ function TransactionDataCSV () {
   }, []);
 
     const buttonStyle = {
-        backgroundColor: '#007bff',
-        color: '#fff',
-        padding: '10px 20px',
-        border: 'none',
-        borderRadius: '10px',
-        cursor: 'pointer',
-        fontSize: '16px',
-        fontWeight: 'bold',
-        textDecoration: 'none',
-        textAlign: 'center',
-        marginLeft: '145px',
+      backgroundColor: '#007bff',
+      color: '#fff',
+      padding: '10px 20px',
+      border: 'none',
+      borderRadius: '10px',
+      cursor: 'pointer',
+      fontSize: '16px',
+      fontWeight: 'bold',
+      textDecoration: 'none',
+      textAlign: 'center'
     };
 
     return(<>

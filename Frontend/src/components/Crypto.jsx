@@ -69,7 +69,7 @@ function Crypto() {
       borderRadius: '20px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
       position: 'relative',
-      width: '400px',
+      width: '100%',
       height: '350px'
     }}>
       <div style={{

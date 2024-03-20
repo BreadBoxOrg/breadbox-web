@@ -15,4 +15,38 @@
     .div2 { grid-area: 1 / 2 / 2 / 5; } /* Header Text */
     .div3 { grid-area: 2 / 2 / 6 / 5; } /* Where ExpensesList component resides */
     .div4 { grid-area: 1 / 5 / 6 / 6; } /* sidebar for "where your money went"*/
+
+
+
+    @media only screen and (max-width: 768px) {
+      body.expenses {
+        margin-left: 0;
+        padding-top: 170px;
+      }
+    
+      .parent {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+        margin: 10px;
+        width: auto;
+        overflow-x: hidden; 
+      }
+    
+      .div2, .div3, .div4 {
+        grid-area: unset;
+        padding: 8px;
+        font-size: 12px;
+        width: auto; 
+        height: auto;
+        overflow-x: hidden 
+      }
+      .div4 {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+      }
+    
+  
+
+    }
     

@@ -24,18 +24,18 @@ const theme = {
 
 //custom chatbot styling
 const StyledChatBot = styled(ChatBot)`
-    .rsc-ts-bot{
+    .rsc-ts-bot {
       margin-top: 5px;
     }
     .rsc-container {
       height: 80vh;
-      width: 22vw; //adjust chatbot container based off screen size
+      width: 22vw; // Existing width setting for larger screens
     }
     .rsc-ts-bubble {
       font-size: 16px;
     }
     .rsc-content {
-      height: calc(100% - 110px); //height of the input field
+      height: calc(100% - 110px); // Existing height adjustment
       overflow-y: auto;
     }
     .rsc-submit-button {  
@@ -63,7 +63,15 @@ const StyledChatBot = styled(ChatBot)`
       flex-direction: column;
       align-items: flex-end;
     }
-  `;
+    
+    // adj for mobile
+    @media only screen and (max-width: 768px) {
+        .rsc-container {
+            width: 80vw; 
+            height: 60vh; 
+        }
+    }
+`;
 
 const steps = [
     { id: '0', 

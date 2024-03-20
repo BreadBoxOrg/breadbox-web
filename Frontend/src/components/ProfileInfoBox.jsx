@@ -34,6 +34,7 @@ const styles = {
     color: '#949495',
   },
   editable: {
+    display: 'inline-block',
     transition: 'backgroundColor 10s ease',
     marginTop: '5px',
     borderRadius: '25px',

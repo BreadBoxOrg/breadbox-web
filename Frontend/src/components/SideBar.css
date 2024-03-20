@@ -74,3 +74,60 @@
 .NavBar .active a{
   color: white;
 }
+
+@media only screen and (max-width: 768px) {
+  .NavBar {
+    z-index: 10;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+  }
+
+  .NavBar ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 0;
+    width: 100%;
+    height: 30px;
+    padding: 0 10px; 
+  }
+
+  .NavBar li {
+    padding: 10px 0; 
+  }
+
+  .NavBar a {
+    display: flex;
+    align-items: center;
+    padding: 0 10px; 
+    font-size: 18px;
+  }
+
+  .NavBarIcons {
+    transform: scale(1);
+    margin-left: 35px; 
+  }
+
+  .NavbarFooter {
+    visibility: hidden;
+  }
+
+  .side-bar-logo {
+    height: 80px;
+    width: 80px;
+    display: flex;
+    margin: 0 auto; 
+  }
+}

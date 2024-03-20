@@ -24,19 +24,19 @@ function PortfolioDiversity() {
   return (
     <div style={{
       backgroundColor: '#1E1E1E',
-      padding: '20px',
+      padding: '0.5vw', // Adjusted padding to use vw for better responsiveness
       borderRadius: '20px',
       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
       color: 'white',
       display: 'flex',
-      flexDirection: 'row', // Changed to row for side-by-side layout
+      flexDirection: 'row', 
       alignItems: 'center',
-      justifyContent: 'space-around', // Adjust spacing between children
-      width: '600px', // Adjusted for responsiveness, consider a fixed value if needed
-      maxWidth: '1024px', // Limit max width for larger screens
+      justifyContent: 'space-around', 
+      width: '100%', 
+      maxWidth: '1024px', 
     }}>
       <div>
-        <div style={{ fontSize: '18px', marginBottom: '10px' }}>
+        <div style={{ fontSize: '18px', marginBottom: '10px'}}>
           Portfolio Diversity
         </div>
         <PieChart width={400} height={400}>
@@ -63,9 +63,9 @@ function PortfolioDiversity() {
         </PieChart>
       </div>
       <div style={{
-        width: '300px', // Adjust width as necessary
-        height: '100%', // Adjust height to match PieChart or as needed
-        padding: '10px',
+        width: '300px', 
+        height: '100%', 
+        padding: '0.3vw', 
         backgroundColor: '#2E2E2E',
         borderRadius: '20px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
