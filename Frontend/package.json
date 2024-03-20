@@ -21,7 +21,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
-    "react-ios-pwa-prompt": "^1.8.4",
     "react-json-to-csv": "^1.2.0",
     "react-plaid-link": "^3.5.1",
     "react-resizable": "^3.0.5",
