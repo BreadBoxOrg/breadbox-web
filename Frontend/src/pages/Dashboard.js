@@ -17,6 +17,7 @@ function Dashboard() {
     <>
       <NavbarLayout></NavbarLayout>
       <body className={styles.dashboard}>
+      <div className={styles.div8}><h1>Welcome, BreadboxTest</h1><p>{date}</p></div>
         <div className={styles.parent}>
           <div className={styles.div2}> <MoneyEarned/> </div>
           <div className={styles.div3}> <RecentRecurring/> </div>
@@ -24,7 +25,7 @@ function Dashboard() {
           <div className={styles.div5}> <Crypto/> </div>
           <div className={styles.div6}><Networth/> <SavingsGoal/> </div>
           <div className={styles.div7}> </div>
-          <div className={styles.div8}><h1>Welcome, BreadboxTest</h1><p>{date}</p></div>
+
           <div className={styles.div9}><ChatBotAssistant /> </div>
           </div>
       </body>

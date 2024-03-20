@@ -30,6 +30,7 @@ function NotificationOptions({ value, onChange, options }) {
             fontWeight: 'bold',
             marginLeft: '50px',
             width: '150px',
+            
         }),
         singleValue: (provided) => ({
             ...provided,
