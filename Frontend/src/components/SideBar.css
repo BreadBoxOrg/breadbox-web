@@ -111,6 +111,7 @@
 
   .NavBar a {
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 0 10px; 
     font-size: 18px;
@@ -118,7 +119,8 @@
 
   .NavBarIcons {
     transform: scale(1);
-    margin-left: 35px; 
+    padding: 0px;
+    margin: 0px;
   }
 
   .NavbarFooter {
