@@ -22,6 +22,7 @@
   list-style-type: none;
   color: gray;
   font-weight: bold;
+  margin-left: 40px;
 }
 .NavBar li{
   padding-bottom: 50px;
