@@ -116,14 +116,18 @@ const Settings = () =>{
 
     return (
         <>
-            <div className="overflow-x-auto px-4 sm:px-10 sm:ml-[275px]">
+            <div className="pt-48 overflow-x-auto px-4 sm:px-10 sm:ml-[275px] lg:pt-12">
                 <NavbarLayout />
-                <div className="py-3 text-[#1ADBA9] text-2xl sm:text-4xl mb-0 "><h1>Settings</h1></div>
-                <div className='fixed top-4 right-4 sm:absolute sm:right-0 sm:mr-10'>
-                    <Link to="/">
-                        <button className="w-40 h-8 sm:w-50 sm:h-10 text-white bg-[#651819] border-none rounded-full font-bold text-sm sm:text-lg cursor-pointer">Log Out</button>
-                    </Link>
+                {/* Add lg:mb-[spacing] to this div for margin at desktop view */}
+                <div className="flex justify-between items-center text-[#1ADBA9] text-2xl sm:text-4xl mb-0 lg:mb-8">
+                    <h1 className="py-3 sm:py-0">Settings</h1>
+                    <div className="py-3 sm:py-0">
+                        <Link to="/">
+                            <button className="w-40 h-8 text-white bg-[#651819] border-none rounded-full font-bold text-sm cursor-pointer sm:w-50 sm:h-10 sm:text-lg">Log Out</button>
+                        </Link>
+                    </div>
                 </div>
+                {/* This is your main settings content */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                     <div className="text-white font-bold">
                         <div className="bg-[#141516] rounded-2xl mb-6 p-4">
@@ -160,13 +164,13 @@ const Settings = () =>{
                     </div>
                     <div className="bg-[#141516] rounded-2xl p-4 mt-6 sm:mt-0">
                         <div className="mb-6">
-                            <h2 className="text-xl mb-4">General</h2>
+                            <h2 className=" font-bold text-white text-xl mb-4">General</h2>
                             <ul className="list-none">
                                 <li><AccountDataCSV /><TransactionDataCSV /></li>
                             </ul>
                         </div>
                         <div className="notifications">
-                            <h2 className="text-xl mb-4">Notifications</h2>
+                            <h2 className=" font-bold text-white text-xl mb-4">Notifications</h2>
                             <span>Notify Me When...</span>
                             <div className='flex flex-col sm:flex-row justify-between mt-4'>
                                 <NotificationOptions 
