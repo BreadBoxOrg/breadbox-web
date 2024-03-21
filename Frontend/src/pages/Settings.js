@@ -114,102 +114,77 @@ const Settings = () =>{
         setProfilePic(newProfilePic); // Update profile pic in state
     };
 
-    return(<>
-            <body className="settings">
+    return (
+        <>
+            <div className="overflow-x-auto px-4 sm:px-10 sm:ml-[275px]">
                 <NavbarLayout />
-                <div className="SettingsHeader"><h1>Settings</h1></div>
-                <div className='button-layout'>
+                <div className="py-3 text-[#1ADBA9] text-2xl sm:text-4xl mb-0 "><h1>Settings</h1></div>
+                <div className='fixed top-4 right-4 sm:absolute sm:right-0 sm:mr-10'>
                     <Link to="/">
-                        <button className="log-out-button">Log Out</button>
+                        <button className="w-40 h-8 sm:w-50 sm:h-10 text-white bg-[#651819] border-none rounded-full font-bold text-sm sm:text-lg cursor-pointer">Log Out</button>
                     </Link>
                 </div>
-                <div className="settingslayout">
-                    <div className="left-column">
-                        <div className="account">
-                            <h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                    <div className="text-white font-bold">
+                        <div className="bg-[#141516] rounded-2xl mb-6 p-4">
+                            <h2 className="text-xl mb-4">
                                 Account
                                 {isEditing ? (
                                     <>
-                                        <button className='account-edit-save' onClick={handleSaveProfile}>Save</button>
-                                        <button className='account-edit-cancel' onClick={handleCancelEdit}>Cancel</button>
+                                        <button className='ml-auto block bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold' onClick={handleSaveProfile}>Save</button>
+                                        <button className='bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold ml-2' onClick={handleCancelEdit}>Cancel</button>
                                     </>
-                                    ) : (
-                                    <button className='account-edit-profile' onClick={handleEditProfile}>Edit Profile</button>
-                                    )}
+                                ) : (
+                                    <button className='ml-auto block bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold' onClick={handleEditProfile}>Edit Profile</button>
+                                )}
                             </h2>
-                            {/*<img className="settings-profilePic" src={ProfilePic} alt='placeholder'></img>*/}
                             <ProfilePicChange profilePic={profilePic} onProfilePicChange={handleProfilePicChange} isEditing={isEditing}/>
-                            <div className='profile-firstName'>
+                            <div className='flex flex-col mb-4'>
                                 <span>First Name</span>
-                                <ProfileInfoBox text={firstName} isEditable={isEditing}  onChangeText={setFirstName}/>
+                                <ProfileInfoBox text={firstName} isEditable={isEditing} onChangeText={setFirstName}/>
                             </div>
-                            <div className='profile-lastName'>
+                            <div className='flex flex-col mb-4'>
                                 <span>Last Name</span>
-                                <ProfileInfoBox text={lastName} isEditable={isEditing}  onChangeText={setLastName}/>
+                                <ProfileInfoBox text={lastName} isEditable={isEditing} onChangeText={setLastName}/>
                             </div>
-                            <div className='profile-email'>
+                            <div className='flex flex-col'>
                                 <span>Email</span>
-                                <ProfileInfoBox text={email} isEditable={isEditing}  onChangeText={setEmail}/>
-                            </div>    
+                                <ProfileInfoBox text={email} isEditable={isEditing} onChangeText={setEmail}/>
+                            </div>
                         </div>
-                        <div className="linkedaccounts" >
-                            <span className='linked-accounts-header'>Linked Accounts</span>
-                                {/* <button className='plaid-button'>
-                                    <img alt="Plaid Logo" src={PlaidLogo}></img>
-                                    Link Your Account With Plaid
-                                </button> */}
-                            <LinkComponent/>
-                            {/*
-                            <ul className='linkedBankAccounts'>
-                                {accounts.map((bank, index) => (
-                                <li key={index}>
-                                    <span className='bank-account-details'>
-                                        {bank.name} - {bank.lastFourDigits}
-                                    </span>
-                                    <ClearIcon className='remove-bank' 
-                                    onClick={() => handleRemoveAccount(index)} />
-                                </li>
-                                ))}
-                                <Popup open={confirmDeleteIndex !== null} onClose={handleCancelDelete}>
-                                    <div className='delete-account-pop-up'>
-                                        <p>Are you sure you want to delete this account?</p>
-                                        <button className='pop-up-button-yes' onClick={handleConfirmDelete}>Yes</button>
-                                        <button className='pop-up-button-no' onClick={handleCancelDelete}>No</button>
-                                    </div>
-                                </Popup>
-                            </ul>
-                            */}
+                        <div className="bg-[#141516] rounded-2xl p-4">
+                            <span className='text-xl'>Linked Accounts</span>
+                            <LinkComponent />
                             <AccountList />
                         </div>
                     </div>
-                    <div className="right-column" >
-                        <div className="general"  >
-                            <h2>General</h2>
-                                <ul>
-                                    {/*<li>Option 1</li>
-                                    <li>Option 2</li>
-                                    <li>Option 3</li>*/}
-                                    <li><AccountDataCSV /><TransactionDataCSV /></li>
-                                </ul>
-                            <div className="notifications">
-                                <h2>Notifications</h2>
-                                <span>Notify Me When...</span>
-                                <div className='notification-selection-options'>
-                                    <NotificationOptions 
-                                        value={selectedNotificationWhen}
-                                        onChange={handleNotificationWhenChange}
-                                        options={NotiWhenOptions}
-                                        />
+                    <div className="bg-[#141516] rounded-2xl p-4 mt-6 sm:mt-0">
+                        <div className="mb-6">
+                            <h2 className="text-xl mb-4">General</h2>
+                            <ul className="list-none">
+                                <li><AccountDataCSV /><TransactionDataCSV /></li>
+                            </ul>
+                        </div>
+                        <div className="notifications">
+                            <h2 className="text-xl mb-4">Notifications</h2>
+                            <span>Notify Me When...</span>
+                            <div className='flex flex-col sm:flex-row justify-between mt-4'>
+                                <NotificationOptions 
+                                    value={selectedNotificationWhen}
+                                    onChange={handleNotificationWhenChange}
+                                    options={NotiWhenOptions}
+                                    />
                                     <NotificationOptions 
                                         value={selectedNotificationBy}
                                         onChange={handleNotificationByChange}
                                         options={NotificationBy}
                                     />
                                 </div>
-                                <div>
+                                <div className='mt-4'>
                                     {(selectedNotificationBy !== '' && selectedNotificationWhen !== '') && (
-                                        <div className='input-email-phone-container'>
-                                            <input className='input-email-phone'
+                                        <div className='flex items-center justify-center gap-2'>
+                                            <input 
+                                                className='text-center h-10 sm:h-12 rounded-full border px-4'
                                                 type={selectedNotificationBy === 'email' ? 'email' : 'tel'}
                                                 value={inputValue}
                                                 onChange={handleInputChange}
@@ -219,7 +194,7 @@ const Settings = () =>{
                                                     : 'Enter Phone Number'
                                                 }
                                             />
-                                            <button className='submit-email-phone' onClick={handleSubmit}>Submit</button>
+                                            <button className='bg-[#1ADBA9] text-white rounded-full px-3 py-1 font-bold' onClick={handleSubmit}>Submit</button>
                                         </div>
                                     )}
                                     <Popup open={popupOpen} onClose={() => setPopupOpen(false)}>
@@ -230,8 +205,8 @@ const Settings = () =>{
                         </div>
                     </div>
                 </div>
-            </body>
-            </>);
-}
+            </>
+        );
+    }
 
 export default Settings;
