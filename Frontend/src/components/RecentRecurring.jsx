@@ -166,7 +166,7 @@ function RecentRecurring() {
         borderTopRightRadius: '20px',
         zIndex: 10
       }}>
-        {drawerOpen ? 'Hide Recent Transactions' : 'Show Recent Transactions'}
+        {drawerOpen ? 'Show Recent Transactions' : 'Hide Recent Transactions'}
       </button>
     </div>
   );
