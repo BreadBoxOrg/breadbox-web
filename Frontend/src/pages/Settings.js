@@ -152,7 +152,7 @@ const Settings = () =>{
                                 <ProfileInfoBox text={email} isEditable={isEditing}  onChangeText={setEmail}/>
                             </div>    
                         </div>
-                        <div className="linkedaccounts">
+                        <div className="linkedaccounts" >
                             <span className='linked-accounts-header'>Linked Accounts</span>
                                 {/* <button className='plaid-button'>
                                     <img alt="Plaid Logo" src={PlaidLogo}></img>
@@ -182,8 +182,8 @@ const Settings = () =>{
                             <AccountList />
                         </div>
                     </div>
-                    <div className="right-column">
-                        <div className="general">
+                    <div className="right-column" >
+                        <div className="general"  >
                             <h2>General</h2>
                                 <ul>
                                     {/*<li>Option 1</li>

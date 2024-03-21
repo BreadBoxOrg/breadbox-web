@@ -27,9 +27,9 @@ function AccountBalances() {
       borderRadius: '20px',
       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
       color: 'white',
-      width: '640px',
+      width: '100%',
       height: '320px',
-      overflow: 'hidden', // Ensures that the Card itself does not scroll
+      overflow: 'hidden', 
     }}>
       <CardContent sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
         <Typography variant="h6" component="div" sx={{ mb: 2, fontSize: '1.25rem', fontWeight: 'bold' }}>
@@ -39,8 +39,8 @@ function AccountBalances() {
         <List sx={{
           width: '100%',
           p: 0,
-          overflowY: 'auto', // Enables vertical scrolling
-          flex: 1, // Takes up the remaining space in the flex container
+          overflowY: 'auto', 
+          flex: 1, 
         }}>
           {accountData.map((account, index) => (
             <React.Fragment key={account.name}>

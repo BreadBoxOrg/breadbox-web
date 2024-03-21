@@ -192,7 +192,10 @@ body.settings{
     font-size: 18px;
 }
 .general li{
+    display: flex;
+    gap: 8rem;
     padding: 30px;
+    
 }
 .notifications span{
     color: white;
@@ -201,7 +204,7 @@ body.settings{
 }
 .notification-selection-options{
     display: flex;
-    gap: 250px;
+    gap: 280px;
 }
 .input-email-phone-container{
     margin-top: 50px;
@@ -227,4 +230,117 @@ body.settings{
     border-radius: 20px;
     background-color: #1ADBA9;
     font-size: 18px;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /* GENERAL PAGE LAYOUT OVERRIDE */
+    body.settings {
+        margin-left: 0;
+        padding-top: 100px;
+    }
+
+    .settingslayout {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        width: auto;
+        row-gap: 165px;
+    }
+
+    .button-layout {
+        display: flex;
+        justify-content: center; 
+        margin: 20px 0; 
+    }
+
+    .log-out-button {
+        width: 150px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    /* PROFILE WIDGET OVERRIDE */
+    .account, .linkedaccounts, .general, .left-column, .right-column {
+        padding: 15px;
+        font-size: 14px;
+    }
+    .account{
+        height: fit-content;
+    }
+    .account h2 {
+        flex-direction: column; 
+        align-items: flex-start; 
+        
+    }
+    .account-edit-save{
+        margin-left: 0px;
+    }
+    .account-edit-profile {
+        margin-left: 1rem;
+    }
+
+    .SettingsHeader h1 {
+        visibility: hidden;
+    }
+
+    /* Ensure firstName, lastName, and email fields stack on top of each other */
+    .profile-firstName, .profile-lastName {
+        display: flex;
+        flex-direction: column; 
+        width: 100%; 
+        margin: 10px 0; 
+    }
+
+    .profile-email input, .profile-email {
+        width: 100%; 
+        max-width: 100%; 
+        box-sizing: border-box; 
+    }
+
+    .profile-email label, .profile-email span {
+        text-align: left;
+        width: 100%; 
+        display: block; 
+    }
+    
+    .account-details{
+        display: inline-block;
+        width: auto;
+    }
+    .plaid-button{
+        font-size: 15px;
+        margin-left: 0px;
+        height: 50px; 
+        width: 100%; 
+
+    }
+
+    .account-edit-profile, .account-edit-save, .account-edit-cancel {
+        font-size: 16px;
+    }
+
+    .general ul{
+        color: white;
+        list-style: none;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .general li{
+        padding: 0px;
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .notifications span{
+        width: 100%;
+    }
+    .notification-selection-options {
+        display: flex;
+        flex-direction: column; 
+        align-items: stretch; 
+        gap: 10px; 
+    }
 }
