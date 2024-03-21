@@ -73,8 +73,6 @@ function Crypto() {
       height: '350px'
     }}>
       <div style={{
-        paddingBottom: '10px',
-        marginBottom: '10px',
         display: 'flex',
         flexDirection: 'column',
       }}>
