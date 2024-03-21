@@ -13,11 +13,12 @@
   top: 0;
   left: 0;
   bottom: 0;
-  padding-top: 25px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
 }
 .NavBar ul{
+  margin-left: 15px;
   margin-top: 150px;
   list-style-type: none;
   color: gray;
@@ -28,7 +29,6 @@
 }
 .NavBar a{
   transition: color 0.8s ease;
-  padding-left: 30px;
   font-size: 18px;
   text-decoration: none;
 }
@@ -66,6 +66,7 @@
   white-space: nowrap;
 }
 .NavBarIcons{
+  padding-right: 20px;
   color: white;
   transform: scale(1.8);
   vertical-align: text-bottom;
