@@ -32,8 +32,8 @@ function PortfolioDiversity() {
       flexDirection: 'row', 
       alignItems: 'center',
       justifyContent: 'space-around', 
-      width: '100%', 
-      maxWidth: '1024px', 
+      width: '100%',
+      height: '100%' 
     }}>
       <div>
         <div style={{ fontSize: '18px', marginBottom: '10px'}}>

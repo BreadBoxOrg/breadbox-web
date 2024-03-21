@@ -9,7 +9,7 @@ function TotalInvested() {
         color: 'white',
         position: 'relative',
         width: '100%', 
-        height: '50px', 
+        height: '100px', 
         display: 'flex',
         flexDirection: 'column', 
         justifyContent: 'center', 
