@@ -36,20 +36,28 @@ const NavbarLayout = () =>{
             </div>
             <ul>
                 <li className={location.pathname === '/dashboard' ? 'active' : ''}>
-                    <AssessmentIcon className="NavBarIcons" />
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/dashboard">
+                        <AssessmentIcon className="NavBarIcons" />
+                        Dashboard
+                    </Link>
                 </li>
                 <li className={location.pathname === '/expenses' ? 'active' : ''}>
-                    <ShoppingCartIcon className="NavBarIcons"/>
-                    <Link to="/expenses">Expenses</Link>
+                    <Link to="/expenses">
+                        <ShoppingCartIcon className="NavBarIcons"/>
+                        Expenses
+                    </Link>
                 </li>
                 <li className={location.pathname === '/finances' ? 'active' : ''}>
-                    <DescriptionIcon className="NavBarIcons"/>
-                    <Link to="/finances">Finances</Link>
+                    <Link to="/finances">
+                        <DescriptionIcon className="NavBarIcons"/>
+                        Finances
+                    </Link>
                 </li>
                 <li className={location.pathname === '/settings' ? 'active' : ''}>
-                    <SettingsIcon className="NavBarIcons"/>
-                    <Link to="/settings">Settings</Link>    
+                    <Link to="/settings">
+                        <SettingsIcon className="NavBarIcons"/>
+                        Settings
+                    </Link>    
                 </li>
             </ul>
             <div className='NavbarFooter'>
