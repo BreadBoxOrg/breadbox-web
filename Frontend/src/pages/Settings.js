@@ -165,8 +165,8 @@ const Settings = () =>{
                     <div className="bg-[#141516] rounded-2xl p-4 mt-6 sm:mt-0">
                         <div className="mb-6">
                             <h2 className=" font-bold text-white text-xl mb-4">General</h2>
-                            <ul className="list-none">
-                                <li><AccountDataCSV /><TransactionDataCSV /></li>
+                            <ul className="list-none flex flex-col items-center">
+                                <li className='flex items-center gap-10'><AccountDataCSV /><TransactionDataCSV /></li>
                             </ul>
                         </div>
                         <div className="notifications">
