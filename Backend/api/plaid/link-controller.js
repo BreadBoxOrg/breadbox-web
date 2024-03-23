@@ -382,6 +382,17 @@ const plaidGetAccounts = (req, res, next ) => {
         .catch(next);
 }
 
+const plaidGetCategories = (req, res, next) => {
+  Promise.resolve()
+      .then(async function () {
+          const categoriesResponse = await client.categoriesGet({});
+          console.log(categoriesResponse);
+          res.json(categoriesResponse.data);
+      })
+      .catch(next);
+}
+
+
     module.exports = {
         createToken,
         exchangeToken,
@@ -389,5 +400,6 @@ const plaidGetAccounts = (req, res, next ) => {
         plaidGetAccounts,
         plaidGetTransactions,
         plaidGetIncomeStream,
-        plaidGetTotalMonthlyIncome
+        plaidGetTotalMonthlyIncome,
+        plaidGetCategories
   }

@@ -49,6 +49,17 @@ async function getPlaidMonthlyIncome(date) {
     }
 }
 
+async function getPlaidCategories() {
+    try {
+        const response = await fetch(`http://localhost:3000/link/categories`);
+        const categories = await response.json();
+        //console.log(categories);
+        return categories;
+    } catch (err){
+        console.error(err);
+    }
+}
+
 
 
 // test Drivers 
