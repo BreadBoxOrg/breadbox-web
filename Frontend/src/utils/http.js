@@ -49,6 +49,7 @@ async function getPlaidMonthlyIncome(date) {
     }
 }
 
+/*
 async function getPlaidCategories() {
     try {
         const response = await fetch(`http://localhost:3000/link/categories`);
@@ -59,6 +60,7 @@ async function getPlaidCategories() {
         console.error(err);
     }
 }
+*/
 
 
 
