@@ -30,27 +30,29 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #f0f0f0;
+    background-color: #00C875;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 10px;
+    line-height: 0px;
   }
   
   .icon {
+    color: white;
     width: 24px;
     height: 24px;
   }
   
-  .grocery {
+  .shops {
     background-color: #0085FF;
   }
   
-  .transportation {
+  .travel {
     background-color: #8C38FF;
   }
   
-  .housing {
+  .recreation {
     background-color: #FF9E00;
   }
   
@@ -58,8 +60,16 @@
     background-color: #FF4D4D;
   }
   
-  .entertainment {
-    background-color: #00C875;
+  .service {
+    background-color: #FF69B4;
+  }
+  
+  .healthcare {
+    background-color: #808080;
+  }
+
+  .community{
+    background-color: #40E0D0;
   }
   
   .transactionDetails {
