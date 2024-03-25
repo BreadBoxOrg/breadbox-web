@@ -5,6 +5,8 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import styles from './ExpensesList.module.css';
+import { AccountBalance, AttachMoney, People, Fastfood, 
+        MedicalInformation, Paid, HomeRepairService, Store, Map, Terrain} from '@mui/icons-material';
 
 const ExpensesList = () => {
   const [transactionsData, setTransactionsData] = useState([]);
@@ -39,11 +41,30 @@ const ExpensesList = () => {
         };
       }
 
+      function formatDate(dateString) {
+        const dateObject = new Date(dateString);
+        const formattedDate = `${dateObject.getMonth() + 1}/${dateObject.getDate() + 1}/${dateObject.getFullYear()}`;
+        return formattedDate;
+      }
+
+      const PlaidCategoryIcons = {
+        'Bank Fees': <AccountBalance />,
+        'Community': <People />,
+        'Food and Drink': <Fastfood />,
+        'Healthcare': <MedicalInformation />,
+        'Payment': <Paid />,
+        'Recreation': <Terrain />,
+        'Service': <HomeRepairService />,
+        'Shops': <Store />,
+        'Travel': <Map />
+      };
+
       processedData[periodKey].transactions.push({
         category: transaction.accountId.catagory[0],
         amount,
-        time: 'Unknown',
-        place: transaction.accountId.merchantName || 'Unknown'
+        time: transaction.accountId.date ? formatDate(transaction.accountId.date) : 'Unknown',
+        place: transaction.accountId.merchantName || 'Unknown',
+        icon: PlaidCategoryIcons[transaction.accountId.catagory[0]] || <AttachMoney />
       });
     });
 
@@ -102,8 +123,8 @@ const ExpensesList = () => {
           <h3 className={styles.period}>{transactionsData[activeIndex].period}</h3>
           {transactionsData[activeIndex].transactions.map((transaction, idx) => (
             <div key={idx} className={styles.transaction}>
-              <div className={styles.transactionIcon}>
-                <span className={`${styles.icon} ${styles[transaction.category.toLowerCase()]}`}></span>
+              <div className={`${styles.transactionIcon} ${styles[transaction.category.toLowerCase().replace(/\s/g, '')]}`}>
+                <span className={styles.icon}>{transaction.icon}</span>
               </div>
               <div className={styles.transactionDetails}>
                 <p className={styles.transactionCategory}>{transaction.category}</p>

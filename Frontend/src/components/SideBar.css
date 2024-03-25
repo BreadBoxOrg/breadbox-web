@@ -67,7 +67,7 @@
   white-space: nowrap;
 }
 .NavBarIcons{
-  padding-right: 20px;
+  margin-right: 30px;
   color: white;
   transform: scale(1.8);
   vertical-align: text-bottom;
