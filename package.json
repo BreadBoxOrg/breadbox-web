@@ -1,13 +1,28 @@
 {
   
   "dependencies": {
-    "concurrent": "^0.3.2",
-    "concurrently": "^8.2.2"
+  
+    
+  "concurrent": "^0.3.2",
+  
+    
+  "concurrently": "^8.2.2",
+  
+    
+  "nodemon": "^3.1.0"
+  
   },
+  
   "scripts": {
-    "backend": "nodemon Backend/server.js",
-    "frontend": "npm run start --prefix Frontend",
-    "test": "concurrently \"npm run backend\" \"npm run frontend\""
+  
+    
+  "backend": "npm run devStart --prefix Backend",
+  
+    
+  "frontend": "export PORT=3005 && npm run start --prefix Frontend",
+  
+    
+  "test": "concurrently \"npm run backend\" \"npm run frontend\""
+  
   }
-
-} 
+}
