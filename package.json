@@ -9,13 +9,22 @@
   "concurrently": "^8.2.2",
   
     
+  "cross-env": "^7.0.3",
+  
+    
   "nodemon": "^3.1.0"
   
   },
   
   "scripts": {
+  
+    
   "backend": "npm run devStart --prefix Backend",
+  
+    
   "frontend": "export PORT=3005 && npm run start --prefix Frontend",
+  
+    
   "test": "concurrently \"npm run backend\" \"npm run frontend\""
   
   }

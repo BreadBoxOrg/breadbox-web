@@ -1,6 +1,7 @@
 async function getPlaidTransactions() {
     try {
-        const response = await fetch(`http://localhost:3000/link/transactions`);
+        const backendURL = process.env.REACT_APP_BACKEND_URL;
+        const response = await fetch(`${backendURL}/link/transactions`);
         const transactions = await response.json();
         // console.log(transactions);
         return transactions;
@@ -12,7 +13,8 @@ async function getPlaidTransactions() {
 
 async function getPlaidAccounts() {
     try {
-        const response = await fetch(`http://localhost:3000/link/accounts`);
+        const backendURL = process.env.REACT_APP_BACKEND_URL;
+        const response = await fetch(`${backendURL}/link/accounts`);
         const accounts = await response.json();
         //console.log(accounts);
         return accounts;
@@ -23,7 +25,8 @@ async function getPlaidAccounts() {
 
 async function getPlaidRecurringIncome() {
     try { 
-        const response = await fetch(`http://localhost:3000/link/recurringIncome`, {
+        const backendURL = process.env.REACT_APP_BACKEND_URL;
+        const response = await fetch(`${backendURL}/link/recurringIncome`, {
             method: 'GET',
         });
         const income = await response.json();
@@ -35,7 +38,8 @@ async function getPlaidRecurringIncome() {
 
 async function getPlaidMonthlyIncome(date) {
     try { 
-        const response = await fetch(`http://localhost:3000/link/totalMonthlyIncome`, {
+        const backendURL = process.env.REACT_APP_BACKEND_URL;
+        const response = await fetch(`${backendURL}/link/totalMonthlyIncome`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +55,8 @@ async function getPlaidMonthlyIncome(date) {
 
 async function getPlaidCategories() {
     try {
-        const response = await fetch(`http://localhost:3000/link/categories`);
+        const backendURL = process.env.REACT_APP_BACKEND_URL;
+        const response = await fetch(`${backendURL}/link/categories`);
         const categories = await response.json();
         //console.log(categories);
         return categories;

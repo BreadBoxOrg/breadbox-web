@@ -16,7 +16,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 
-const PORT1 = 3001;
+const PORT1 = process.env.BACKEND_PORT;
 
 app.use(
   bodyParser.urlencoded({
