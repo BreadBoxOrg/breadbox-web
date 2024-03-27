@@ -22,7 +22,7 @@
   "backend": "npm run devStart --prefix Backend",
   
     
-  "frontend": "export PORT=3005 && npm run start --prefix Frontend",
+  "frontend": "export PORT=$(grep FRONTEND_PORT .env | cut -d '=' -f2) && npm run start --prefix Frontend",
   
     
   "test": "concurrently \"npm run backend\" \"npm run frontend\""
