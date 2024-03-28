@@ -15,6 +15,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.7",
+    "cross-env": "^7.0.3",
     "finnhub": "^1.2.18",
     "openai": "^4.28.0",
     "plaid-threads": "^14.5.0",
@@ -34,7 +35,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "export PORT=3001 && react-scripts start",
+    "start": "export PORT=$(grep FRONTEND_PORT .env | cut -d '=' -f2) && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
