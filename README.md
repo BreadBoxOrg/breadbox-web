@@ -72,6 +72,6 @@ Port definition for the frontend
 FRONTEND_PORT = 3005
 ```
 
-
+From then on you can cd in the root of the folder (``/breadbox-web``) and run ``npm test`` to run the backend and frontend simultaneously.
 
 						
