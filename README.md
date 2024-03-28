@@ -14,9 +14,9 @@
 ### Developing - Initial Setup
 
 The BreadBox source code requires two .env files:
-* One in ``/Frontend``
 * One in ``/Backend``
-##### ./env file example in /Frontend
+* One in ``/Frontend``
+##### ./env file example in /Backend
 ```
 MONGODB_URL=
 MONGODB_URL=
@@ -57,7 +57,7 @@ BACKEND_PORT=3001
 ```
 
 
-##### ./env file example in /Backend
+##### ./env file example in /Frontend
 
 ```
 # Assuming you stick with localhost when developing and not using an entirely different endpoint like in production, 
