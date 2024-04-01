@@ -32,7 +32,7 @@ function ChatBotAssistant() {
 
   return (
     <Draggable axis="x" bounds={{ left: -windowWidth + 400, right: 0 }} position={position} onDrag={handleDrag}>
-      <div>
+      <div style={{ borderRadius: '20px' }}>
         <ThemeProvider theme={theme}>
           <StyledChatBot 
             headerTitle="BreadBox Assistant"
