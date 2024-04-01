@@ -189,7 +189,7 @@ const Drawer = ({ isOpen }) => {
         borderBottomRightRadius: '20px',
         borderTopLeftRadius: '20px',
         borderTopRightRadius: '20px',
-        zIndex: 0,
+        zIndex: 2,
       }}
     >
       <Transactions />
