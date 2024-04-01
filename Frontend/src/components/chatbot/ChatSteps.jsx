@@ -11,8 +11,9 @@ export const steps = [
       options: [
           { value: 'tt', label: 'Chatbot Tutorial', trigger: 'chatTutorial' },
           { value: 'bb', label: 'Breadbox Tutorial', trigger: 'bbTutorial' },
-          { value: 'no', label: 'Continue Asking Questions', trigger: 'userInput' },
           { value: 'af', label: 'Analyze My Financials', trigger: 'sendFinancialData' },
+          { value: 'no', label: 'Continue Asking Questions', trigger: 'userInput' },
+
       ],
     },
     {
