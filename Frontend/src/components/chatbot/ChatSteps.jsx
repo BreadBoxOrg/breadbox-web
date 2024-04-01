@@ -11,9 +11,19 @@ export const steps = [
       options: [
           { value: 'tt', label: 'Chatbot Tutorial', trigger: 'chatTutorial' },
           { value: 'bb', label: 'Breadbox Tutorial', trigger: 'bbTutorial' },
+          { value: 'af', label: 'Analyze My Financials', trigger: 'sendFinancialData' },
           { value: 'no', label: 'Continue Asking Questions', trigger: 'userInput' },
+
       ],
     },
+    {
+      id: 'sendFinancialData',
+      component: <CustomChatStep trigger='sendFinancialData'/>,
+      asMessage: true,
+      waitAction: true,
+      trigger: 'askContinue',
+  },
+
     {
       id: 'chatTutorial',
       message: 'I am your personal financial assistant. You can ask me questions about your finances, and I will do my best to help you out!',
