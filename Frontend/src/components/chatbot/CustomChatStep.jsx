@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
-import { sendMessage } from '../../utils/sendchat'; 
+import { sendMessage } from './sendchat';
+import { RecentRecurringMockData, MoneyEarnedMockData, MockSavingsGoalData, ExpensesPeriodMockData } from '../mock_data/mockData.js';
+import ReactMarkdown from 'react-markdown';
+
+const financialData = {
+    RecentRecurring: RecentRecurringMockData,
+    MoneyEarned: MoneyEarnedMockData,
+    SavingsGoal: MockSavingsGoalData,
+    ExpensesPeriod: ExpensesPeriodMockData
+  };
+
+
+const financialDataString = JSON.stringify(financialData);
 
 class CustomChatStep extends Component {
     constructor(props) {
@@ -8,15 +20,21 @@ class CustomChatStep extends Component {
     }
 
     componentDidMount() {
-        const { steps } = this.props;
-        const userMessage = steps.userInput.value; 
-        this.sendMessageToBackend(userMessage);
+        const { trigger } = this.props;
+        const userMessage = this.props.steps.userInput ? this.props.steps.userInput.value : '';
+        console.log(trigger, userMessage);
+        if (trigger === 'sendFinancialData') {
+            this.sendMessageToBackend("Analyze these financials and give a breakdown and summary of them.", financialDataString);
+        } else {
+            this.sendMessageToBackend(userMessage);
+        }
     }
 
-    async sendMessageToBackend(message) {
+    async sendMessageToBackend(message, financialData) {
         this.setState({ loading: true });
         try {
-            const responseMessage = await sendMessage(message);
+            console.log(financialData);
+            const responseMessage = await sendMessage(message, financialData);
             this.setState({ loading: false, message: responseMessage });
             this.triggerNextStep();
         } catch (error) {
@@ -39,7 +57,7 @@ class CustomChatStep extends Component {
         }
 
         return (
-            <div>{message}</div>
+            <ReactMarkdown>{message}</ReactMarkdown>
         );
     }
 }
