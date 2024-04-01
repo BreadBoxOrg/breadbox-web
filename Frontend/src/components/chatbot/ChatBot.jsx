@@ -1,7 +1,6 @@
 import { ThemeProvider } from 'styled-components';
 import logo from '../../images/BreadBox_Logo.svg';
 import Draggable from 'react-draggable';
-import { ResizableBox } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import { StyledChatBot, theme } from './ChatBotStyles.jsx';
 import { steps }  from './ChatSteps.jsx';  
@@ -33,7 +32,7 @@ function ChatBotAssistant() {
 
   return (
     <Draggable axis="x" bounds={{ left: -windowWidth + 400, right: 0 }} position={position} onDrag={handleDrag}>
-      <ResizableBox width={300} height={400}>
+      <div>
         <ThemeProvider theme={theme}>
           <StyledChatBot 
             headerTitle="BreadBox Assistant"
@@ -43,7 +42,7 @@ function ChatBotAssistant() {
             floating={true}
           />
         </ThemeProvider>
-      </ResizableBox>
+        </div>
     </Draggable>
   );
 }

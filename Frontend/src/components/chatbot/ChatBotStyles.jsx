@@ -25,6 +25,7 @@ export const StyledChatBot = styled(ChatBot)`
     .rsc-container {
       height: 80vh;
       width: 22vw; // Existing width setting for larger screens
+      min-width: 400px;
 
     }
     .rsc-ts-bubble {
