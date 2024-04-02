@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import CsvDownloadButton from 'react-json-to-csv'
+import CsvDownloadButton from 'react-json-to-csv';
 import { getPlaidAccounts } from "../utils/http.js";
 
-function AccountDataCSV () {
-
+function AccountDataCSV({ rerender, onSuccess }) {
     const [plaidAccounts, setPlaidAccounts] = useState([]);
 
     useEffect(() => {
@@ -13,17 +12,19 @@ function AccountDataCSV () {
                 const accountList = allAccounts.accounts.map(item => ({
                     name: item.name,
                     mask: item.mask,
-                    avaiable_balance: item.balances.available,
+                    available_balance: item.balances.available,
                     current_balance: item.balances.current,
                     account_type: item.subtype, 
                 }));
                 setPlaidAccounts(accountList);
+                onSuccess();
             } catch (error) {
                 console.error("Error fetching Plaid accounts:", error);
+                // Handle error more gracefully (e.g., display an error message)
             }
         }
         fetchData();
-    }, []);
+    }, [rerender, onSuccess]);
 
     const buttonStyle = {
         backgroundColor: '#007bff',
@@ -38,13 +39,15 @@ function AccountDataCSV () {
         textAlign: 'center'
     };
 
-    return(<>
-        {plaidAccounts.length > 0 && (
-            <CsvDownloadButton data={plaidAccounts} filename="account_data" style={buttonStyle}>
-                Export Account Data
-            </CsvDownloadButton>
-        )}
-    </>);
+    return (
+        <>
+            {plaidAccounts.length > 0 && (
+                <CsvDownloadButton data={plaidAccounts} filename="account_data" style={buttonStyle}>
+                    Export Account Data
+                </CsvDownloadButton>
+            )}
+        </>
+    );
 }
 
 export default AccountDataCSV;

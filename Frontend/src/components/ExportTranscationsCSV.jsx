@@ -2,38 +2,31 @@ import React, { useState, useEffect } from "react";
 import CsvDownloadButton from 'react-json-to-csv';
 import { getPlaidTransactions } from "../utils/http.js";
 
-function TransactionDataCSV () {
+function TransactionDataCSV ({ rerender }) {
 
     const [transactionData, setTransactionData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
 
-  useEffect(() => {
-    async function fetchTransactions() {
-      const promise = getPlaidTransactions();
-      promise.then((transactions) => { 
-        // create local transaction object list
-        let transactionsDisplayList = [];
-        console.log("ONE TIME COST ARRAY:", transactions.one_time_cost);
-        // loop through transactions.recuring_costs
-        let i = 1;
-        transactions.one_time_cost.forEach( item => {
-          // create temp object add name and amount 
-          console.log(item);
-          const displayItem = {
-            merchant_name: item.accountId.merchantName,
-            date: item.accountId.date,
-            amount: item.accountId.amount
-          };
-          i++;
-          console.log("DISPLAY ITEM:", displayItem);
-          transactionsDisplayList.push(displayItem);
-        });
-
-        setTransactionData(transactionsDisplayList);
-      }).catch((err) => { console.log(err)});
-
-    }
-    fetchTransactions();
-  }, []);
+    useEffect(() => {
+        async function fetchTransactions() {
+            try {
+                const transactions = await getPlaidTransactions();
+                let transactionsDisplayList = [];
+                transactions.one_time_cost.forEach(item => {
+                    const displayItem = {
+                        merchant_name: item.accountId.merchantName,
+                        date: item.accountId.date,
+                        amount: item.accountId.amount
+                    };
+                    transactionsDisplayList.push(displayItem);
+                });
+    
+                setTransactionData(transactionsDisplayList);
+            } catch (error) {
+                console.error("Error fetching Plaid transactions:", error);
+            }
+        }
+        fetchTransactions();
+    }, [rerender]);
 
     const buttonStyle = {
       backgroundColor: '#007bff',

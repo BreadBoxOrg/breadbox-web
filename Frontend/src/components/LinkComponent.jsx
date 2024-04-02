@@ -3,7 +3,7 @@ import { usePlaidLink } from "react-plaid-link";
 import Button from "plaid-threads/Button";
 import PlaidLogo from "../images/Plaid_Logo.png"
 
-const LinkComponent = () => {
+const LinkComponent = (props) => {
 const [linkToken, setLinkToken] = useState(null);
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
@@ -42,7 +42,7 @@ const onSuccess = async (publicToken) => {
     const data = await response.json();
     console.log('Access Token:', data.access_token);
     // You can now use the access token to make Plaid requests
-    window.location.reload();
+    props.onSuccess();
   } else {
     console.error('Failed to exchange public token');
   }

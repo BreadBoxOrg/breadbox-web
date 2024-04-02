@@ -16,6 +16,9 @@ import ProfilePicChange from '../components/ProfilePic.jsx';
 
 const Settings = () =>{
 
+    const [rerenderAccounts, setRerenderAccounts] = useState(false);
+    const [rerenderTransactions, setRerenderTransaction] = useState(false);
+
     const [selectedNotificationWhen, setNotificationWhen] = useState('');
 
     const NotiWhenOptions = [
@@ -58,6 +61,13 @@ const Settings = () =>{
     const handleNotificationWhenChange = (selectedOption) => {
         setNotificationWhen(selectedOption.value);
     };
+
+    const handleAccountsRerender = () => {
+        setRerenderAccounts(prevState => !prevState);
+    };
+    const handleTransactionRerender = () => {
+        setRerenderTransaction(prevState => !prevState);
+    }
 
     /*const [accounts, setAccounts] = useState([]);
     const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
@@ -158,15 +168,20 @@ const Settings = () =>{
                         </div>
                         <div className="bg-[#141516] rounded-2xl p-4">
                             <span className='text-xl'>Linked Accounts</span>
-                            <LinkComponent />
-                            <AccountList />
+                            <LinkComponent onSuccess={handleAccountsRerender}/>
+                            <AccountList rerender={rerenderAccounts}/>
                         </div>
                     </div>
                     <div className="bg-[#141516] rounded-2xl p-4 mt-6 sm:mt-0">
                         <div className="mb-6">
                             <h2 className=" font-bold text-white text-xl mb-4">General</h2>
                             <ul className="list-none flex flex-col items-center">
-                                <li className='flex items-center gap-10'><AccountDataCSV /><TransactionDataCSV /></li>
+                                <li className='flex items-center gap-10'>
+                                    <AccountDataCSV rerender={rerenderAccounts} onSuccess={handleTransactionRerender}/>
+                                </li>
+                                <li className='mt-5 flex items-center gap-10'>
+                                    <TransactionDataCSV rerender={rerenderTransactions}/>
+                                </li>
                             </ul>
                         </div>
                         <div className="notifications">
