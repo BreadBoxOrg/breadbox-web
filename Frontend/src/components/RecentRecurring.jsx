@@ -100,7 +100,8 @@ function RecentRecurring() {
                 marginTop: '5px',
                 borderRadius: '10px',
                 padding: '10px',
-                boxShadow: '0 2px 5px rgba(0, 0, 0, 0.5)'
+                boxShadow: '0 2px 5px rgba(0, 0, 0, 0.5)',
+                zIndex: 3
               }}>
                 <div style={{ padding: '10px', cursor: 'pointer' }}>Monthly</div>
                 <div style={{ padding: '10px', cursor: 'pointer' }}>Quarterly</div>
