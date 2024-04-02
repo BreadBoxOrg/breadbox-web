@@ -63,11 +63,13 @@ function Dashboard() {
   const renderWidget = (widgetId) => {
     const widgetClasses = getWidgetClasses(widgetId);
     const overlayClasses = isEditMode ? 'relative before:absolute before:inset-0 before:bg-gray-500 before:opacity-50 before:rounded-lg' : '';
-  
+    const glowClasses = isEditMode ? 'absolute inset-0 outline-none ring-4 ring-blue-500 ring-opacity-50 rounded-lg animate-pulse-opacity' : '';
+
     switch (widgetId) {
       case 'moneyEarned':
         return (
           <div className={`${widgetClasses} ${overlayClasses}`}>
+            {isEditMode && <div className={glowClasses}></div>}
             <SortableItem key="moneyEarned" id="moneyEarned">
               <MoneyEarned />
             </SortableItem>
@@ -76,6 +78,7 @@ function Dashboard() {
       case 'recentRecurring':
         return (
           <div className={`${widgetClasses} ${overlayClasses}`}>
+            {isEditMode && <div className={glowClasses}></div>}
             <SortableItem key="recentRecurring" id="recentRecurring">
               <RecentRecurring />
             </SortableItem>
@@ -84,6 +87,7 @@ function Dashboard() {
       case 'networthSavingsGoal':
         return (
           <div className={`${widgetClasses} ${overlayClasses}`}>
+            {isEditMode && <div className={glowClasses}></div>}
             <SortableItem key="networthSavingsGoal" id="networthSavingsGoal">
               <div className="flex flex-col gap-[20px] md:gap-[40px]">
                 <Networth />
@@ -95,6 +99,7 @@ function Dashboard() {
       case 'crypto':
         return (
           <div className={`${widgetClasses} ${overlayClasses}`}>
+            {isEditMode && <div className={glowClasses}></div>}
             <SortableItem key="crypto" id="crypto">
               <Crypto />
             </SortableItem>
@@ -103,6 +108,7 @@ function Dashboard() {
       case 'cashFlow':
         return (
           <div className={`${widgetClasses} ${overlayClasses}`}>
+            {isEditMode && <div className={glowClasses}></div>}
             <SortableItem key="cashFlow" id="cashFlow">
               <CashFlow />
             </SortableItem>
@@ -116,12 +122,12 @@ function Dashboard() {
     <>
       <NavbarLayout />
       <div className="ml-0 pt-[200px] md:ml-[275px] md:pt-0">
-        <div className="flex flex-col gap-[30px] mx-[10px] md:mx-0 md:ml-[0.5vw] overflow-x-auto max-w-full md:max-w-[82vw] pb-[20px]">
+        <div className="flex flex-col gap-[30px] mx-[10px] md:mx-0 md:ml-[0.5vw] max-w-full md:max-w-[82vw] pb-[20px]">
           <div className="font-bold text-[#1ADBA9] mt-5 text-3xl">Welcome, BreadboxTest</div>
           <p className="text-[#8f8f8f]">{formattedDate}</p>
           <div className="flex justify-end">
           <button
-  className="hidden md:block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  className="hidden md:block bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
   onClick={() => setIsEditMode(!isEditMode)}
 >
   {isEditMode ? 'Save' : 'Edit'}
