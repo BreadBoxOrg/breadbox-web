@@ -4,7 +4,7 @@ import ChatBot from 'react-simple-chatbot';
 
 
 export const theme = {
-    background: 'linear-gradient(180deg, black 45%, #98F2C1 150%)',
+    background: 'linear-gradient(180deg, black 45%, #b1e3c8 150%)',
     fontFamily: 'Arial, sans-serif',
     headerBgColor: '#1ADBA9',
     headerFontColor: '222222',
@@ -29,7 +29,22 @@ export const StyledChatBot = styled(ChatBot)`
          }
          .rsc-ts-bubble {
            font-size: 16px;
+           max-width: 75%;
          }
+         .rsc-submit-button {
+          fill: black;
+         }
+         .rsc-ts-bot .rsc-ts-bubble {
+          background: linear-gradient(45deg, #b1e3c8, #1ADBB0);
+          color: black;
+         }
+         .rsc-os-option-element {
+          background-color: #beffee;
+          color: black;
+          }
+          .rsc-header {
+            background: linear-gradient(45deg, #b1e3c8, #1ADBB0);
+          }
          .rsc-content {
            height: calc(100% - 110px); // Existing height adjustment
            overflow-y: auto;

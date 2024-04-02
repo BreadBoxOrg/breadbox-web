@@ -35,11 +35,12 @@ function ChatBotAssistant() {
       <div style={{ borderRadius: '20px' }}>
         <ThemeProvider theme={theme}>
           <StyledChatBot 
-            headerTitle="BreadBox Assistant"
+            headerTitle="AI BreadBot"
             steps={steps}
             botAvatar={logo}
             userAvatar="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" //get rid of the user default avatar
             floating={true}
+            placeholder="Type a message..."
           />
         </ThemeProvider>
         </div>

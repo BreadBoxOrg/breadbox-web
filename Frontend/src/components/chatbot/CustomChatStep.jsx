@@ -24,7 +24,7 @@ class CustomChatStep extends Component {
         const userMessage = this.props.steps.userInput ? this.props.steps.userInput.value : '';
         console.log(trigger, userMessage);
         if (trigger === 'sendFinancialData') {
-            this.sendMessageToBackend("Analyze these financials and give a breakdown and summary of them.", financialDataString);
+            this.sendMessageToBackend("Analyze these financials and give a breakdown and summary of them. Highlight any trends that you see in the data and compare them to other trends to provided better analysis. Send the analysis in markdown language.", financialDataString);
         } else {
             this.sendMessageToBackend(userMessage);
         }
