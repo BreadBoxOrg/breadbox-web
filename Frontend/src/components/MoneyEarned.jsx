@@ -73,7 +73,7 @@ function MoneyEarned() {
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)'
       }}>
         <div style={{
-          borderBottom: '2px solid #2ecc71',
+          borderBottom: '2px solid #1ADBA9',
           paddingBottom: '10px',
           marginBottom: '20px',
           display: 'flex',
@@ -81,7 +81,7 @@ function MoneyEarned() {
           alignItems: 'center'
 
         }}>
-          <Typography variant="h5" sx={{ margin: 0, color: 'white' }}>Money Earned</Typography> {/* slowly changing to MUI styling */}
+          <Typography variant="h5" sx={{ margin: 0, fontSize: '24px', color: 'white' }}>Money Earned</Typography> {/* slowly changing to MUI styling */}
           <div>
             <Button
               aria-controls="simple-menu"
@@ -90,7 +90,7 @@ function MoneyEarned() {
               sx={{
                 backgroundColor: '#2C2C2E', 
                 color: 'white', 
-                border: '1px solid #2ecc71', 
+                border: '1px solid #1ADBA9', 
                 borderRadius: '10px',
                 textTransform: 'none',
                 '&:hover': {

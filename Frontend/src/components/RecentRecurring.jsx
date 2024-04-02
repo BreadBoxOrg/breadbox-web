@@ -72,20 +72,20 @@ function RecentRecurring() {
         zIndex: 3
       }}>
         <div style={{
-          borderBottom: '2px solid #2ecc71',
+          borderBottom: '2px solid #1ADBA9',
           paddingBottom: '10px',
           marginBottom: '20px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <h2 style={{ margin: 0 }}>Recurring Costs</h2>
+          <h2 style={{ margin: 0, fontSize: '24px'}}>Recurring Costs</h2>
           <div style={{ position: 'relative' }}>
             <button onClick={toggleDropdown} style={{
               backgroundColor: '#2C2C2E', 
               color: 'white', 
               padding: '10px 20px', 
-              border: '1px solid #2ecc71',
+              border: '1px solid #1ADBA9',
               borderRadius: '10px',
               cursor: 'pointer',
               fontSize: '16px',
@@ -157,8 +157,8 @@ function RecentRecurring() {
         transform: 'translateX(-50%)',
         padding: '10px 20px',
         borderRadius: '10px',
-        backgroundColor: '#2ecc71',
-        color: 'white',
+        backgroundColor: '#1ADBA9',
+        color: 'black',
         border: 'none',
         cursor: 'pointer',
         fontSize: '16px',
