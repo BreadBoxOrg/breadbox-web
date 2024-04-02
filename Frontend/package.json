@@ -38,7 +38,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "export PORT=$(grep FRONTEND_PORT .env | cut -d '=' -f2) && react-scripts start",
+    "start": "export PORT=${FRONTEND_PORT:-$(grep FRONTEND_PORT .env | cut -d '=' -f2)} && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
