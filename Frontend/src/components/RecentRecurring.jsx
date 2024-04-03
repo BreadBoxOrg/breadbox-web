@@ -16,32 +16,6 @@ function RecentRecurring() {
   // const [transactionData, setTransactionData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
   const { accessToken } = useContext(AccessTokenContext);
 
-  // useEffect(() => {
-  //   async function fetchTransactions() {
-      
-
-  //     const promise = getPlaidTransactions();
-  //     promise.then((transactions) => { 
-  //       // create local transaction object list
-  //       let transactionsDisplayList = [];
-  //       console.log('RECURING_RECENT_DEBUG: CALLED, ' + accessToken);
-  //       //console.log(transactions.recuring_cost);
-  //       // loop through transactions.recuring_costs
-  //       transactions.recuring_cost.forEach( item => {
-  //         // create temp object add name and amount 
-  //         const displayItem = {
-  //           name: item.merchantName,
-  //           value: item.amount
-  //         };
-  //         transactionsDisplayList.push(displayItem);
-  //       });
-
-  //       setTransactionData(transactionsDisplayList);
-  //     }).catch((err) => { 
-  //       console.log(err)});
-
-  //   }
-  //   fetchTransactions();
   const { transactionData } = useContext(DataFetchContext);
 
 
@@ -146,6 +120,8 @@ function RecentRecurring() {
               <Legend
                 layout="vertical"
                 verticalAlign="middle"
+                iconType="circle"
+                iconSize={5}
                 align="right"
                 wrapperStyle={{ paddingLeft: '20px' }}
                 formatter={(value, entry) => {
@@ -191,7 +167,7 @@ const Drawer = ({ isOpen }) => {
         left: 0,
         right: 0,
         transform: isOpen ? 'translateY(0)' : 'translateY(100%)',
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#141516',
         color: 'white',
         transition: 'transform 0.3s ease',
         padding: '20px',
