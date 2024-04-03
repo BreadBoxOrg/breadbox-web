@@ -26,7 +26,7 @@ const theme = createTheme({
               },
             },
             '.MuiDataGrid-columnHeaders': {
-              borderBottom: '2px solid #2ecc71', 
+              borderBottom: '2px solid #1ADBA9', 
               color: 'white',
             },
           },
