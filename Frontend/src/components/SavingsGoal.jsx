@@ -62,7 +62,7 @@ function SavingsGoal() {
   return (
     <ThemeProvider theme={darkTheme}>
       <div style={{
-        backgroundColor: '#1E1E1E',
+        backgroundColor: '#141516',
         padding: '20px',
         borderRadius: '20px',
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',

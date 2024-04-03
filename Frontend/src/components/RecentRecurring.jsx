@@ -29,10 +29,10 @@ function RecentRecurring() {
         });
 
         setTransactionData(transactionsDisplayList);
-      }).catch((err) => { console.log(err)});
+      }).catch((err) => { 
+        console.log(err)});
 
     }
-
     fetchTransactions();
   }, []);
 
@@ -63,7 +63,7 @@ function RecentRecurring() {
       <div style={{
         position: 'relative',
         margin: 'auto',
-        backgroundColor: '#1E1E1E',
+        backgroundColor: '#141516',
         padding: '20px',
         borderRadius: '20px',
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
@@ -157,7 +157,7 @@ function RecentRecurring() {
         left: '50%',
         transform: 'translateX(-50%)',
         padding: '10px 20px',
-        borderRadius: '10px',
+        borderRadius: '20px',
         backgroundColor: '#1ADBA9',
         color: 'black',
         border: 'none',

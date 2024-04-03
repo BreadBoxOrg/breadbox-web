@@ -67,7 +67,7 @@ function MoneyEarned() {
         margin: 'auto',
         padding: '20px',
         borderRadius: '20px',
-        backgroundColor: '#1E1E1E',
+        backgroundColor: '#141516',
         color: 'white',
         paddingBottom: '60px',
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)'
