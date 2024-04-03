@@ -177,10 +177,7 @@ const Settings = () =>{
                             <h2 className=" font-bold text-white text-xl mb-4">General</h2>
                             <ul className="list-none flex flex-col items-center">
                                 <li className='flex items-center gap-10'>
-                                    <AccountDataCSV rerender={rerenderAccounts} onSuccess={handleTransactionRerender}/>
-                                </li>
-                                <li className='mt-5 flex items-center gap-10'>
-                                    <TransactionDataCSV rerender={rerenderTransactions}/>
+                                    <AccountDataCSV rerender={rerenderAccounts}/>
                                 </li>
                             </ul>
                         </div>

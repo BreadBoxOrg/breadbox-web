@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import CsvDownloadButton from 'react-json-to-csv';
 import { getPlaidAccounts } from "../utils/http.js";
+import TransactionDataCSV from "./ExportTranscationsCSV.jsx";
 
-function AccountDataCSV({ rerender, onSuccess }) {
+function AccountDataCSV({ rerender }) {
     const [plaidAccounts, setPlaidAccounts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [fetchCompleted, setFetchCompleted] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
+                setIsLoading(true)
                 const allAccounts = await getPlaidAccounts();
                 const accountList = allAccounts.accounts.map(item => ({
                     name: item.name,
@@ -17,14 +21,16 @@ function AccountDataCSV({ rerender, onSuccess }) {
                     account_type: item.subtype, 
                 }));
                 setPlaidAccounts(accountList);
-                onSuccess();
             } catch (error) {
                 console.error("Error fetching Plaid accounts:", error);
                 // Handle error more gracefully (e.g., display an error message)
+            } finally{
+                setFetchCompleted(true);
+                setIsLoading(false);
             }
         }
         fetchData();
-    }, [rerender, onSuccess]);
+    }, [rerender]);
 
     const buttonStyle = {
         backgroundColor: '#007bff',
@@ -39,12 +45,24 @@ function AccountDataCSV({ rerender, onSuccess }) {
         textAlign: 'center'
     };
 
+    const NoDataOrLoading = {
+        ...buttonStyle,
+        opacity: 0.5 
+    };
+
     return (
         <>
-            {plaidAccounts.length > 0 && (
-                <CsvDownloadButton data={plaidAccounts} filename="account_data" style={buttonStyle}>
-                    Export Account Data
-                </CsvDownloadButton>
+            {isLoading ? (
+                <button style={NoDataOrLoading} disabled>Loading...</button>
+            ) : plaidAccounts.length > 0 ? (
+                <>
+                    <CsvDownloadButton data={plaidAccounts} filename="account_data" style={buttonStyle}>
+                        Export Account Data
+                    </CsvDownloadButton>
+                    <TransactionDataCSV rerender={fetchCompleted} />
+                </>
+            ) : (
+                <button style={NoDataOrLoading} disabled>No Account Data</button>
             )}
         </>
     );

@@ -42,7 +42,10 @@ const onSuccess = async (publicToken) => {
     const data = await response.json();
     console.log('Access Token:', data.access_token);
     // You can now use the access token to make Plaid requests
+    
+    
     props.onSuccess();
+    
   } else {
     console.error('Failed to exchange public token');
   }
