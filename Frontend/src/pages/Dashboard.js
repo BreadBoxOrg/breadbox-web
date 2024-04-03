@@ -62,8 +62,8 @@ function Dashboard() {
 
   const renderWidget = (widgetId) => {
     const widgetClasses = getWidgetClasses(widgetId);
-    const overlayClasses = isEditMode ? 'relative before:absolute before:inset-0 before:bg-gray-500 before:opacity-50 before:rounded-lg' : '';
-    const glowClasses = isEditMode ? 'absolute inset-0 outline-none ring-4 ring-blue-400 ring-opacity-50 rounded-lg animate-pulse-opacity' : '';
+    const overlayClasses = isEditMode ? 'relative before:absolute before:inset-0 before:bg-gray-500 before:opacity-50 before:rounded-2xl' : '';
+    const glowClasses = isEditMode ? 'absolute inset-0 outline-none ring-4 ring-blue-400 ring-opacity-50 rounded-2xl animate-pulse-opacity' : '';
 
     switch (widgetId) {
       case 'moneyEarned':
