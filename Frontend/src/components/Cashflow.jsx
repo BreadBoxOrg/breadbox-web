@@ -14,7 +14,7 @@ function CashFlow() {
 
   return (
     <div style={{
-      backgroundColor: '#1E1E1E', 
+      backgroundColor: '#141516', 
       padding: '20px', 
       borderRadius: '20px', 
       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
@@ -22,14 +22,14 @@ function CashFlow() {
       position: 'relative' 
     }}>
       <div style={{
-        borderBottom: '2px solid #2ecc71',
+        borderBottom: '2px solid #1ADBA9',
         paddingBottom: '10px',
         marginBottom: '20px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <h2 style={{ margin: 0}}>Cash Flow</h2>
+        <h2 style={{ margin: 0,  fontSize: '24px'}}>Cash Flow</h2>
         <div style={{ position: 'relative' }}> 
         </div>
       </div>
@@ -43,7 +43,7 @@ function CashFlow() {
                 <stop offset="95%" stopColor="#2ecc71" stopOpacity={0}/>
               </linearGradient>
               <linearGradient id="colorD" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#c0392b" stopOpacity={0.8}/>
+                <stop offset="5%" stopColor="red" stopOpacity={0.8}/>
                 <stop offset="95%" stopColor="#c0392b" stopOpacity={0}/>
               </linearGradient>
             </defs>
