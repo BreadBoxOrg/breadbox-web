@@ -127,7 +127,7 @@ function Dashboard() {
           <p className="text-[#8f8f8f]">{formattedDate}</p>
           <div className="flex justify-end">
           <button
-  className="hidden md:block bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
+  className="hidden md:block bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded-xl"
   onClick={() => setIsEditMode(!isEditMode)}
 >
   {isEditMode ? 'Save' : 'Edit'}
