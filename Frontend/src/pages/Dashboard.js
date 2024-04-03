@@ -10,6 +10,9 @@ import Crypto from '../components/Crypto.jsx';
 import Networth from '../components/Networth.jsx';
 import SavingsGoal from '../components/SavingsGoal.jsx';
 import CashFlow from '../components/Cashflow.jsx';
+import { AccessTokenContext } from "../App";
+import { useContext } from "react";
+
 
 function Dashboard() {
   const [items, setItems] = useState(() => {
@@ -18,10 +21,11 @@ function Dashboard() {
   });
   const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor));
   const [isEditMode, setIsEditMode] = useState(false);
+  const { accessToken } = useContext(AccessTokenContext);
 
   useEffect(() => {
     localStorage.setItem('dashboardItems', JSON.stringify(items));
-  }, [items]);
+  }, [items, accessToken]);
 
   const handleDragEnd = (event) => {
     const { active, over } = event;

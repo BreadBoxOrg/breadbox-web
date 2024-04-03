@@ -34,7 +34,7 @@ async function getPlaidRecurringIncome() {
     } catch (err) {
         console.error(err);
     }
-}
+} 
 
 async function getPlaidMonthlyIncome(date) {
     try { 

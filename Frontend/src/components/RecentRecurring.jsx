@@ -3,38 +3,47 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recha
 import Transactions from './Transactions';
 // import { RecentRecurringMockData as data } from './mock_data/mockData';
 import { getPlaidTransactions } from '../utils/http';
+import { AccessTokenContext } from "../App";
+import { useContext } from "react";
+import { DataFetchContext } from '../context/DataFetchContext';
+
 
 
 function RecentRecurring() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [drawerOpen, setDrawerOpen] = useState(true); // fix it to use false, right now true = closed, false = open smh
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [transactionData, setTransactionData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
+  // const [transactionData, setTransactionData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
+  const { accessToken } = useContext(AccessTokenContext);
 
-  useEffect(() => {
-    async function fetchTransactions() {
-      const promise = getPlaidTransactions();
-      promise.then((transactions) => { 
-        // create local transaction object list
-        let transactionsDisplayList = [];
-        console.log(transactions.recuring_cost);
-        // loop through transactions.recuring_costs
-        transactions.recuring_cost.forEach( item => {
-          // create temp object add name and amount 
-          const displayItem = {
-            name: item.merchantName,
-            value: item.amount
-          };
-          transactionsDisplayList.push(displayItem);
-        });
+  // useEffect(() => {
+  //   async function fetchTransactions() {
+      
 
-        setTransactionData(transactionsDisplayList);
-      }).catch((err) => { 
-        console.log(err)});
+  //     const promise = getPlaidTransactions();
+  //     promise.then((transactions) => { 
+  //       // create local transaction object list
+  //       let transactionsDisplayList = [];
+  //       console.log('RECURING_RECENT_DEBUG: CALLED, ' + accessToken);
+  //       //console.log(transactions.recuring_cost);
+  //       // loop through transactions.recuring_costs
+  //       transactions.recuring_cost.forEach( item => {
+  //         // create temp object add name and amount 
+  //         const displayItem = {
+  //           name: item.merchantName,
+  //           value: item.amount
+  //         };
+  //         transactionsDisplayList.push(displayItem);
+  //       });
 
-    }
-    fetchTransactions();
-  }, []);
+  //       setTransactionData(transactionsDisplayList);
+  //     }).catch((err) => { 
+  //       console.log(err)});
+
+  //   }
+  //   fetchTransactions();
+  const { transactionData } = useContext(DataFetchContext);
+
 
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
