@@ -121,7 +121,7 @@ function RecentRecurring() {
                 layout="vertical"
                 verticalAlign="middle"
                 iconType="circle"
-                iconSize={5}
+                iconSize={8}
                 align="right"
                 wrapperStyle={{ paddingLeft: '20px' }}
                 formatter={(value, entry) => {
