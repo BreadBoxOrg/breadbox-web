@@ -3,51 +3,72 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Button, Menu, MenuItem, Paper, Typography } from '@mui/material';
 import { getPlaidMonthlyIncome } from '../utils/http';
 // import { MoneyEarnedMockData as data } from './mock_data/mockData';
+import { AccessTokenContext } from "../App";
+import { useContext } from "react";
+import { DataFetchContext } from '../context/DataFetchContext';
 
 function MoneyEarned() {
   const [anchorEl, setAnchorEl] = useState(null); // dropdown from MUI
   const [selectedOption, setSelectedOption] = useState("Monthly");
 
-  const [incomeData, setIncomeData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
+  // const [incomeData, setIncomeData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
+  const { accessToken } = useContext(AccessTokenContext);
+  const { incomeData } = useContext(DataFetchContext);
 
-  useEffect(() => {
-    async function fetchIncome() {
+  // useEffect(() => {
+  //   // let isMounted = true;
+
+  //   // async function fetchIncome() {
       
-      const promise = getPlaidMonthlyIncome("2024-01-20");
-      promise.then((income) => { 
-        // create local transaction object list
-        let incomeDisplayList = [];
-        console.log("DEBUG_INCOME: " + income.monthly_break_down);
-        console.log("DEBUG_INCOME: " + income.yearly_total);
-        console.log("DEBUG_INCOME: " + income.error);
-        // loop through transactions.recuring_costs
-        const monthNames = [
-          "January", "February", "March", 
-          "April", "May", "June", 
-          "July", "August", "September", 
-          "October", "November", "December"
-        ];
+  //   //   const promise = getPlaidMonthlyIncome("2024-01-20");
+  //   //   promise.then((income) => { 
+  //   //     if (isMounted) {
+  //   //         // create local transaction object list
+  //   //       let incomeDisplayList = [];
+  //   //       // console.log("DEBUG_INCOME: " + income.monthly_break_down);
+  //   //       // console.log("DEBUG_INCOME: " + income.yearly_total);
+  //   //       // console.log("DEBUG_INCOME: " + income.error);
+  //   //       // loop through transactions.recuring_costs
+  //   //       const monthNames = [
+  //   //         "January", "February", "March", 
+  //   //         "April", "May", "June", 
+  //   //         "July", "August", "September", 
+  //   //         "October", "November", "December"
+  //   //       ];
+          
+  //   //       for(let i = 0; i < 6; i++) {
+  //   //         // create temp object add name and amount 
+  //   //         let item = income.monthly_break_down[i];
+  //   //         console.log(item);
+  //   //         let displayMonth = monthNames[item.month-1];
+  //   //         let integerAmount =  Math.floor(item.income);          
+  //   //         console.log(integerAmount);
+  //   //         const displayItem = {
+  //   //           name: displayMonth,
+  //   //           amt: integerAmount    
+  //   //         };
+          
+  //   //         incomeDisplayList.push(displayItem);
+            
+  //   //       }
         
-        for(let i = 0; i < 6; i++) {
-          // create temp object add name and amount 
-          let item = income.monthly_break_down[i];
-          console.log(item);
-          let displayMonth = monthNames[item.month-1];
-          let integerAmount =  Math.floor(item.income);          
-          console.log(integerAmount);
-          const displayItem = {
-            name: displayMonth,
-            amt: integerAmount    
-          };
-          incomeDisplayList.push(displayItem);
-        }
+  //   //       setIncomeData(incomeDisplayList);
+  //   //     }
+  //   //   }).catch((err) => { 
+  //   //     if (isMounted) {
+  //   //       console.log("in is mounted catch error: " + err);
+  //   //       // Handle error state in UI if needed
+  //   //     }
+  //   //     });
 
-        setIncomeData(incomeDisplayList);
-      }).catch((err) => { console.log(err)});
+  //   // }
+  //   // fetchIncome();
 
-    }
-    fetchIncome();
-  }, []);
+  //   return () => {
+  //     // console.log('IsMounted' + isMounted);
+  //     // isMounted = false; // Set flag to false when component unmounts
+  //   };
+  // }, [accessToken]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

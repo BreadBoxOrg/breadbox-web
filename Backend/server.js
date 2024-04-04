@@ -2,10 +2,19 @@
 
 // instantiates express
 require('dotenv').config();
+const mongoose = require("mongoose");
 const express = require('express');
 const AppError = require('./middleware/appError')
 const globalErrorhandler = require('./middleware/errorHandler');
 const {createToken, exchangeToken, getTransactions, getBalance, getAccounts} = require('./api/plaid/link-controller')
+
+const uri = process.env.MONGO_URL; //connect to mongo
+console.log(uri);
+mongoose.connect(uri).then(con => {
+    console.log(con.connections);
+    console.log('DB connection successful!')
+});
+
 
 
 const app = express();
