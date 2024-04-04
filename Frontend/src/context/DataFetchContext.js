@@ -103,19 +103,19 @@ export const DataFetchProvider = ({ children }) => {
           ];
           
           for(let i = 0; i < 6; i++) {
-            // create temp object add name and amount 
             let item = income.monthly_break_down[i];
-            console.log(item);
-            let displayMonth = monthNames[item.month-1];
-            let integerAmount =  Math.floor(item.income);          
-            console.log(integerAmount);
-            const displayItem = {
-              name: displayMonth,
-              amt: integerAmount    
-            };
+            if (item) { // Check if item is not undefined or null
+              console.log(item);
+              let displayMonth = monthNames[item.month-1];
+              let integerAmount =  Math.floor(item.income);          
+              console.log(integerAmount);
+              const displayItem = {
+                name: displayMonth,
+                amt: integerAmount    
+              };
           
-            incomeDisplayList.push(displayItem);
-            
+              incomeDisplayList.push(displayItem);
+            }
           }
         
           setIncomeData(incomeDisplayList);
