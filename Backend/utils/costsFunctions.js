@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 costModel = require('../models/costs-schema');
-const uri = process.env.MONGODB_URL;
+const uri = process.env.MONGO_URL;
 // client config options 
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 

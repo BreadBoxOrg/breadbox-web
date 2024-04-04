@@ -8,7 +8,7 @@ require('dotenv').config();
 // db connection for mongodb without mongoose
 
 
-const uri = process.env.MONGODB_URL;
+const uri = process.env.MONGO_URL;
 // client config options 
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
