@@ -107,18 +107,20 @@ export const DataFetchProvider = ({ children }) => {
           ];
           
           for(let i = 0; i < 6; i++) {
-            let item = income.monthly_break_down[i];
-            if (item) { // Check if item is not undefined or null
-              console.log(item);
-              let displayMonth = monthNames[item.month-1];
-              let integerAmount =  Math.floor(item.income);          
-              console.log(integerAmount);
-              const displayItem = {
-                name: displayMonth,
-                amt: integerAmount    
-              };
+            if (income.monthly_break_down) { // Check if income.monthly_break_down is not undefined
+              let item = income.monthly_break_down[i];
+              if (item) { // Check if item is not undefined or null
+                console.log(item);
+                let displayMonth = monthNames[item.month-1];
+                let integerAmount =  Math.floor(item.income);          
+                console.log(integerAmount);
+                const displayItem = {
+                  name: displayMonth,
+                  amt: integerAmount    
+                };
           
-              incomeDisplayList.push(displayItem);
+                incomeDisplayList.push(displayItem);
+              }
             }
           }
         
