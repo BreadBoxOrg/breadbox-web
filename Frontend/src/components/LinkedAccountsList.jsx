@@ -3,7 +3,7 @@ import { getPlaidAccounts } from '../utils/http.js';
 import Popup from "reactjs-popup";
 import ClearIcon from '@mui/icons-material/Clear';
 
-function AccountList() {
+function AccountList({ rerender }) {
     const [accounts, setAccounts] = useState([]);
     const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
 
@@ -22,7 +22,7 @@ function AccountList() {
             }
         }
         fetchAccounts();
-    }, []);
+    }, [rerender]);
 
     const handleRemoveAccount = (removeIndex) => {
         setConfirmDeleteIndex(removeIndex);

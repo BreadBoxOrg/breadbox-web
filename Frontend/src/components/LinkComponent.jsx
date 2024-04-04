@@ -5,7 +5,7 @@ import PlaidLogo from "../images/Plaid_Logo.png"
 import { AccessTokenContext } from "../App";
 import { useContext } from "react";
 
-const LinkComponent = () => {
+const LinkComponent = (props) => {
 const [linkToken, setLinkToken] = useState(null);
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 const { setAccessToken } = useContext(AccessTokenContext);
@@ -48,7 +48,7 @@ const onSuccess = async (publicToken) => {
     console.log('Access Token:', data.access_token);
     // You can now use the access token to make Plaid requests
     setAccessToken(data.accessToken);
-    window.location.reload();
+    props.onSuccess();
   } else {
     console.error('Failed to exchange public token');
   }

@@ -11,10 +11,11 @@ import { userInfo } from '../components/mock_data/mockData.js';
 import LinkComponent from '../components/LinkComponent.jsx';
 import AccountList from '../components/LinkedAccountsList.jsx';
 import AccountDataCSV from '../components/ExportAccountsCSV.jsx';
-import TransactionDataCSV from '../components/ExportTranscationsCSV.jsx';
 import ProfilePicChange from '../components/ProfilePic.jsx';
 
 const Settings = () =>{
+
+    const [rerenderSettings, setRerenderSettings] = useState(false);
 
     const [selectedNotificationWhen, setNotificationWhen] = useState('');
 
@@ -57,6 +58,10 @@ const Settings = () =>{
 
     const handleNotificationWhenChange = (selectedOption) => {
         setNotificationWhen(selectedOption.value);
+    };
+
+    const handleAccountsRerender = () => {
+        setRerenderSettings(prevState => !prevState);
     };
 
     /*const [accounts, setAccounts] = useState([]);
@@ -158,15 +163,17 @@ const Settings = () =>{
                         </div>
                         <div className="bg-[#141516] rounded-2xl p-4">
                             <span className='text-xl'>Linked Accounts</span>
-                            <LinkComponent />
-                            <AccountList />
+                            <LinkComponent onSuccess={handleAccountsRerender}/>
+                            <AccountList rerender={rerenderSettings}/>
                         </div>
                     </div>
                     <div className="bg-[#141516] rounded-2xl p-4 mt-6 sm:mt-0">
                         <div className="mb-6">
                             <h2 className=" font-bold text-white text-xl mb-4">General</h2>
                             <ul className="list-none flex flex-col items-center">
-                                <li className='flex items-center gap-10'><AccountDataCSV /><TransactionDataCSV /></li>
+                                <li className='flex items-center gap-10'>
+                                    <AccountDataCSV rerender={rerenderSettings}/>
+                                </li>
                             </ul>
                         </div>
                         <div className="notifications">
