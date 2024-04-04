@@ -22,15 +22,16 @@ export const DataFetchProvider = ({ children }) => {
       /**************************************************************************** */
         //transactions data
       /**************************************************************************** */
-      // Process transactions data
       let transactionsDisplayList = [];
-      transactions.recuring_cost.forEach((item) => {
-        const displayItem = {
-          name: item.merchantName,
-          value: item.amount,
-        };
-        transactionsDisplayList.push(displayItem);
-      });
+      if (transactions.recuring_cost) {
+        transactions.recuring_cost.forEach((item) => {
+          const displayItem = {
+            name: item.merchantName,
+            value: item.amount,
+          };
+          transactionsDisplayList.push(displayItem);
+        });
+      }
       setTransactionData(transactionsDisplayList);
 
       /**************************************************************************** */
@@ -40,17 +41,20 @@ export const DataFetchProvider = ({ children }) => {
       //dropdown information
       let dropDownDisplayList = [];
       let i = 1;
-      transactions.one_time_cost.forEach( item => {
-        console.log(item);
-        const displayItem = {
-          id: i,
-          title: item.accountId.merchantName,
-          date: item.accountId.date,
-          amount: item.accountId.amount
-        };
-        i++;
-        dropDownDisplayList.push(displayItem);
-      });
+      if (transactions.one_time_cost) {
+        transactions.one_time_cost.forEach( item => {
+          console.log(item);
+          const displayItem = {
+            id: i,
+            title: item.accountId.merchantName,
+            date: item.accountId.date,
+            amount: item.accountId.amount
+          };
+          i++;
+          dropDownDisplayList.push(displayItem);
+        });
+      }
+      setDropdowndata(dropDownDisplayList);
       setDropdowndata(dropDownDisplayList);
 
       /**************************************************************************** */
