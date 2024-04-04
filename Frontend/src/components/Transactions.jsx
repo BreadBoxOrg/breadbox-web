@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import { getPlaidTransactions } from '../utils/http';
+// import { getPlaidTransactions } from '../utils/http';
+import { useContext } from "react";
+import { DataFetchContext } from '../context/DataFetchContext';
 
 
 const theme = createTheme({
@@ -24,7 +26,7 @@ const theme = createTheme({
               },
             },
             '.MuiDataGrid-columnHeaders': {
-              borderBottom: '2px solid #2ecc71', 
+              borderBottom: '2px solid #1ADBA9', 
               color: 'white',
             },
           },
@@ -86,47 +88,18 @@ const columns = [
 
 const Transactions = () => {
 
-  const [transactionData, setTransactionData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
+  // const [transactionData, setTransactionData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
+  const { dropdownData } = useContext(DataFetchContext);
 
-  useEffect(() => {
-    async function fetchTransactions() {
-      const promise = getPlaidTransactions();
-      promise.then((transactions) => { 
-        // create local transaction object list
-        let transactionsDisplayList = [];
-        console.log("ONE TIME COST ARRAY:", transactions.one_time_cost);
-        // loop through transactions.recuring_costs
-        let i = 1;
-        transactions.one_time_cost.forEach( item => {
-          // create temp object add name and amount 
-          console.log(item);
-          const displayItem = {
-            id: i,
-            title: item.accountId.merchantName,
-            date: item.accountId.date,
-            amount: item.accountId.amount
-          };
-          i++;
-          console.log("DISPLAY ITEM:", displayItem);
-          transactionsDisplayList.push(displayItem);
-        });
-
-        setTransactionData(transactionsDisplayList);
-      }).catch((err) => { console.log(err)});
-
-    }
-
-    fetchTransactions();
-  }, []);
 
     return (
       <ThemeProvider theme={theme}>
-        <div style={{ height: '300px', width: '100%', backgroundColor: '#1E1E1E'}}>
+        <div style={{ height: '300px', width: '100%', backgroundColor: '#141516'}}>
           <Typography variant="h6" component="div" style={{ color: 'white'}}>
             Recent Transactions
           </Typography>
           <DataGrid
-            rows={transactionData}
+            rows={dropdownData}
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}

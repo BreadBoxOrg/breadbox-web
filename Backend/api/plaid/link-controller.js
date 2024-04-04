@@ -9,6 +9,8 @@ const cors = require('cors');
 const AppError = require('../../middleware/appError');
 const Transaction = require('../../utils/transaction');
 const TransactionRecuring = require('../../utils/transactionRecurring');
+let User = require('../../models/user-schema');
+const { access } = require('fs');
 
 const PLAID_CLIENT_ID = process.env.PLAID_CLIENT_ID;
 const PLAID_SECRET = process.env.PLAID_SECRET;
@@ -18,11 +20,11 @@ const PLAID_PRODUCTS = (process.env.PLAID_PRODUCTS || Products.Transactions).spl
     ',',
   );
 
-  console.log("Plaid Client ID:", PLAID_CLIENT_ID);
-  console.log("Plaid Secret:", PLAID_SECRET);
-  console.log("Plaid Environment:", PLAID_ENV);
-  console.log("Plaid Country Codes:", PLAID_COUNTRY_CODES);
-  console.log("Plaid Products:", PLAID_PRODUCTS);
+  // console.log("Plaid Client ID:", PLAID_CLIENT_ID);
+  // console.log("Plaid Secret:", PLAID_SECRET);
+  // console.log("Plaid Environment:", PLAID_ENV);
+  // console.log("Plaid Country Codes:", PLAID_COUNTRY_CODES);
+  // console.log("Plaid Products:", PLAID_PRODUCTS);
   
 const PLAID_REDIRECT_URI = process.env.PLAID_REDIRECT_URI || '';
 
@@ -37,7 +39,7 @@ const configuration = new Configuration({
     },
   });
 
-  console.log("Configuration:", configuration);
+  // console.log("Configuration:", configuration);
 
 const client = new PlaidApi(configuration);
 
@@ -75,9 +77,9 @@ const createToken = async (req, res, next) => {
           "client_id": PLAID_CLIENT_ID,
           "secret": PLAID_SECRET,
         };
-        console.log("------------------------------------------------------------");
-        console.log("Link Configs:", configs);
-        console.log("------------------------------------------------------------");
+        // console.log("------------------------------------------------------------");
+        // console.log("Link Configs:", configs);
+        // console.log("------------------------------------------------------------");
         if (PLAID_REDIRECT_URI !== '') {
           configs.redirect_uri = PLAID_REDIRECT_URI;
         }
@@ -85,7 +87,7 @@ const createToken = async (req, res, next) => {
         try {
           createTokenResponse = await client.linkTokenCreate(configs);
           res.status(200).json(createTokenResponse.data);
-        console.log("Create Token Response:", createTokenResponse);
+        // console.log("Create Token Response:", createTokenResponse);
         } catch (error) { 
           console.log("CREATE_TOKEN_DEBUG:", error);
           return next(new AppError('Could not generate token response'));
@@ -108,12 +110,23 @@ const createToken = async (req, res, next) => {
       // These values should be saved to a persistent database and
       // associated with the currently signed-in user
       const accessToken = tokenResponse.data.access_token;
+
+      // save token to database user
+      // (TODO: ) adjust so its no longer hardcoded to a particular user
+      let user = await User.create({
+        id: 1,
+        token: accessToken});
+      // user.token = accessToken;
+      user.save()
+      .then(doc => console.log('Document saved:', doc))
+      .catch(err => console.error('Error saving document:', err));
+      
       ACCESS_TOKEN = accessToken;
       const itemID = tokenResponse.data.item_id;
-      console.log('-------------------------------------------------------------------');
-      console.log(accessToken);
-      console.log(itemID);
-      console.log('-------------------------------------------------------------------');
+      // console.log('-------------------------------------------------------------------');
+      // console.log(accessToken);
+      // console.log(itemID);
+      // console.log('-------------------------------------------------------------------');
       res.status(200).json({ public_token_exchange: 'complete' });
     } catch (error) {
       console.log("Error:", error);
@@ -127,17 +140,23 @@ const plaidGetTransactions = async (req, res, next) => {
       .then(async function () {
         // Set cursor to empty to receive all historical updates
         let cursor = null;
-        console.log('ACCESS_TOKEN_DEBUG: ' + ACCESS_TOKEN);
+        // console.log('ACCESS_TOKEN_DEBUG: ' + ACCESS_TOKEN);
         // New transaction updates since "cursor"
         let added = [];
         let modified = [];
         // Removed transaction ids
         let removed = [];
         let hasMore = true;
+        
+
+        // Get the access token from the user
+        let user = await User.findOne({id: 1});
+        let accessToken = user.token;
+        
         // Iterate through each page of new transaction updates for item
         while (hasMore) {
           const req = {
-            access_token: ACCESS_TOKEN,
+            access_token: accessToken,
             cursor: cursor,
           };
           try {
@@ -185,7 +204,7 @@ const plaidGetTransactions = async (req, res, next) => {
         });
 
         req = {
-          access_token: ACCESS_TOKEN,
+          access_token: accessToken,
         };
         let transactionRecuringList = [];
         try {
@@ -193,12 +212,12 @@ const plaidGetTransactions = async (req, res, next) => {
           const response = await client.transactionsRecurringGet(req);
           let inflowStreams = response.data.inflow_streams;
           let outflowStreams = response.data.outflow_streams;
-          console.log(`out----------------------------------------------------------->`);
+          // console.log(`out----------------------------------------------------------->`);
           console.log(outflowStreams);
 
          
           outflowStreams.forEach(outflowTransactions => {
-          console.log(`OUTFLOW: ${outflowTransactions}`);
+          // console.log(`OUTFLOW: ${outflowTransactions}`);
           let name = outflowTransactions.merchant_name;
           console.log("NAME_DEBUG1 " + name);
           if (name === "") {
@@ -238,9 +257,12 @@ const plaidGetTransactions = async (req, res, next) => {
 // gets the entire income stream no restraints 
 const plaidGetIncomeStream = async (req, res, next) => {
   let inFlowTransactionList = [];
+  // (TODO: REPLACE)   
+  let user = await User.findOne({id: 1});
+  let accessToken = user.token;
   try {
     req = {
-      access_token: ACCESS_TOKEN,
+      access_token: accessToken,
     };
     const response = await client.transactionsRecurringGet(req);
     let inflowStreams = response.data.inflow_streams;
@@ -257,7 +279,7 @@ const plaidGetIncomeStream = async (req, res, next) => {
       if (name === "") {
         name = inFlowTransaction.category[0];
       }
-      console.log(inFlowTransaction.last_amount.amount);
+      // console.log(inFlowTransaction.last_amount.amount);
       let breadboxInFlowTransactionRecuring = new TransactionRecuring({
         accountId: inFlowTransaction.account_id,
         amount: inFlowTransaction.last_amount.amount,
@@ -282,10 +304,13 @@ const plaidGetIncomeStream = async (req, res, next) => {
 const plaidGetBalance = async (req, res, next ) => {
     Promise.resolve()
         .then(async function () {
+            // (TODO: REPLACE)   
+            let user = await User.findOne({id: 1});
+            let accessToken = user.token;
             const balanceResponse = await client.accountsBalanceGet({
-            access_token: ACCESS_TOKEN,
+            access_token: accessToken,
             });
-            console.log(balanceResponse);
+            // console.log(balanceResponse);
             res.status(200).json(balanceResponse.data);
         })
         .catch(next);
@@ -295,6 +320,9 @@ const plaidGetBalance = async (req, res, next ) => {
 // gets the combined income for a certain month and year 
 const getIncomeForMonth = async (date) => {
   try {
+    // (TODO: REPLACE)   
+    let user = await User.findOne({id: 1});
+    const accessToken = user.token;
     // Accessing the JSON data from the request
     let monthTotal = 0; // Initialize monthTotal
     const searchYear = parseInt(date.substring(0, 4), 10);
@@ -304,11 +332,13 @@ const getIncomeForMonth = async (date) => {
     const compareTxnsByDateAscending = (a, b) => (new Date(a.date) - new Date(b.date));
 
     try {
-      const response = await client.transactionsRecurringGet({ access_token: ACCESS_TOKEN });
+      
+      const response = await client.transactionsRecurringGet({ access_token: accessToken });
       let inflowStreams = response.data.inflow_streams;
 
       // Filter and process inflow streams
       inflowStreams.forEach(inFlowTransaction => {
+        
         let transactionYear = new Date(inFlowTransaction.first_date).getFullYear();
         let transactionMonth = new Date(inFlowTransaction.first_date).getMonth() + 1; // getMonth() is 0-indexed
         if (transactionYear === searchYear && transactionMonth === searchMonth) {
@@ -317,7 +347,7 @@ const getIncomeForMonth = async (date) => {
       });
 
       // Filter one-time transactions for the specific month
-      const filteredTransactions = (await client.transactionsSync({ access_token: ACCESS_TOKEN })).data.added
+      const filteredTransactions = (await client.transactionsSync({ access_token: accessToken })).data.added
         .filter(txn => {
           const txnDate = new Date(txn.date);
           return txnDate.getFullYear() === searchYear && txnDate.getMonth() + 1 === searchMonth;
@@ -343,17 +373,24 @@ const getIncomeForMonth = async (date) => {
 }
 
 const plaidGetTotalMonthlyIncome = async (req, res, next) => {
+  
   const date = req.body.date;
   const searchYear = parseInt(date.substring(0, 4), 10); // Extract year
   const MONTHS = 12;
+  
   let monthlyIncomes = [];
   let totalAmountYear = 0;
+  
   try {
+    
     for (let i = 0; i < MONTHS; i++) {
+      
       let dateObject = new Date(searchYear, i, 1); // Set to first day of each month
       let dateString = `${dateObject.getFullYear()}-${String(dateObject.getMonth() + 1).padStart(2, '0')}-01`;
       let incomeForMonth = await getIncomeForMonth(dateString);
+      
       totalAmountYear += incomeForMonth.totalIncomeForMonth;
+      
       monthlyIncomes.push({
         month: i + 1,
         year: incomeForMonth.year,
@@ -373,10 +410,14 @@ const plaidGetTotalMonthlyIncome = async (req, res, next) => {
 const plaidGetAccounts = (req, res, next ) => {
     Promise.resolve()
         .then(async function () {
+
+            // (TODO: REPLACE)          
+            let user = await User.findOne({id: 1});
+            let accessToken = user.token;
             const balanceResponse = await client.accountsBalanceGet({
-            access_token: ACCESS_TOKEN,
+            access_token: accessToken,
             });
-            console.log(balanceResponse);
+            // console.log(balanceResponse);
             res.json(balanceResponse.data);
         })
         .catch(next);
@@ -386,7 +427,7 @@ const plaidGetCategories = (req, res, next) => {
   Promise.resolve()
       .then(async function () {
           const categoriesResponse = await client.categoriesGet({});
-          console.log(categoriesResponse);
+          // console.log(categoriesResponse);
           res.json(categoriesResponse.data);
       })
       .catch(next);
