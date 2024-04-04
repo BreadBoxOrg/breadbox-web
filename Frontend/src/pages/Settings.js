@@ -11,13 +11,11 @@ import { userInfo } from '../components/mock_data/mockData.js';
 import LinkComponent from '../components/LinkComponent.jsx';
 import AccountList from '../components/LinkedAccountsList.jsx';
 import AccountDataCSV from '../components/ExportAccountsCSV.jsx';
-import TransactionDataCSV from '../components/ExportTranscationsCSV.jsx';
 import ProfilePicChange from '../components/ProfilePic.jsx';
 
 const Settings = () =>{
 
-    const [rerenderAccounts, setRerenderAccounts] = useState(false);
-    const [rerenderTransactions, setRerenderTransaction] = useState(false);
+    const [rerenderSettings, setRerenderSettings] = useState(false);
 
     const [selectedNotificationWhen, setNotificationWhen] = useState('');
 
@@ -63,11 +61,8 @@ const Settings = () =>{
     };
 
     const handleAccountsRerender = () => {
-        setRerenderAccounts(prevState => !prevState);
+        setRerenderSettings(prevState => !prevState);
     };
-    const handleTransactionRerender = () => {
-        setRerenderTransaction(prevState => !prevState);
-    }
 
     /*const [accounts, setAccounts] = useState([]);
     const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
@@ -169,7 +164,7 @@ const Settings = () =>{
                         <div className="bg-[#141516] rounded-2xl p-4">
                             <span className='text-xl'>Linked Accounts</span>
                             <LinkComponent onSuccess={handleAccountsRerender}/>
-                            <AccountList rerender={rerenderAccounts}/>
+                            <AccountList rerender={rerenderSettings}/>
                         </div>
                     </div>
                     <div className="bg-[#141516] rounded-2xl p-4 mt-6 sm:mt-0">
@@ -177,7 +172,7 @@ const Settings = () =>{
                             <h2 className=" font-bold text-white text-xl mb-4">General</h2>
                             <ul className="list-none flex flex-col items-center">
                                 <li className='flex items-center gap-10'>
-                                    <AccountDataCSV rerender={rerenderAccounts}/>
+                                    <AccountDataCSV rerender={rerenderSettings}/>
                                 </li>
                             </ul>
                         </div>
