@@ -22,15 +22,16 @@ export const DataFetchProvider = ({ children }) => {
       /**************************************************************************** */
         //transactions data
       /**************************************************************************** */
-      // Process transactions data
       let transactionsDisplayList = [];
-      transactions.recuring_cost.forEach((item) => {
-        const displayItem = {
-          name: item.merchantName,
-          value: item.amount,
-        };
-        transactionsDisplayList.push(displayItem);
-      });
+      if (transactions.recuring_cost) {
+        transactions.recuring_cost.forEach((item) => {
+          const displayItem = {
+            name: item.merchantName,
+            value: item.amount,
+          };
+          transactionsDisplayList.push(displayItem);
+        });
+      }
       setTransactionData(transactionsDisplayList);
 
       /**************************************************************************** */
@@ -40,17 +41,20 @@ export const DataFetchProvider = ({ children }) => {
       //dropdown information
       let dropDownDisplayList = [];
       let i = 1;
-      transactions.one_time_cost.forEach( item => {
-        console.log(item);
-        const displayItem = {
-          id: i,
-          title: item.accountId.merchantName,
-          date: item.accountId.date,
-          amount: item.accountId.amount
-        };
-        i++;
-        dropDownDisplayList.push(displayItem);
-      });
+      if (transactions.one_time_cost) {
+        transactions.one_time_cost.forEach( item => {
+          console.log(item);
+          const displayItem = {
+            id: i,
+            title: item.accountId.merchantName,
+            date: item.accountId.date,
+            amount: item.accountId.amount
+          };
+          i++;
+          dropDownDisplayList.push(displayItem);
+        });
+      }
+      setDropdowndata(dropDownDisplayList);
       setDropdowndata(dropDownDisplayList);
 
       /**************************************************************************** */
@@ -103,19 +107,19 @@ export const DataFetchProvider = ({ children }) => {
           ];
           
           for(let i = 0; i < 6; i++) {
-            // create temp object add name and amount 
             let item = income.monthly_break_down[i];
-            console.log(item);
-            let displayMonth = monthNames[item.month-1];
-            let integerAmount =  Math.floor(item.income);          
-            console.log(integerAmount);
-            const displayItem = {
-              name: displayMonth,
-              amt: integerAmount    
-            };
+            if (item) { // Check if item is not undefined or null
+              console.log(item);
+              let displayMonth = monthNames[item.month-1];
+              let integerAmount =  Math.floor(item.income);          
+              console.log(integerAmount);
+              const displayItem = {
+                name: displayMonth,
+                amt: integerAmount    
+              };
           
-            incomeDisplayList.push(displayItem);
-            
+              incomeDisplayList.push(displayItem);
+            }
           }
         
           setIncomeData(incomeDisplayList);
