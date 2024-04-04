@@ -55,7 +55,6 @@ export const DataFetchProvider = ({ children }) => {
         });
       }
       setDropdowndata(dropDownDisplayList);
-      setDropdowndata(dropDownDisplayList);
 
       /**************************************************************************** */
         //income data
@@ -123,7 +122,6 @@ export const DataFetchProvider = ({ children }) => {
               }
             }
           }
-        
           setIncomeData(incomeDisplayList);
     }
 
