@@ -47,7 +47,8 @@ function TransactionDataCSV ({ rerender }) {
 
     const NoDataOrLoading = {
         ...buttonStyle,
-        opacity: 0.5 
+        opacity: 0.5, 
+        cursor: 'auto' 
     };
 
     return (
