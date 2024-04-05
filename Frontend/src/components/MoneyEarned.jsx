@@ -157,7 +157,11 @@ function MoneyEarned() {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="amt" fill="#8884d8" />
+              <Bar 
+              dataKey="amt" 
+              fill="#8884d8"
+              radius={[15, 15, 0, 0]} 
+              />
             </BarChart>
           </ResponsiveContainer>
         </div>
