@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, Cell } from 'recharts';
+import { BarChart, Bar, Cell, ReferenceLine} from 'recharts';
 import { getPlaidTransactions } from '../utils/http';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -98,12 +98,14 @@ const ExpensesList = () => {
         barGap={2}
         barSize={50}
       >
+        <ReferenceLine y={0} stroke="white" />
         <Bar
           dataKey="total"
           fill="#1ADBA9"
           onClick={(data) => setActiveIndex(data.index)}
           onMouseOver={(data, index) => setHoveredBarIndex(index)}
           onMouseOut={() => setHoveredBarIndex(-1)}
+          radius={[15, 15, 0, 0]}
         >
           {dataForChart.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={index === activeIndex ? '#76b2ff' : index === hoveredBarIndex ? '#76b2ff' : '#104fe1'} />
