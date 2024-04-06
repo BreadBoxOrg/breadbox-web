@@ -12,6 +12,7 @@ import SavingsGoal from '../components/SavingsGoal.jsx';
 import CashFlow from '../components/Cashflow.jsx';
 import { AccessTokenContext } from "../App";
 import { useContext } from "react";
+import { userInfo } from '../components/mock_data/mockData.js';
 
 
 function Dashboard() {
@@ -37,6 +38,11 @@ function Dashboard() {
       });
     }
   };
+
+  const firstName = sessionStorage.getItem('firstName');
+  if(!sessionStorage.getItem('firstName')){
+    firstName = userInfo.find(item => item.firstName)?.firstName;
+  }
 
   const today = new Date();
   const formattedDate = today.toLocaleDateString("en-US", {
@@ -127,7 +133,7 @@ function Dashboard() {
       <NavbarLayout />
       <div className="ml-0 pt-[200px] md:ml-[275px] md:pt-0">
         <div className="flex flex-col gap-[30px] mx-[10px] md:mx-0 md:ml-[0.5vw] max-w-full md:max-w-[82vw] pb-[20px]">
-          <div className="font-bold text-[#1ADBA9] mt-5 text-3xl">Welcome, BreadboxTest</div>
+          <div className="font-bold text-[#1ADBA9] mt-5 text-3xl">Welcome, {firstName}</div>
           <p className="text-[#8f8f8f]">{formattedDate}</p>
           <div className="flex justify-end">
           <button
