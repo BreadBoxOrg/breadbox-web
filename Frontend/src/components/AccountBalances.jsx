@@ -28,7 +28,7 @@ function AccountBalances() {
       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
       color: 'white',
       width: '100%',
-      height: '320px',
+      height: '100%',
       overflow: 'hidden', 
     }}>
       <CardContent sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>

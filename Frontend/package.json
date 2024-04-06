@@ -36,7 +36,7 @@
     "recharts": "^2.12.0",
     "resizable": "^1.2.1",
     "web-vitals": "^2.1.4",
-    "styled-components": "^6.1.8"
+    "styled-components": "^4.0.0"
   },
   "scripts": {
     "start": "export PORT=${FRONTEND_PORT:-$(grep FRONTEND_PORT .env | cut -d '=' -f2)} && react-scripts start",

@@ -49,7 +49,7 @@ function AssetDetails() {
   const gradientId = `priceTrendGradient-${priceTrend}`;
 
   return (
-    <div style={{ display: 'flex', backgroundColor: '#0a0a0a', padding: '0.5vw', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', position: 'relative', width: '100%'}}>
+    <div style={{ display: 'flex', backgroundColor: '#0a0a0a', padding: '0.5vw', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', position: 'relative', width: '100%', height:'100%'}}>
       <div style={{ marginRight: '2vw' }}>
         {stockOptions.map((symbol) => (
           <div key={symbol} onClick={() => handleStockSelection(symbol)} style={{ cursor: 'pointer', color: 'white', padding: '0.5vw', borderBottom: '1px solid grey' }}>
@@ -57,7 +57,7 @@ function AssetDetails() {
           </div>
         ))}
       </div>
-      <div style={{ flex: 1, height: '328px' }}>
+      <div style={{ flex: 1, height: '100%' }}>
         <div style={{ color: 'white'}}>
           <h2>{stockSymbol}</h2>
           <h3>${currentPrice ? currentPrice.toLocaleString() : 'Loading...'}</h3>

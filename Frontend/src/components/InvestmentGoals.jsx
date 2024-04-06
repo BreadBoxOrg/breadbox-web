@@ -42,7 +42,7 @@ function InvestmentGoals() {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height: '320px',
+        height: '100%',
       }}
     >
       <div
