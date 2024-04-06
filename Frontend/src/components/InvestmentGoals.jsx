@@ -57,7 +57,7 @@ function InvestmentGoals() {
         <div
             style={{
               position: 'absolute',
-              zIndex: 10,
+              zIndex: 2,
               color: 'white',
               fontSize: '25px',
               textAlign: 'center',
@@ -94,7 +94,7 @@ function InvestmentGoals() {
           }}
         > 
           <div style={{ fontSize: '18px', marginBottom: '5px' }}>Goal: {formatCurrency(investmentGoal)}</div>
-          <hr style={{ width: '100%', color: 'white', marginBottom: '10px' }} />
+          <hr style={{ width: '100%', color: 'white', marginBottom: '10px'}} />
           {portfolioWorths.map((worth, index) => (
             <div key={index} style={{ marginBottom: '5px' }}>
               {`${worth.date}: ${formatCurrency(worth.value)}`}

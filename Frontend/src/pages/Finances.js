@@ -91,7 +91,7 @@ const Finances = () => {
           <div className="col-start-1 md:col-start-2 md:col-span-5 flex justify-between items-center">
             <h1 className="font-bold text-[#1ADBA9] text-xl md:text-3xl">Finances</h1>
             <button
-              className="bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded-xl"
+              className="hidden md:inline-block bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded-xl"
               onClick={() => setIsEditMode(!isEditMode)}
             >
               {isEditMode ? 'Save' : 'Edit'}
