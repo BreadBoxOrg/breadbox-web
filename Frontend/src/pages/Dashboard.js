@@ -39,7 +39,7 @@ function Dashboard() {
     }
   };
 
-  const firstName = sessionStorage.getItem('firstName');
+  let firstName = sessionStorage.getItem('firstName');
   if(!sessionStorage.getItem('firstName')){
     firstName = userInfo.find(item => item.firstName)?.firstName;
   }
