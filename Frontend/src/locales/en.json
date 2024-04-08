@@ -1,0 +1,33 @@
+{
+    "settings": {
+        "log-out": "Log Out",
+        "settings-header": "Settings",
+        "account-header": "My Account",
+        "edit-profile": "Edit Profile",
+        "cancel-button": "Cancel",
+        "save-button": "Save",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "email": "Email",
+        "linked-accounts": "Linked Accounts",
+        "plaid-link-button": "Connect Your Accounts",
+        "general-header": "General",
+        "export-account-csv": "Export Account Data",
+        "export-no-account-data": "No Account Data",
+        "export-loading": "Loading...",
+        "export-transactions-csv": "Export Transaction Data",
+        "export-no-transaction-data": "No Transaction Data",
+        "notifications-header": "Notifications",
+        "notification-notify": "Notify Me When...",
+        "notify-select": "Select",
+        "notify-low-funds": "Low Funds",
+        "notify-deposited-funds": "Deposited Funds",
+        "notify-phone-number": "Phone Number",
+        "enter-email": "Enter Email",
+        "enter-phone": "Enter Phone Number",
+        "noti-submit": "Submit",
+        "email-submit": "Email Submitted",
+        "phone-submit": "Phone Number Submitted",
+        "select-language": "Select Language"
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "settings": {
+        "log-out": "Cerrar Sesión",
+        "settings-header": "Configuración",
+        "account-header": "Mi Cuenta",
+        "edit-profile": "Editar Perfil",
+        "cancel-button": "Cancelar",
+        "save-button": "Guardar",
+        "first-name": "Nombre",
+        "last-name": "Apellido",
+        "email": "Correo Electrónico",
+        "linked-accounts": "Cuentas Vinculadas",
+        "plaid-link-button": "Conectar Tus Cuentas",
+        "general-header": "General",
+        "export-account-csv": "Exportar Datos de Cuentas",
+        "export-no-account-data": "Sin Datos de Cuentas",
+        "export-loading": "Cargando...",
+        "export-transactions-csv": "Exportar Datos de Transacción",
+        "export-no-transaction-data": "Sin Datos de Transacción",
+        "notifications-header": "Notificaciones",
+        "notification-notify": "Notificarme Cuando...",
+        "notify-select": "Seleccionar",
+        "notify-low-funds": "Fondos Bajos",
+        "notify-deposited-funds": "Fondos Depositados",
+        "notify-phone-number": "Número de Teléfono",
+        "enter-email": "Ingresar Correo Electrónico",
+        "enter-phone": "Ingresar Número de Teléfono",
+        "noti-submit": "Enviar",
+        "email-submit": "Correo Electrónico Enviado",
+        "phone-submit": "Número de Teléfono Enviado",
+        "select-language": "Seleccionar Idioma"
+    }
+}
+  
