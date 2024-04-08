@@ -1,12 +1,9 @@
 # BreadBox
 
-[Body Text Pending]
+ 
 
-
-
-
-
-
+ [Body text Pending]   
+  
 #
 
 
@@ -18,8 +15,7 @@ The BreadBox source code requires two .env files:
 * One in ``/Frontend``
 ##### ``.env`` file example in /Backend
 ```
-MONGODB_URL=
-MONGODB_URL=
+MONGO_URL=
 
 # Get your Plaid API keys from the dashboard: https://dashboard.plaid.com/team/keys
 PLAID_CLIENT_ID=
