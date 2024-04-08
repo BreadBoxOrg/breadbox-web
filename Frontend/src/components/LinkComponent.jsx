@@ -4,11 +4,14 @@ import Button from "plaid-threads/Button";
 import PlaidLogo from "../images/Plaid_Logo.png"
 import { AccessTokenContext } from "../App";
 import { useContext } from "react";
+import { useTranslation } from 'react-i18next';
 
 const LinkComponent = (props) => {
 const [linkToken, setLinkToken] = useState(null);
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 const { setAccessToken } = useContext(AccessTokenContext);
+
+const { t } = useTranslation();
 
 
 // Fetch the link token from your backend
@@ -65,7 +68,7 @@ const { open, ready } = usePlaidLink(config);
 return (
   <Button className="plaid-button" onClick={() => open()} disabled={!ready}>
     <img alt="Plaid Logo" src={PlaidLogo}></img>
-    Connect your accounts
+    {t('settings.plaid-link-button')}
   </Button>
 );
 };

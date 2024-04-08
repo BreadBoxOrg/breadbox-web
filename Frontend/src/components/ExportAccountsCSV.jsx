@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import CsvDownloadButton from 'react-json-to-csv';
 import { getPlaidAccounts } from "../utils/http.js";
 import TransactionDataCSV from "./ExportTranscationsCSV.jsx";
+import { useTranslation } from 'react-i18next';
 
 function AccountDataCSV({ rerender }) {
     const [plaidAccounts, setPlaidAccounts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [fetchCompleted, setFetchCompleted] = useState(false);
+
+    const { t } = useTranslation();
+
 
     useEffect(() => {
         async function fetchData() {
@@ -54,16 +58,16 @@ function AccountDataCSV({ rerender }) {
     return (
         <>
             {isLoading ? (
-                <button style={NoDataOrLoading} disabled>Loading...</button>
+                <button style={NoDataOrLoading} disabled>{t('settings.export-loading')}</button>
             ) : plaidAccounts.length > 0 ? (
                 <>
                     <CsvDownloadButton data={plaidAccounts} filename="account_data" style={buttonStyle}>
-                        Export Account Data
+                        {t('settings.export-account-csv')}
                     </CsvDownloadButton>
                     <TransactionDataCSV rerender={fetchCompleted} />
                 </>
             ) : (
-                <button style={NoDataOrLoading} disabled>No Account Data</button>
+                <button style={NoDataOrLoading} disabled>{t('settings.export-no-account-data')}</button>
             )}
         </>
     );
