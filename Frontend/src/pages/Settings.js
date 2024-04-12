@@ -146,12 +146,14 @@ const Settings = () =>{
                                 {t('settings.account-header')}
                                 {isEditing ? (
                                     <>
-                                        <button className='ml-auto block bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold' onClick={handleSaveProfile}>
-                                        {t('settings.save-button')}
-                                        </button>
-                                        <button className='bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold ml-2' onClick={handleCancelEdit}>
-                                        {t('settings.cancel-button')}
-                                        </button>
+                                        <div className="flex">
+                                            <button className='ml-auto block bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold' onClick={handleSaveProfile}>
+                                                {t('settings.save-button')}
+                                            </button>
+                                            <button className='bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold ml-2' onClick={handleCancelEdit}>
+                                                {t('settings.cancel-button')}
+                                            </button>
+                                        </div>
                                     </>
                                 ) : (
                                     <button className='ml-auto block bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold' onClick={handleEditProfile}>
