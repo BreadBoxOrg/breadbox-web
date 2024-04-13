@@ -22,9 +22,11 @@ function Dashboard() {
   const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor));
   const [isEditMode, setIsEditMode] = useState(false);
   const { accessToken } = useContext(AccessTokenContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     localStorage.setItem('dashboardItems', JSON.stringify(items));
+    setLoading(false);
   }, [items, accessToken]);
 
   const handleDragEnd = (event) => {
@@ -68,7 +70,24 @@ function Dashboard() {
     const widgetClasses = getWidgetClasses(widgetId);
     const overlayClasses = isEditMode ? 'relative before:absolute before:inset-0 before:bg-gray-500 before:opacity-50 before:rounded-2xl' : '';
     const glowClasses = isEditMode ? 'absolute inset-0 outline-none ring-4 ring-blue-400 ring-opacity-50 rounded-2xl animate-pulse-opacity' : '';
-  
+    
+    if (loading) {
+      return (
+        <div className={`${widgetClasses} animate-pulse`}>
+          <div role="status" className="max-w-lg p-4 border border-gray-200 rounded shadow md:p-8 dark:border-gray-700">
+            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-128 mb-2.5 "></div>
+            <div className="w-48 h-2 mb-10 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+            <div className="flex flex-wrap items-baseline mt-4 gap-2">
+              <div className="w-full bg-gray-200 rounded-t-lg h-20 dark:bg-gray-700"></div>
+              <div className="w-full bg-gray-200 rounded-t-lg h-16 dark:bg-gray-700"></div>
+              <div className="w-full bg-gray-200 rounded-t-lg h-12 dark:bg-gray-700"></div>
+            </div>
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      );
+    }
+
     switch (widgetId) {
       case 'moneyEarned':
         return (
@@ -130,13 +149,13 @@ function Dashboard() {
           <div className="font-bold text-[#1ADBA9] mt-5 text-3xl">Welcome, BreadboxTest</div>
           <p className="text-[#8f8f8f]">{formattedDate}</p>
           <div className="flex justify-end">
-          <button
-  className="hidden md:block bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded-xl"
-  onClick={() => setIsEditMode(!isEditMode)}
->
-  {isEditMode ? 'Save' : 'Edit'}
-</button>
-</div>
+            <button
+              className="hidden md:block bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded-xl"
+              onClick={() => setIsEditMode(!isEditMode)}
+            >
+              {isEditMode ? 'Save' : 'Edit'}
+            </button>
+          </div>
           
           {isEditMode ? (
             <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
