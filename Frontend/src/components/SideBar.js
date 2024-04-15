@@ -8,9 +8,11 @@ import ShoppingCartIcon  from '@mui/icons-material/ShoppingCart';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { userInfo } from './mock_data/mockData';
+import { useTranslation } from 'react-i18next';
 
 const NavbarLayout = () =>{
     
+    const { t } = useTranslation();
     const location = useLocation(); 
 
     let FullName = sessionStorage.getItem('firstName') + ' ' + sessionStorage.getItem('lastName');
@@ -38,25 +40,25 @@ const NavbarLayout = () =>{
                 <li className={location.pathname === '/dashboard' ? 'active' : ''}>
                     <Link to="/dashboard">
                         <AssessmentIcon className="NavBarIcons" />
-                        Dashboard
+                        {t('navbar.dashboard')}
                     </Link>
                 </li>
                 <li className={location.pathname === '/expenses' ? 'active' : ''}>
                     <Link to="/expenses">
                         <ShoppingCartIcon className="NavBarIcons"/>
-                        Expenses
+                        {t('navbar.expenses')}
                     </Link>
                 </li>
                 <li className={location.pathname === '/finances' ? 'active' : ''}>
                     <Link to="/finances">
                         <DescriptionIcon className="NavBarIcons"/>
-                        Finances
+                        {t('navbar.finances')}
                     </Link>
                 </li>
                 <li className={location.pathname === '/settings' ? 'active' : ''}>
                     <Link to="/settings">
                         <SettingsIcon className="NavBarIcons"/>
-                        Settings
+                        {t('navbar.settings')}
                     </Link>    
                 </li>
             </ul>
