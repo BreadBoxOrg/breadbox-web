@@ -1,3 +1,54 @@
 {
-    
+    "dashboard": {
+        "welcome": "Bienvenue"
+    },    
+    "signup_login": {
+        "started": "Commençons",
+        "signup-msg": "Inscrivez-vous à BreadBox pour commencer immédiatement",
+        "enter-email": "Entrez l'email",
+        "google": "Inscrivez-vous avec Google",
+        "or": "Ou",
+        "sign-in": "Se connecter",
+        "about": "À propos",
+        "contact": "Contact",
+        "repo": "Dépôt",
+        "footer": "Réalisé par l'équipe BreadBox - Projet GUI 2 Printemps 2024"
+    },    
+    "navbar": {
+        "dashboard": "Tableau de bord",
+        "expenses": "Dépenses",
+        "finances": "Finances",
+        "settings": "Paramètres"
+    },
+    "settings": {
+        "log-out": "Déconnexion",
+        "settings-header": "Paramètres",
+        "account-header": "Mon compte",
+        "edit-profile": "Modifier le profil",
+        "cancel-button": "Annuler",
+        "save-button": "Enregistrer",
+        "first-name": "Prénom",
+        "last-name": "Nom de famille",
+        "email": "Email",
+        "linked-accounts": "Comptes liés",
+        "plaid-link-button": "Connecter vos comptes",
+        "general-header": "Général",
+        "export-account-csv": "Exporter les données du compte",
+        "export-no-account-data": "Pas de données de compte",
+        "export-loading": "Chargement...",
+        "export-transactions-csv": "Exporter les données de transaction",
+        "export-no-transaction-data": "Pas de données de transaction",
+        "notifications-header": "Notifications",
+        "notification-notify": "Notifier moi quand...",
+        "notify-select": "Sélectionner",
+        "notify-low-funds": "Fonds bas",
+        "notify-deposited-funds": "Fonds déposés",
+        "notify-phone-number": "Numéro de téléphone",
+        "enter-email": "Entrer l'email",
+        "enter-phone": "Entrer le numéro de téléphone",
+        "noti-submit": "Soumettre",
+        "email-submit": "Email soumis",
+        "phone-submit": "Numéro de téléphone soumis",
+        "select-language": "Sélectionner la langue"
+    }
 }

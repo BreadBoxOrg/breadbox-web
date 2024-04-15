@@ -1,4 +1,25 @@
 {
+    "dashboard": {
+        "welcome": "Bienvenido"
+    },    
+    "signup_login": {
+        "started": "Comencemos",
+        "signup-msg": "Regístrate en BreadBox para comenzar de inmediato",
+        "enter-email": "Ingrese Correo Electrónico",
+        "google": "Regístrate con Google",
+        "or": "O",
+        "sign-in": "Iniciar sesión",
+        "about": "Acerca de",
+        "contact": "Contacto",
+        "repo": "Repositorio de GitHub",
+        "footer": "Hecho por el equipo de BreadBox - Proyecto GUI 2 Primavera 2024"
+    },    
+    "navbar": {
+        "dashboard": "Tablero",
+        "expenses": "Gastos",
+        "finances": "Finanzas",
+        "settings": "Configuración"
+    },    
     "settings": {
         "log-out": "Cerrar Sesión",
         "settings-header": "Configuración",

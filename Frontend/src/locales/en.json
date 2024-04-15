@@ -1,4 +1,25 @@
 {
+    "dashboard": {
+        "welcome": "Welcome"
+    },
+    "signup_login": {
+        "started": "Let's Get Started",
+        "signup-msg": "Sign Up to BreadBox to get started immediately",
+        "enter-email": "Enter Email",
+        "google": "Sign Up With Google",
+        "or": "Or",
+        "sign-in": "Sign In",
+        "about": "About",
+        "contact": "Contact",
+        "repo": "Repo",
+        "footer": "Made with love by the BreadBox Team - GUI 2 2024 Spring Project"
+    },
+    "navbar": {
+        "dashboard": "Dashboard",
+        "expenses": "Expenses",
+        "finances": "Finances",
+        "settings": "Settings"
+    },
     "settings": {
         "log-out": "Log Out",
         "settings-header": "Settings",
