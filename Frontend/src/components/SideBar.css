@@ -7,7 +7,7 @@
 .NavBar {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  width: 230px;
+  width: 235px;
   background-color: black;
   position: fixed;
   top: 0;
@@ -67,7 +67,7 @@
   white-space: nowrap;
 }
 .NavBarIcons{
-  margin-right: 30px;
+  margin-right: 20px;
   color: white;
   transform: scale(1.8);
   vertical-align: text-bottom;

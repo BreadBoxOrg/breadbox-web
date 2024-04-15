@@ -51,6 +51,10 @@ function LanguageSelector() {
     option: (provided, state) => ({
         ...provided,
         backgroundColor: state.isFocused ? 'transparent' : 'transparent',
+        cursor: 'pointer',
+        ':hover': {
+          backgroundColor: 'rgba(0, 0, 0, 0.3)'
+        },
       }),
   };
 
@@ -64,6 +68,7 @@ function LanguageSelector() {
         options={options}
         value={options.find(option => option.value === i18n.language)}
         onChange={handleChange}
+        isSearchable={false}
     />
   );
 }
