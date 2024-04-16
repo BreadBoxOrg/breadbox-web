@@ -129,7 +129,7 @@ const Settings = () =>{
                 <NavbarLayout />
                 {/* Add lg:mb-[spacing] to this div for margin at desktop view */}
                 <div className="flex justify-between items-center text-[#1ADBA9] text-2xl sm:text-4xl mb-0 lg:mb-8">
-                    <h1 className="py-3 sm:py-0">{t('settings.settings-header')}</h1>
+                    <h1 className="font-bold text-[#1ADBA9] text-xl md:text-3xl">{t('settings.settings-header')}</h1>
                     <div className="py-3 sm:py-0">
                         <Link to="/">
                             <button className="w-40 h-8 text-white bg-[#651819] border-none rounded-full font-bold text-sm cursor-pointer sm:w-50 sm:h-10 sm:text-lg">
