@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, List, ListItem, ListItemText, Divider } from '@mui/material';
 import { getPlaidAccounts } from '../utils/http';
+import { useTranslation } from 'react-i18next';
 
 function AccountBalances() {
   const [accountData, setAccountData] = useState([]);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchAccounts = async () => {
@@ -33,7 +36,7 @@ function AccountBalances() {
     }}>
       <CardContent sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
         <Typography variant="h6" component="div" sx={{ mb: 2, fontSize: '1.25rem', fontWeight: 'bold' }}>
-          Account Balances
+          {t('finances.account-balances')}
         </Typography>
         <Divider sx={{ mb: 2, backgroundColor: 'rgba(255, 255, 255, 0.12)' }} />
         <List sx={{
