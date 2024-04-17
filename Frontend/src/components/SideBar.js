@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import{Link, useLocation} from 'react-router-dom';
 import './SideBar.css'
 import Logo from '../images/BreadBox_Logo.png';
@@ -28,6 +28,17 @@ const NavbarLayout = () =>{
     if(!sessionStorage.getItem('profilePic')){
         ProfilePic = placeholder;
     }
+
+    const [isHovered, setIsHovered] = useState(false);
+
+    // Event handlers
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
 
     return(
         <div className='NavBar'>
@@ -62,10 +73,21 @@ const NavbarLayout = () =>{
                     </Link>    
                 </li>
             </ul>
-            <div className='NavbarFooter'>
+            <div
+                className={`NavbarFooter ${isHovered ? 'expanded' : ''}`} 
+                onMouseEnter={handleMouseEnter} 
+                onMouseLeave={handleMouseLeave}
+            >
                 <img className='footer-profilePic' src={ProfilePic} alt='placeholder'></img>
                 <h3>{FullName}</h3>
                 <p>{Email}</p>
+                <div className="flex items-center justify-center mt-4">
+                    <Link to="/">
+                        <button className="w-40 h-8 text-white bg-[#651819] border-none rounded-full font-bold text-sm cursor-pointer sm:w-50 sm:h-10 sm:text-lg">
+                            {t('settings.log-out')}
+                        </button>
+                    </Link>
+                </div>
             </div>
         </div>
         
