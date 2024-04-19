@@ -136,7 +136,7 @@ const ExpensesList = () => {
                 <p className={styles.transactionCategory}>{t(`expenses.category.${transaction.category.toLowerCase().replace(/\s/g, '')}`)}</p>
                 <div className={styles.transactionAmountAndTime}>
                   <span className={styles.transactionTime}>{transaction.time} - {transaction.place}</span>
-                  <span className={styles.transactionAmount}>${Math.abs(transaction.amount)}</span>
+                  <span className={styles.transactionAmount}>${Math.abs(transaction.amount).toFixed(2)}</span>
                 </div>
               </div>
             </div>
