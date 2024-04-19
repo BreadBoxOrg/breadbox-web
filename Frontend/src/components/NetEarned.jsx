@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next";
+
 function NetEarned() {
+
+  const { t } = useTranslation();
 
     return (
       <div style={{
@@ -19,7 +23,7 @@ function NetEarned() {
           fontSize: '18px', 
           marginBottom: '10px' 
         }}>
-          Net Earned:
+          {t('finances.net-earned')}:
         </div>
         <div style={{
           fontSize: '24px', 

@@ -7,8 +7,10 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import styles from './ExpensesList.module.css';
 import { AccountBalance, AttachMoney, People, Fastfood, 
         MedicalInformation, Paid, HomeRepairService, Store, Map, Terrain} from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 const ExpensesList = () => {
+
   const [transactionsData, setTransactionsData] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredBarIndex, setHoveredBarIndex] = useState(-1);
@@ -86,6 +88,8 @@ const ExpensesList = () => {
     index 
   }));
 
+  const { t } = useTranslation();
+
   return (
     <div className={styles.container}>
       <BarChart
@@ -129,7 +133,7 @@ const ExpensesList = () => {
                 <span className={styles.icon}>{transaction.icon}</span>
               </div>
               <div className={styles.transactionDetails}>
-                <p className={styles.transactionCategory}>{transaction.category}</p>
+                <p className={styles.transactionCategory}>{t(`expenses.category.${transaction.category.toLowerCase().replace(/\s/g, '')}`)}</p>
                 <div className={styles.transactionAmountAndTime}>
                   <span className={styles.transactionTime}>{transaction.time} - {transaction.place}</span>
                   <span className={styles.transactionAmount}>${Math.abs(transaction.amount)}</span>

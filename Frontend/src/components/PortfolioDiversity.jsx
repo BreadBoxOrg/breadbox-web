@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import { detailedData } from './mock_data/mockData';
+import { useTranslation } from 'react-i18next';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 function PortfolioDiversity() {
+
+  const { t } = useTranslation();
+
   const [selectedCategory, setSelectedCategory] = useState('Stocks');
 
   const data = [
@@ -37,7 +41,7 @@ function PortfolioDiversity() {
     }}>
       <div>
         <div style={{ fontSize: '18px', marginBottom: '10px'}}>
-          Portfolio Diversity
+          {t('finances.portfolio-diversity')}
         </div>
         <PieChart width={400} height={400}>
           <Pie
