@@ -11,18 +11,20 @@ const [linkToken, setLinkToken] = useState(null);
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 const { setAccessToken } = useContext(AccessTokenContext);
 
-const { t } = useTranslation();
+const { t, i18n } = useTranslation();
 
 
 // Fetch the link token from your backend
 useEffect(() => {
   const fetchLinkToken = async () => {
     try {
+      const languageCode = i18n.language || 'en';
       const response = await fetch(`${backendURL}/link/create_link_token`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ languageCode }),
       });
       const data = await response.json();
       console.log(data);

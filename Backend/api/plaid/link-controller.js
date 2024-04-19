@@ -65,6 +65,7 @@ app.post('/api/info', function (request, response, next) {
 const createToken = async (req, res, next) => {
     Promise.resolve()
       .then(async function () {
+        const { languageCode } = req.body;
         const configs = {
           user: {
             // This should correspond to a unique id for the current user.
@@ -73,7 +74,7 @@ const createToken = async (req, res, next) => {
           client_name: 'Plaid Quickstart',
           products: ["transactions"],
           country_codes: ["US"],
-          language: 'en',
+          language: languageCode || 'en',
           "client_id": PLAID_CLIENT_ID,
           "secret": PLAID_SECRET,
         };
