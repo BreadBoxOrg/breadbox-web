@@ -10,15 +10,25 @@ function RecentRecurring() {
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { accessToken } = useContext(AccessTokenContext);
-  const { transactionData } = useContext(DataFetchContext);
+  const { transactionData, setTransactionData } = useContext(DataFetchContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulating data fetching delay
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const transactions = await getPlaidTransactions(accessToken);
+        setTransactionData(transactions);
+      } catch (error) {
+        console.error('Error fetching transaction data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [accessToken, setTransactionData]);
+
 
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
