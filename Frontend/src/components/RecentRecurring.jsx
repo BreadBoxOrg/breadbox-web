@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import Transactions from './Transactions';
-// import { RecentRecurringMockData as data } from './mock_data/mockData';
 import { getPlaidTransactions } from '../utils/http';
 import { AccessTokenContext } from "../App";
-import { useContext } from "react";
 import { DataFetchContext } from '../context/DataFetchContext';
 import { useTranslation } from 'react-i18next';
 
-
-
 function RecentRecurring() {
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [drawerOpen, setDrawerOpen] = useState(true); // fix it to use false, right now true = closed, false = open smh
+  const [drawerOpen, setDrawerOpen] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  // const [transactionData, setTransactionData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
   const { accessToken } = useContext(AccessTokenContext);
-
   const { transactionData } = useContext(DataFetchContext);
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    // Simulating data fetching delay
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+  
   const { t } = useTranslation();
 
   const onPieEnter = (_, index) => {
@@ -64,12 +66,12 @@ function RecentRecurring() {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <h2 style={{ margin: 0, fontSize: '24px'}}>{t('dashboard.recurring-costs')}</h2>
+          <h2 style={{ margin: 0, fontSize: '24px' }}>{t('dashboard.recurring-costs')}</h2>
           <div style={{ position: 'relative' }}>
             <button onClick={toggleDropdown} style={{
-              backgroundColor: '#2C2C2E', 
-              color: 'white', 
-              padding: '10px 20px', 
+              backgroundColor: '#2C2C2E',
+              color: 'white',
+              padding: '10px 20px',
               border: '1px solid #1ADBA9',
               borderRadius: '10px',
               cursor: 'pointer',
@@ -96,46 +98,64 @@ function RecentRecurring() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={transactionData}
-                cx="30%"
-                cy="50%"
-                labelLine={false}
-                outerRadius="70%"
-                innerRadius="45%"
-                onMouseEnter={onPieEnter}
-                onMouseLeave={onPieLeave}
-                paddingAngle={2}
-                dataKey="value"
-              >
-                {transactionData.map((entry, index) => (
-                  <Cell 
-                    key={`cell-${index}`} 
-                    fill={generateColor(index, index === activeIndex)}
-                  />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend
-                layout="vertical"
-                verticalAlign="middle"
-                iconType="circle"
-                iconSize={8}
-                align="right"
-                wrapperStyle={{ paddingLeft: '20px' }}
-                formatter={(value, entry) => {
-                  if (entry && entry.payload && entry.payload.value !== undefined) {
-                    return <span>{entry.payload.name}: ${entry.payload.value.toLocaleString()}</span>;
-                  }
-                  return <span>Unknown</span>;
-                }}
-              />
-            </PieChart>
-          </ResponsiveContainer>
+        {isLoading ? (
+          <div role="status" class="w-full p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700" style={{ height: '250px' }}>
+            <div class="flex items-center justify-center w-2/3 h-12 mb-4 bg-gray-300 rounded dark:bg-gray-700">
+          </div>
+          <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+          <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+          <div class="flex items-center mt-4">
+        <div>
+            <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2"></div>
+            <div class="w-48 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
         </div>
+    </div>
+    <span class="sr-only">Loading...</span>
+</div>
+        ) : (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={transactionData}
+                  cx="30%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius="70%"
+                  innerRadius="45%"
+                  onMouseEnter={onPieEnter}
+                  onMouseLeave={onPieLeave}
+                  paddingAngle={2}
+                  dataKey="value"
+                >
+                  {transactionData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={generateColor(index, index === activeIndex)}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend
+                  layout="vertical"
+                  verticalAlign="middle"
+                  iconType="circle"
+                  iconSize={8}
+                  align="right"
+                  wrapperStyle={{ paddingLeft: '20px' }}
+                  formatter={(value, entry) => {
+                    if (entry && entry.payload && entry.payload.value !== undefined) {
+                      return <span>{entry.payload.name}: ${entry.payload.value.toLocaleString()}</span>;
+                    }
+                    return <span>Unknown</span>;
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        )}
       </div>
       <Drawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
       <button onClick={toggleDrawer} style={{

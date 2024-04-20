@@ -1,82 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Button, Menu, MenuItem, Paper, Typography } from '@mui/material';
-import { getPlaidMonthlyIncome } from '../utils/http';
-// import { MoneyEarnedMockData as data } from './mock_data/mockData';
 import { AccessTokenContext } from "../App";
-import { useContext } from "react";
 import { DataFetchContext } from '../context/DataFetchContext';
 import { useTranslation } from 'react-i18next';
 
 function MoneyEarned() {
-  const [anchorEl, setAnchorEl] = useState(null); // dropdown from MUI
-  const [selectedOption, setSelectedOption] = useState("Monthly");
+  const [anchorEl, setAnchorEl] = React.useState(null); 
+  const [selectedOption, setSelectedOption] = React.useState("Monthly");
 
-  // const [incomeData, setIncomeData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
   const { accessToken } = useContext(AccessTokenContext);
   const { incomeData } = useContext(DataFetchContext);
 
   const { t } = useTranslation();
 
-  // useEffect(() => {
-  //   // let isMounted = true;
-
-  //   // async function fetchIncome() {
-      
-  //   //   const promise = getPlaidMonthlyIncome("2024-01-20");
-  //   //   promise.then((income) => { 
-  //   //     if (isMounted) {
-  //   //         // create local transaction object list
-  //   //       let incomeDisplayList = [];
-  //   //       // console.log("DEBUG_INCOME: " + income.monthly_break_down);
-  //   //       // console.log("DEBUG_INCOME: " + income.yearly_total);
-  //   //       // console.log("DEBUG_INCOME: " + income.error);
-  //   //       // loop through transactions.recuring_costs
-  //   //       const monthNames = [
-  //   //         "January", "February", "March", 
-  //   //         "April", "May", "June", 
-  //   //         "July", "August", "September", 
-  //   //         "October", "November", "December"
-  //   //       ];
-          
-  //   //       for(let i = 0; i < 6; i++) {
-  //   //         // create temp object add name and amount 
-  //   //         let item = income.monthly_break_down[i];
-  //   //         console.log(item);
-  //   //         let displayMonth = monthNames[item.month-1];
-  //   //         let integerAmount =  Math.floor(item.income);          
-  //   //         console.log(integerAmount);
-  //   //         const displayItem = {
-  //   //           name: displayMonth,
-  //   //           amt: integerAmount    
-  //   //         };
-          
-  //   //         incomeDisplayList.push(displayItem);
-            
-  //   //       }
-        
-  //   //       setIncomeData(incomeDisplayList);
-  //   //     }
-  //   //   }).catch((err) => { 
-  //   //     if (isMounted) {
-  //   //       console.log("in is mounted catch error: " + err);
-  //   //       // Handle error state in UI if needed
-  //   //     }
-  //   //     });
-
-  //   // }
-  //   // fetchIncome();
-
-  //   return () => {
-  //     // console.log('IsMounted' + isMounted);
-  //     // isMounted = false; // Set flag to false when component unmounts
-  //   };
-  // }, [accessToken]);
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
 
   const handleClose = (option) => {
     if (option) {
@@ -103,9 +43,8 @@ function MoneyEarned() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center'
-
         }}>
-          <Typography variant="h5" sx={{ margin: 0, fontSize: '24px', color: 'white' }}>{t('dashboard.money-earned')}</Typography> {/* slowly changing to MUI styling */}
+          <Typography variant="h5" sx={{ margin: 0, fontSize: '24px', color: 'white' }}>{t('dashboard.money-earned')}</Typography>
           <div>
             <Button
               aria-controls="simple-menu"
@@ -118,7 +57,7 @@ function MoneyEarned() {
                 borderRadius: '10px',
                 textTransform: 'none',
                 '&:hover': {
-                  backgroundColor: '#3C3C3E', // slightly darker on hover
+                  backgroundColor: '#3C3C3E',
                 },
               }}
             >
@@ -135,7 +74,6 @@ function MoneyEarned() {
                   backgroundColor: '#2C2C2E',
                   color: 'white',
                 },
-                
               }}
             >
               <MenuItem onClick={() => handleClose("Monthly")}>{t('dashboard.monthly')}</MenuItem>
@@ -145,25 +83,38 @@ function MoneyEarned() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart
-              data={incomeData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="amt" fill="#8884d8" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
+        {incomeData.length > 0 ? (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <ResponsiveContainer width="100%" height={250}>
+      <BarChart
+        data={incomeData}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Bar dataKey="amt" fill="#8884d8" />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+) : (
+  <div role="status" class="w-full p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700" style={{ height: '250px' }}>
+    <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-1/3 mb-2.5"></div>
+    <div class="flex items-end justify-between mt-4" style={{ height: '200px' }}>
+      <div class="w-1/5 h-1/4 bg-gray-200 rounded-t-lg dark:bg-gray-700"></div>
+      <div class="w-1/5 bg-gray-200 rounded-t-lg h-1/2 dark:bg-gray-700"></div>
+      <div class="w-1/5 bg-gray-200 rounded-t-lg h-1/3 dark:bg-gray-700"></div>
+      <div class="w-1/5 bg-gray-200 rounded-t-lg h-2/3 dark:bg-gray-700"></div>
+    </div>
+    <span class="sr-only">Loading...</span>
+  </div>
+)}
       </Paper>
     </div>
   );
