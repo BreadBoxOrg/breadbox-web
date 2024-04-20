@@ -3,7 +3,6 @@ import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, Legend } f
 import { RecentRecurringMockData, MoneyEarnedMockData } from './mock_data/mockData';
 import { useTranslation } from 'react-i18next';
 import { AccessTokenContext } from "../App";
-import React, { useState, useEffect, useContext } from 'react';
 import { DataFetchContext } from '../context/DataFetchContext';
 
 function CashFlow() {
