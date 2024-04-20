@@ -75,18 +75,18 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg p-4 max-w-md">
+      <div className="bg-zinc-900 rounded-lg p-4 max-w-md">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold">Welcome, New User!</h2>
+          <h2 className="text-xl font-bold text-white">Welcome, New User!</h2>
           <button
-            className="bg-blue-400 hover:bg-blue-700 text-black font-bold py-1 px-2 rounded-xl text-sm"
+            className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-xl text-sm"
             onClick={handleClose}
           >
             Got it!
           </button>
         </div>
-        <p className="mb-2 text-sm">Here are some hints to get you started:</p>
-        <ul className="list-disc list-inside text-sm">
+        <p className="mb-2 text-sm text-white">Here are some hints to get you started:</p>
+        <ul className="list-disc list-inside text-sm text-white">
           {currentPage === "dashboard" && (
             <>
               <li>Drag and drop widgets to rearrange them.</li>
@@ -97,7 +97,7 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
           {currentPage === "expenses" && (
             <>
               <li>View and manage your expenses in the list.</li>
-              <li>Use the sidebar to filter [PENDING] and categorize expenses.</li>
+              <li>Use the sidebar to visually see where the majority of your expenses went for that period.</li>
             </>
           )}
           {currentPage === "finances" && (
@@ -110,7 +110,7 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
         <div className="flex justify-between mt-4">
           {currentPage !== "dashboard" && (
             <button
-              className="bg-gray-200 hover:bg-gray-300 text-black font-bold py-1 px-2 rounded-xl text-sm"
+              className="bg-gray-200 hover:bg-gray-300 text-grey font-bold py-1 px-2 rounded-xl text-sm"
               onClick={handleBack}
             >
               &larr; Back
@@ -118,7 +118,7 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
           )}
           {currentPage !== "finances" && (
             <button
-              className="bg-green-400 hover:bg-green-700 text-black font-bold py-1 px-2 rounded-xl text-sm"
+              className="bg-green-400 hover:bg-green-700 text-white font-bold py-1 px-2 rounded-xl text-sm"
               onClick={handleNextPage}
             >
               Next &rarr;

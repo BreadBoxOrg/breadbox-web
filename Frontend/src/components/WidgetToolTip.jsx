@@ -46,14 +46,14 @@ const WidgetTooltip = ({ widget, isActive, widgetRef }) => {
 
   return (
     <div
-      className="absolute p-4 bg-white rounded-lg shadow-lg transition-all duration-500 transform -translate-x-1/2"
+      className="text-white absolute p-4 bg-white rounded-lg shadow-lg transition-all duration-500 transform -translate-x-1/2 bg-zinc-800" 
       style={{
         top: tooltipPosition.top,
         left: tooltipPosition.left,
         opacity: tooltipPosition.opacity,
       }}
     >
-      <p className="text-lg font-semibold">{widget.name}</p>
+      <p className="text-lg font-semibold ">{widget.name}</p>
       <p className="mt-2">{tooltipText[currentPage]?.[widget.id] || ""}</p>
     </div>
   );
