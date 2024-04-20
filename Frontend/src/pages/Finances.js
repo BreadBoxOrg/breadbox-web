@@ -9,6 +9,7 @@ import AssetDetails from "../components/AssetDetails";
 import AccountBalances from "../components/AccountBalances";
 import PortfolioDiversity from "../components/PortfolioDiversity";
 import InvestmentGoals from "../components/InvestmentGoals";
+import { useTranslation } from 'react-i18next';
 
 const Finances = () => {
   const [items, setItems] = useState(() => {
@@ -51,6 +52,8 @@ const Finances = () => {
     }
   };
 
+  const { t } = useTranslation();
+
   const renderWidget = (widgetId) => {
     const widgetClasses = getWidgetClasses(widgetId);
     const overlayClasses = isEditMode ? 'relative before:absolute before:inset-0 before:bg-gray-500 before:opacity-50 before:rounded-2xl' : '';
@@ -89,12 +92,12 @@ const Finances = () => {
       <div className="pt-[200px] md:pt-5 ml-1 md:ml-[2px] max-w-full overflow-x-auto">
         <div className="grid grid-cols-1 md:grid-cols-6 gap-9 md:gap-18 md:row-gap-5 p-2.5 mx-auto">
           <div className="col-start-1 md:col-start-2 md:col-span-5 flex justify-between items-center">
-            <h1 className="font-bold text-[#1ADBA9] text-xl md:text-3xl">Finances</h1>
+            <h1 className="font-bold text-[#1ADBA9] text-xl md:text-3xl">{t('finances.header')}</h1>
             <button
               className="hidden md:inline-block bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded-xl"
               onClick={() => setIsEditMode(!isEditMode)}
             >
-              {isEditMode ? 'Save' : 'Edit'}
+              {isEditMode ? `${t('finances.save-button')}` : `${t('finances.edit-button')}`}
             </button>
           </div>
           {isEditMode ? (
