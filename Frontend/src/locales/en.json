@@ -1,6 +1,66 @@
 {
     "dashboard": {
-        "welcome": "Welcome"
+        "welcome": "Welcome",
+        "edit-button": "Edit",
+        "save-button": "Save",
+        "money-earned": "Money Earned",
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "yearly": "Yearly",
+        "months": {
+            "January": "January",
+            "February": "February",
+            "March": "March",
+            "April": "April",
+            "May": "May",
+            "June": "June",
+            "July": "July",
+            "August": "August",
+            "September": "September",
+            "October": "October",
+            "November": "November",
+            "December": "December"
+        },
+        "recurring-costs": "Recurring Costs",
+        "show-recent": "Show Recent Transactions",
+        "hide-recent": "Hide Recent Transactions",
+        "total-net": "Total Net Worth",
+        "include-debt": "Include Debt",
+        "exclude-debt": "Exclude Debt",
+        "account": "Account",
+        "savings-goal": "Savings Goal",
+        "goal": "Goal",
+        "to-complete": "to complete",
+        "cash-flow": "Cash Flow"
+    },
+    "expenses": {
+        "header": "Expenses",
+        "category": {
+          "bankfees": "Bank Fees",
+          "cashadvance": "Cash Advance",
+          "community": "Community",
+          "foodanddrink": "Food and Drink",
+          "healthcare": "Healthcare",
+          "interest": "Interest",
+          "payment": "Payment",
+          "recreation": "Recreation",
+          "service": "Service",
+          "shops": "Shops",
+          "tax": "Tax",
+          "travel": "Travel",
+          "transfer": "Transfer"
+        }
+    },
+    "finances" : {
+        "header": "Finances",
+        "account-balances": "Account Balances",
+        "total-invested": "Total Invested",
+        "net-earned": "Net Earned",
+        "portfolio-diversity": "Portfolio Diversity",
+        "investment-goals": "Investment Goals",
+        "goal": "Goal",
+        "edit-button": "Edit",
+        "save-button": "Save"
     },
     "signup_login": {
         "started": "Let's Get Started",

@@ -1,6 +1,66 @@
 {
     "dashboard": {
-        "welcome": "Bienvenido"
+        "welcome": "Bienvenido",
+        "edit-button": "Editar",
+        "save-button": "Guardar",
+        "money-earned": "Dinero Ganado",
+        "monthly": "Mensual",
+        "quarterly": "Trimestral",
+        "yearly": "Anual",
+        "months": {
+            "January": "Enero",
+            "February": "Febrero",
+            "March": "Marzo",
+            "April": "Abril",
+            "May": "Mayo",
+            "June": "Junio",
+            "July": "Julio",
+            "August": "Agosto",
+            "September": "Septiembre",
+            "October": "Octubre",
+            "November": "Noviembre",
+            "December": "Diciembre"
+        },
+        "recurring-costs": "Costos Recurrentes",
+        "show-recent": "Mostrar Transacciones Recientes",
+        "hide-recent": "Ocultar Transacciones Recientes",
+        "total-net": "Valor Neto Total",
+        "include-debt": "Incluir Deuda",
+        "exclude-debt": "Excluir Deuda",
+        "account": "Cuenta",
+        "savings-goal": "Meta de Ahorro",
+        "goal": "Objetivo",
+        "to-complete": "para completar",
+        "cash-flow": "Flujo de Efectivo"
+    },
+    "expenses": {
+        "header": "Gastos",
+        "category": {
+            "bankfees": "Tarifas Bancarias",
+            "cashadvance": "Avance de Efectivo",
+            "community": "Comunidad",
+            "foodanddrink": "Comida y Bebida",
+            "healthcare": "Atención Médica",
+            "interest": "Interés",
+            "payment": "Pago",
+            "recreation": "Recreación",
+            "service": "Servicio",
+            "shops": "Tiendas",
+            "tax": "Impuesto",
+            "travel": "Viaje",
+            "transfer": "Transferencia"
+        }
+      },
+    "finances" : {
+        "header": "Finanzas",
+        "account-balances": "Balances de Cuenta",
+        "total-invested": "Total Invertido",
+        "net-earned": "Ganancia Neta",
+        "portfolio-diversity": "Diversidad de la Cartera",
+        "investment-goals": "Objetivos de Inversión",
+        "goal": "Meta",
+        "edit-button": "Editar",
+        "save-button": "Guardar"
     },    
     "signup_login": {
         "started": "Comencemos",

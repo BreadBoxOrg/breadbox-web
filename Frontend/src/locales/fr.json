@@ -1,6 +1,66 @@
 {
     "dashboard": {
-        "welcome": "Bienvenue"
+        "welcome": "Bienvenue",
+        "edit-button": "Modifier",
+        "save-button": "Sauvegarder",
+        "money-earned": "Argent Gagné",
+        "monthly": "Mensuel",
+        "quarterly": "Trimestriel",
+        "yearly": "Annuel",
+        "months": {
+            "January": "Janvier",
+            "February": "Février",
+            "March": "Mars",
+            "April": "Avril",
+            "May": "Mai",
+            "June": "Juin",
+            "July": "Juillet",
+            "August": "Août",
+            "September": "Septembre",
+            "October": "Octobre",
+            "November": "Novembre",
+            "December": "Décembre"
+        },
+        "recurring-costs": "Coûts Récurrents",
+        "show-recent": "Afficher les Transactions Récentes",
+        "hide-recent": "Masquer les Transactions Récentes",
+        "total-net": "Valeur Nette Totale",
+        "include-debt": "Inclure la Dette",
+        "exclude-debt": "Exclure la Dette",
+        "account": "Compte",
+        "savings-goal": "Objectif d'Épargne",
+        "goal": "But",
+        "to-complete": "à compléter",
+        "cash-flow": "Flux de Trésorerie"
+    },
+    "expenses": {
+        "header": "Dépenses",
+        "category": {
+            "bankfees": "Frais bancaires",
+            "cashadvance": "Avance de fonds",
+            "community": "Communauté",
+            "foodanddrink": "Alimentation et boissons",
+            "healthcare": "Soins de santé",
+            "interest": "Intérêt",
+            "payment": "Paiement",
+            "recreation": "Loisirs",
+            "service": "Service",
+            "shops": "Magasins",
+            "tax": "Taxe",
+            "travel": "Voyage",
+            "transfer": "Transfert"
+        }
+    },
+    "finances" : {
+        "header": "Finances",
+        "account-balances": "Soldes des comptes",
+        "total-invested": "Total investi",
+        "net-earned": "Net gagné",
+        "portfolio-diversity": "Diversité du portefeuille",
+        "investment-goals": "Objectifs d'investissement",
+        "goal": "Objectif",
+        "edit-button": "Modifier",
+        "save-button": "Sauvegarder"
     },    
     "signup_login": {
         "started": "Commençons",
