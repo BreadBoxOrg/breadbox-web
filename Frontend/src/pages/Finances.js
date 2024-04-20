@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import { SortableItem } from '../components/SortableItem.js';
@@ -9,6 +9,7 @@ import AssetDetails from "../components/AssetDetails";
 import AccountBalances from "../components/AccountBalances";
 import PortfolioDiversity from "../components/PortfolioDiversity";
 import InvestmentGoals from "../components/InvestmentGoals";
+import FirstTimeUserHints from './FirstTimeUserHints';
 
 const Finances = () => {
   const [items, setItems] = useState(() => {
@@ -17,6 +18,23 @@ const Finances = () => {
   });
   const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor));
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(true);
+
+  const widgetRefs = {
+    totalInvestedNetEarned: useRef(null),
+    assetDetails: useRef(null),
+    portfolioDiversity: useRef(null),
+    accountBalances: useRef(null),
+    investmentGoals: useRef(null),
+  };
+
+  const widgets = [
+    { id: "totalInvestedNetEarned", name: "Total Invested & Net Earned" },
+    { id: "assetDetails", name: "Asset Details" },
+    { id: "portfolioDiversity", name: "Portfolio Diversity" },
+    { id: "accountBalances", name: "Account Balances" },
+    { id: "investmentGoals", name: "Investment Goals" },
+  ];
 
   useEffect(() => {
     localStorage.setItem('financeItems', JSON.stringify(items));
@@ -55,10 +73,11 @@ const Finances = () => {
     const widgetClasses = getWidgetClasses(widgetId);
     const overlayClasses = isEditMode ? 'relative before:absolute before:inset-0 before:bg-gray-500 before:opacity-50 before:rounded-2xl' : '';
     const glowClasses = isEditMode ? 'absolute inset-0 outline-none ring-4 ring-blue-400 ring-opacity-50 rounded-2xl animate-pulse-opacity' : '';
+
   
     if (widgetId === 'totalInvestedNetEarned') {
       return (
-        <div key={widgetId} className={`${widgetClasses} flex justify-center w-full h-full`}>
+        <div ref={widgetRefs.totalInvestedNetEarned} key={widgetId} className={`${widgetClasses}  flex justify-center w-full h-full`}>
           <div className="w-full h-full">
             <div className="flex flex-col md:flex-row justify-start gap-7 w-full h-full">
               <TotalInvested />
@@ -70,7 +89,7 @@ const Finances = () => {
     }
   
     return (
-      <div key={widgetId} className={`${widgetClasses} ${overlayClasses} flex justify-center w-full h-full`}>
+      <div ref={widgetRefs[widgetId]} key={widgetId} className={`${widgetClasses} ${overlayClasses}  flex justify-center w-full h-full`}>
         {isEditMode && <div className={glowClasses}></div>}
         <SortableItem id={widgetId} className="w-full h-full" disabled={!isEditMode}>
           {widgetId === 'assetDetails' && <AssetDetails />}
@@ -82,6 +101,10 @@ const Finances = () => {
     );
   };
   
+
+  const handleCloseHints = () => {
+    setIsNewUser(false);
+  };
 
   return (
     <>
@@ -112,6 +135,12 @@ const Finances = () => {
           )}
         </div>
       </div>
+      <FirstTimeUserHints
+        isNewUser={isNewUser}
+        onClose={handleCloseHints}
+        widgets={widgets}
+        widgetRefs={widgetRefs}
+      />
     </>
   );
 };

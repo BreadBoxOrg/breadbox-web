@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// Dashboard.js
+import React, { useState, useEffect, useRef } from 'react';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import { SortableItem } from '../components/SortableItem.js';
@@ -12,7 +13,7 @@ import SavingsGoal from '../components/SavingsGoal.jsx';
 import CashFlow from '../components/Cashflow.jsx';
 import { AccessTokenContext } from "../App";
 import { useContext } from "react";
-
+import FirstTimeUserHints from './FirstTimeUserHints';
 
 function Dashboard() {
   const [items, setItems] = useState(() => {
@@ -23,6 +24,23 @@ function Dashboard() {
   const [isEditMode, setIsEditMode] = useState(false);
   const { accessToken } = useContext(AccessTokenContext);
   const [loading, setLoading] = useState(true);
+  const [isNewUser, setIsNewUser] = useState(true);
+
+  const widgetRefs = {
+    moneyEarned: useRef(null),
+    recentRecurring: useRef(null),
+    networthSavingsGoal: useRef(null),
+    crypto: useRef(null),
+    cashFlow: useRef(null),
+  };
+
+  const widgets = [
+    { id: 'moneyEarned', name: 'Money Earned' },
+    { id: 'recentRecurring', name: 'Recent Recurring' },
+    { id: 'networthSavingsGoal', name: 'Net Worth & Savings Goal' },
+    { id: 'crypto', name: 'Cryptocurrency' },
+    { id: 'cashFlow', name: 'Cash Flow' },
+  ];
 
   useEffect(() => {
     localStorage.setItem('dashboardItems', JSON.stringify(items));
@@ -70,6 +88,7 @@ function Dashboard() {
     const widgetClasses = getWidgetClasses(widgetId);
     const overlayClasses = isEditMode ? 'relative before:absolute before:inset-0 before:bg-gray-500 before:opacity-50 before:rounded-2xl' : '';
     const glowClasses = isEditMode ? 'absolute inset-0 outline-none ring-4 ring-blue-400 ring-opacity-50 rounded-2xl animate-pulse-opacity' : '';
+    const lightenClasses = isNewUser && widgets.find((widget) => widget.id === widgetId) ? 'relative before:absolute before:inset-0 before:bg-white before:opacity-50 before:rounded-2xl' : '';
     
     if (loading) {
       return (
@@ -91,7 +110,7 @@ function Dashboard() {
     switch (widgetId) {
       case 'moneyEarned':
         return (
-          <div className={`${widgetClasses} ${overlayClasses}`}>
+          <div ref={widgetRefs.moneyEarned} className={`${widgetClasses} ${overlayClasses}`}>
             {isEditMode && <div className={glowClasses}></div>}
             <SortableItem key="moneyEarned" id="moneyEarned">
               <MoneyEarned />
@@ -100,7 +119,7 @@ function Dashboard() {
         );
       case 'recentRecurring':
         return (
-          <div className={`${widgetClasses} ${overlayClasses}`}>
+          <div ref={widgetRefs.recentRecurring} className={`${widgetClasses} ${overlayClasses}`}>
             {isEditMode && <div className={glowClasses}></div>}
             <SortableItem key="recentRecurring" id="recentRecurring">
               <RecentRecurring />
@@ -109,7 +128,7 @@ function Dashboard() {
         );
       case 'networthSavingsGoal':
         return (
-          <div className={`${widgetClasses} ${overlayClasses}`}>
+          <div ref={widgetRefs.networthSavingsGoal} className={`${widgetClasses} ${overlayClasses}`}>
             {isEditMode && <div className={glowClasses}></div>}
             <SortableItem key="networthSavingsGoal" id="networthSavingsGoal">
               <div className="flex flex-col gap-[20px] md:gap-[40px]">
@@ -121,7 +140,7 @@ function Dashboard() {
         );
       case 'crypto':
         return (
-          <div className={`${widgetClasses} ${overlayClasses}`}>
+          <div ref={widgetRefs.crypto} className={`${widgetClasses} ${overlayClasses}`}>
             {isEditMode && <div className={glowClasses}></div>}
             <SortableItem key="crypto" id="crypto">
               <Crypto />
@@ -130,7 +149,7 @@ function Dashboard() {
         );
       case 'cashFlow':
         return (
-          <div className={`${widgetClasses} ${overlayClasses}`}>
+          <div ref={widgetRefs.cashFlow} className={`${widgetClasses} ${overlayClasses}`}>
             {isEditMode && <div className={glowClasses}></div>}
             <SortableItem key="cashFlow" id="cashFlow">
               <CashFlow />
@@ -141,6 +160,11 @@ function Dashboard() {
         return null;
     }
   };
+
+  const handleCloseHints = () => {
+    setIsNewUser(false);
+  };
+
   return (
     <>
       <NavbarLayout />
@@ -173,6 +197,12 @@ function Dashboard() {
           <div className="fixed bottom-[20px] right-[20px] z-50"><ChatBotAssistant /></div>
         </div>
       </div>
+      <FirstTimeUserHints
+        isNewUser={isNewUser}
+        onClose={handleCloseHints}
+        widgets={widgets}
+        widgetRefs={widgetRefs}
+      />
     </>
   );
 }
