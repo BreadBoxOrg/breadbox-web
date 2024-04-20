@@ -55,7 +55,7 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
   const handleBack = () => {
     switch (currentPage) {
       case "expenses":
-        navigate("/");
+        navigate("/dashboard");
         break;
       case "finances":
         navigate("/expenses");
@@ -97,7 +97,7 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
           {currentPage === "expenses" && (
             <>
               <li>View and manage your expenses in the list.</li>
-              <li>Use the sidebar to filter and categorize expenses.</li>
+              <li>Use the sidebar to filter [PENDING] and categorize expenses.</li>
             </>
           )}
           {currentPage === "finances" && (
