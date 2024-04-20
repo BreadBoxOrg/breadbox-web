@@ -70,6 +70,7 @@ function PickLanguageSignIn() {
         onChange={handleChange}
         menuPlacement={'top'}
         isSearchable={false}
+        defaultValue={options.find(option => option.value === 'en')}
     />
   );
 }
