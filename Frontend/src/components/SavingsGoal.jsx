@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getPlaidAccounts } from '../utils/http';
 import { Select, MenuItem, FormControl, InputLabel, ThemeProvider, createTheme } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 function SavingsGoal() {
   const [tooltip, setTooltip] = useState({ show: false, amount: '' });
@@ -59,6 +60,8 @@ function SavingsGoal() {
     setTooltip({ show: false, amount: '' });
   };
 
+  const {t} = useTranslation();
+
   return (
     <ThemeProvider theme={darkTheme}>
       <div style={{
@@ -73,7 +76,7 @@ function SavingsGoal() {
       }}>
         <div style={{ marginBottom: '5px' }}>
           <FormControl fullWidth>
-            <InputLabel id="account-select-label" style={{ color: 'white' }}>Account</InputLabel>
+            <InputLabel id="account-select-label" style={{ color: 'white' }}>{t('dashboard.account')}</InputLabel>
             <Select
               labelId="account-select-label"
               id="account-select"
@@ -91,8 +94,8 @@ function SavingsGoal() {
           </FormControl>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-          <div style={{ fontSize: '18px' }}>Savings Goal</div>
-          <div style={{ fontSize: '12px' }}>${goalAmount.toLocaleString()} Goal</div>
+          <div style={{ fontSize: '18px' }}>{t('dashboard.savings-goal')}</div>
+          <div style={{ fontSize: '12px' }}>${goalAmount.toLocaleString()} {t('dashboard.goal')}</div>
         </div>
         <div style={{ position: 'relative', height: '20px', backgroundColor: '#2C2C2E', borderRadius: '10px' }}>
           <div style={{
@@ -137,7 +140,7 @@ function SavingsGoal() {
             </React.Fragment>
           ))}
         </div>
-        <div style={{ fontSize: '14px', marginTop: '10px' }}>{progressPercentage}% to complete</div>
+        <div style={{ fontSize: '14px', marginTop: '10px' }}>{progressPercentage}% {t('dashboard.to-complete')}</div>
       </div>
     </ThemeProvider>
   );

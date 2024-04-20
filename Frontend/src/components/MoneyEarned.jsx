@@ -6,6 +6,7 @@ import { getPlaidMonthlyIncome } from '../utils/http';
 import { AccessTokenContext } from "../App";
 import { useContext } from "react";
 import { DataFetchContext } from '../context/DataFetchContext';
+import { useTranslation } from 'react-i18next';
 
 function MoneyEarned() {
   const [anchorEl, setAnchorEl] = useState(null); // dropdown from MUI
@@ -14,6 +15,8 @@ function MoneyEarned() {
   // const [incomeData, setIncomeData] = useState([]); // THIS IS GOING TO HOLD THE TRANSACTION DATA
   const { accessToken } = useContext(AccessTokenContext);
   const { incomeData } = useContext(DataFetchContext);
+
+  const { t } = useTranslation();
 
   // useEffect(() => {
   //   // let isMounted = true;
@@ -102,7 +105,7 @@ function MoneyEarned() {
           alignItems: 'center'
 
         }}>
-          <Typography variant="h5" sx={{ margin: 0, fontSize: '24px', color: 'white' }}>Money Earned</Typography> {/* slowly changing to MUI styling */}
+          <Typography variant="h5" sx={{ margin: 0, fontSize: '24px', color: 'white' }}>{t('dashboard.money-earned')}</Typography> {/* slowly changing to MUI styling */}
           <div>
             <Button
               aria-controls="simple-menu"
@@ -135,9 +138,9 @@ function MoneyEarned() {
                 
               }}
             >
-              <MenuItem onClick={() => handleClose("Monthly")}>Monthly</MenuItem>
-              <MenuItem onClick={() => handleClose("Quarterly")}>Quarterly</MenuItem>
-              <MenuItem onClick={() => handleClose("Yearly")}>Yearly</MenuItem>
+              <MenuItem onClick={() => handleClose("Monthly")}>{t('dashboard.monthly')}</MenuItem>
+              <MenuItem onClick={() => handleClose("Quarterly")}>{t('dashboard.quarterly')}</MenuItem>
+              <MenuItem onClick={() => handleClose("Yearly")}>{t('dashboard.yearly')}</MenuItem>
             </Menu>
           </div>
         </div>
