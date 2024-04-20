@@ -20,6 +20,7 @@ const Finances = () => {
   const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor));
   const [isEditMode, setIsEditMode] = useState(false);
   const [isNewUser, setIsNewUser] = useState(true);
+  const { t } = useTranslation();
 
   const widgetRefs = {
     totalInvestedNetEarned: useRef(null),
@@ -30,11 +31,11 @@ const Finances = () => {
   };
 
   const widgets = [
-    { id: "totalInvestedNetEarned", name: "Total Invested & Net Earned" },
-    { id: "assetDetails", name: "Asset Details" },
-    { id: "portfolioDiversity", name: "Portfolio Diversity" },
-    { id: "accountBalances", name: "Account Balances" },
-    { id: "investmentGoals", name: "Investment Goals" },
+    { id: "totalInvestedNetEarned", name: t('finances.total_and_net') },
+    { id: "assetDetails", name: t('finances.asset-details') },
+    { id: "portfolioDiversity", name: t('finances.portfolio-diversity') },
+    { id: "accountBalances", name: t('finances.account-balances') },
+    { id: "investmentGoals", name: t('finances.investment-goals') },
   ];
 
   useEffect(() => {
@@ -69,8 +70,6 @@ const Finances = () => {
         return '';
     }
   };
-
-  const { t } = useTranslation();
 
   const renderWidget = (widgetId) => {
     const widgetClasses = getWidgetClasses(widgetId);

@@ -17,8 +17,8 @@ const Expenses = () => {
   };
 
   const widgets = [
-    { id: "expensesList", name: "Expenses List" },
-    { id: "expenseSideBar", name: "Expense Sidebar" },
+    { id: "expensesList", name: t('expenses.expense-list') },
+    { id: "expenseSideBar", name: t('expenses.expense-bar') },
   ];
 
   const handleCloseHints = () => {

@@ -18,6 +18,9 @@ import { useTranslation } from 'react-i18next';
 import FirstTimeUserHints from './FirstTimeUserHints';
 
 function Dashboard() {
+
+  const { t, i18n } = useTranslation();
+
   const [items, setItems] = useState(() => {
     const savedItems = localStorage.getItem('dashboardItems');
     return savedItems ? JSON.parse(savedItems) : ['moneyEarned', 'recentRecurring', 'networthSavingsGoal', 'crypto', 'cashFlow'];
@@ -37,11 +40,11 @@ function Dashboard() {
   };
 
   const widgets = [
-    { id: 'moneyEarned', name: 'Money Earned' },
-    { id: 'recentRecurring', name: 'Recent Recurring' },
-    { id: 'networthSavingsGoal', name: 'Net Worth & Savings Goal' },
-    { id: 'crypto', name: 'Cryptocurrency' },
-    { id: 'cashFlow', name: 'Cash Flow' },
+    { id: 'moneyEarned', name: t('dashboard.money-earned') },
+    { id: 'recentRecurring', name: t('dashboard.recent-recurring') },
+    { id: 'networthSavingsGoal', name: t('dashboard.networth_and_savings') },
+    { id: 'crypto', name: t('dashboard.crypto') },
+    { id: 'cashFlow', name: t('dashboard.cash-flow') },
   ];
 
   useEffect(() => {
@@ -59,8 +62,6 @@ function Dashboard() {
       });
     }
   };
-
-  const { t, i18n } = useTranslation();
 
   let firstName = sessionStorage.getItem('firstName');
   if(!sessionStorage.getItem('firstName')){
