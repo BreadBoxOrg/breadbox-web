@@ -1,4 +1,31 @@
 {
+    "userHints": {
+        "welcome": "¡Bienvenido, Nuevo Usuario!",
+        "got-it": "¡Entendido!",
+        "get-started": "Aquí tienes algunas indicaciones para comenzar",
+        "drag-drop": "Arrastra y suelta widgets para reorganizarlos.",
+        "drag-edit": "Haz clic en \"Editar\" para entrar en modo de edición.",
+        "explore": "Explora cada widget para obtener insights financieros.",
+        "expenses-view": "Visualiza y gestiona tus gastos en la lista.",
+        "expenses-sidebar": "Utiliza la barra lateral para ver visualmente dónde se fue la mayoría de tus gastos en ese periodo.",
+        "finance-data": "Accede a tus datos y informes financieros.",
+        "finance-analyze": "Analiza tus ingresos, gastos y ahorros.",
+        "next": "Siguiente",
+        "tooltipText": {
+            "moneyEarned": "Este widget muestra el total de dinero ganado.",
+            "recentRecurring": "Aquí puedes ver tus transacciones recurrentes recientes.",
+            "networthSavingsGoal": "Este widget muestra tu patrimonio neto y el progreso de tu objetivo de ahorro.",
+            "crypto": "Sigue tus inversiones en criptomonedas aquí.",
+            "cashFlow": "Visualiza tu flujo de efectivo con este widget.",
+            "expensesList": "Administra y visualiza tus gastos en esta lista.",
+            "expenseSideBar": "Utiliza la barra lateral para filtrar y categorizar tus gastos.",
+            "totalInvestedNetEarned": "Consulta tu cantidad total invertida y ganancias netas.",
+            "assetDetails": "Obtén información detallada sobre tus activos.",
+            "portfolioDiversity": "Analiza la diversidad de tu cartera de inversiones.",
+            "accountBalances": "Consulta tus saldos de cuenta aquí.",
+            "investmentGoals": "Establece y sigue tus objetivos de inversión con este widget."
+          }
+    },
     "dashboard": {
         "welcome": "Bienvenido",
         "edit-button": "Editar",
@@ -31,9 +58,14 @@
         "savings-goal": "Meta de Ahorro",
         "goal": "Objetivo",
         "to-complete": "para completar",
-        "cash-flow": "Flujo de Efectivo"
+        "cash-flow": "Flujo de Efectivo",
+        "recent-recurring": "Reciente Recurrente",
+        "networth_and_savings": "Valor Neto y Meta de Ahorro",
+        "crypto": "Criptomoneda"
     },
     "expenses": {
+        "expense-list": "Lista de Gastos",
+        "expense-bar": "Barra Lateral de Gastos",
         "header": "Gastos",
         "category": {
             "bankfees": "Tarifas Bancarias",
@@ -60,7 +92,9 @@
         "investment-goals": "Objetivos de Inversión",
         "goal": "Meta",
         "edit-button": "Editar",
-        "save-button": "Guardar"
+        "save-button": "Guardar",
+        "total_and_net": "Total Invertido y Ganancia Neta",
+        "asset-details": "Detalles del Activo"
     },    
     "signup_login": {
         "started": "Comencemos",

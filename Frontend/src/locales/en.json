@@ -1,4 +1,31 @@
 {
+    "userHints": {
+        "welcome": "Welcome, New User!",
+        "got-it": "Got it!",
+        "get-started": "Here are some hints to get you started",
+        "drag-drop": "Drag and drop widgets to rearrange them.",
+        "drag-edit": "Click \"Edit\" to enter edit mode.",
+        "explore": "Explore each widget for financial insights.",
+        "expenses-view": "View and manage your expenses in the list.",
+        "expenses-sidebar": "Use the sidebar to visually see where the majority of your expenses went for that period.",
+        "finance-data": "Access your financial data and reports.",
+        "finance-analyze": "Analyze your income, expenses, and savings.",
+        "next": "Next",
+        "tooltipText": {
+            "moneyEarned": "This widget displays your total money earned.",
+            "recentRecurring": "Here you can see your recent recurring transactions.",
+            "networthSavingsGoal": "This widget shows your net worth and savings goal progress.",
+            "crypto": "Keep track of your cryptocurrency investments here.",
+            "cashFlow": "Visualize your cash flow with this widget.",
+            "expensesList": "Manage and view your expenses in this list.",
+            "expenseSideBar": "Use the sidebar to filter and categorize your expenses.",
+            "totalInvestedNetEarned": "See your total invested amount and net earnings.",
+            "assetDetails": "Get detailed information about your assets.",
+            "portfolioDiversity": "Analyze the diversity of your investment portfolio.",
+            "accountBalances": "Check your account balances here.",
+            "investmentGoals": "Set and track your investment goals with this widget."
+        }
+    },
     "dashboard": {
         "welcome": "Welcome",
         "edit-button": "Edit",
@@ -31,9 +58,14 @@
         "savings-goal": "Savings Goal",
         "goal": "Goal",
         "to-complete": "to complete",
-        "cash-flow": "Cash Flow"
+        "cash-flow": "Cash Flow",
+        "recent-recurring": "Recent Recurring",
+        "networth_and_savings": "Net Worth & Savings Goal",
+        "crypto": "Cryptocurrency"
     },
     "expenses": {
+        "expense-list": "Expenses List",
+        "expense-bar": "Expenses Sidebar",
         "header": "Expenses",
         "category": {
           "bankfees": "Bank Fees",
@@ -60,7 +92,9 @@
         "investment-goals": "Investment Goals",
         "goal": "Goal",
         "edit-button": "Edit",
-        "save-button": "Save"
+        "save-button": "Save",
+        "total_and_net": "Total Invested & Net Earned",
+        "asset-details": "Asset Details"
     },
     "signup_login": {
         "started": "Let's Get Started",

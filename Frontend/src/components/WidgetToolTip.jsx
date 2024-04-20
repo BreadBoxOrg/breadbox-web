@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const WidgetTooltip = ({ widget, isActive, widgetRef }) => {
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0, opacity: 0 });
   const location = useLocation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isActive && widgetRef.current) {
@@ -16,22 +18,22 @@ const WidgetTooltip = ({ widget, isActive, widgetRef }) => {
 
   const tooltipText = {
     dashboard: {
-      moneyEarned: "This widget displays your total money earned.",
-      recentRecurring: "Here you can see your recent recurring transactions.",
-      networthSavingsGoal: "This widget shows your net worth and savings goal progress.",
-      crypto: "Keep track of your cryptocurrency investments here.",
-      cashFlow: "Visualize your cash flow with this widget.",
+      moneyEarned: t('userHints.tooltipText.moneyEarned'),
+      recentRecurring: t('userHints.tooltipText.recentRecurring'),
+      networthSavingsGoal: t('userHints.tooltipText.networthSavingsGoal'),
+      crypto: t('userHints.tooltipText.crypto'),
+      cashFlow: t('userHints.tooltipText.cashFlow'),
     },
     expenses: {
-      expensesList: "Manage and view your expenses in this list.",
-      expenseSideBar: "Use the sidebar to filter and categorize your expenses.",
+      expensesList: t('userHints.tooltipText.expensesList'),
+      expenseSideBar: t('userHints.tooltipText.expenseSideBar'),
     },
     finances: {
-      totalInvestedNetEarned: "See your total invested amount and net earnings.",
-      assetDetails: "Get detailed information about your assets.",
-      portfolioDiversity: "Analyze the diversity of your investment portfolio.",
-      accountBalances: "Check your account balances here.",
-      investmentGoals: "Set and track your investment goals with this widget.",
+      totalInvestedNetEarned: t('userHints.tooltipText.totalInvestedNetEarned'),
+      assetDetails: t('userHints.tooltipText.assetDetails'),
+      portfolioDiversity: t('userHints.tooltipText.portfolioDiversity'),
+      accountBalances: t('userHints.tooltipText.accountBalances'),
+      investmentGoals: t('userHints.tooltipText.investmentGoals'),
     },
   };
 
