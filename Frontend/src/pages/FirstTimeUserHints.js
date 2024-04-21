@@ -129,8 +129,8 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
           )}
           {currentPage === "settings" && (
             <>
-              <li>Manage your account settings and preferences.</li>
-              <li>Link your financial accounts to track your data.</li>
+              <li>{t('userHints.manage-settings')}</li>
+              <li>{t('userHints.link-accounts')}</li>
             </>
           )}
         </ul>
