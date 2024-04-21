@@ -13,9 +13,14 @@ import SavingsGoal from '../components/SavingsGoal.jsx';
 import CashFlow from '../components/Cashflow.jsx';
 import { AccessTokenContext } from "../App";
 import { useContext } from "react";
+import { userInfo } from '../components/mock_data/mockData.js';
+import { useTranslation } from 'react-i18next';
 import FirstTimeUserHints from './FirstTimeUserHints';
 
 function Dashboard() {
+
+  const { t, i18n } = useTranslation();
+
   const [items, setItems] = useState(() => {
     const savedItems = localStorage.getItem('dashboardItems');
     return savedItems ? JSON.parse(savedItems) : ['moneyEarned', 'recentRecurring', 'networthSavingsGoal', 'crypto', 'cashFlow'];
@@ -35,11 +40,11 @@ function Dashboard() {
   };
 
   const widgets = [
-    { id: 'moneyEarned', name: 'Money Earned' },
-    { id: 'recentRecurring', name: 'Recent Recurring' },
-    { id: 'networthSavingsGoal', name: 'Net Worth & Savings Goal' },
-    { id: 'crypto', name: 'Cryptocurrency' },
-    { id: 'cashFlow', name: 'Cash Flow' },
+    { id: 'moneyEarned', name: t('dashboard.money-earned') },
+    { id: 'recentRecurring', name: t('dashboard.recent-recurring') },
+    { id: 'networthSavingsGoal', name: t('dashboard.networth_and_savings') },
+    { id: 'crypto', name: t('dashboard.crypto') },
+    { id: 'cashFlow', name: t('dashboard.cash-flow') },
   ];
 
   useEffect(() => {
@@ -58,8 +63,13 @@ function Dashboard() {
     }
   };
 
+  let firstName = sessionStorage.getItem('firstName');
+  if(!sessionStorage.getItem('firstName')){
+    firstName = userInfo.find(item => item.firstName)?.firstName;
+  }
+
   const today = new Date();
-  const formattedDate = today.toLocaleDateString("en-US", {
+  const formattedDate = today.toLocaleDateString(i18n.language, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
@@ -161,6 +171,7 @@ function Dashboard() {
     }
   };
 
+
   const handleCloseHints = () => {
     setIsNewUser(false);
   };
@@ -170,14 +181,14 @@ function Dashboard() {
       <NavbarLayout />
       <div className="ml-0 pt-[200px] md:ml-[275px] md:pt-0">
         <div className="flex flex-col gap-[30px] mx-[10px] md:mx-0 md:ml-[0.5vw] max-w-full md:max-w-[82vw] pb-[20px]">
-          <div className="font-bold text-[#1ADBA9] mt-5 text-3xl">Welcome, BreadboxTest</div>
+          <div className="font-bold text-[#1ADBA9] mt-5 text-3xl">{t('dashboard.welcome')}, {firstName}</div>
           <p className="text-[#8f8f8f]">{formattedDate}</p>
           <div className="flex justify-end">
             <button
               className="hidden md:block bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded-xl"
               onClick={() => setIsEditMode(!isEditMode)}
             >
-              {isEditMode ? 'Save' : 'Edit'}
+              {isEditMode ? `${t('dashboard.save-button')}` : `${t('dashboard.edit-button')}`}
             </button>
           </div>
           

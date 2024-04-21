@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import CsvDownloadButton from 'react-json-to-csv';
 import { getPlaidTransactions } from "../utils/http.js";
+import { useTranslation } from 'react-i18next';
 
 function TransactionDataCSV ({ rerender }) {
+
+    const { t } = useTranslation();
 
     const [transactionData, setTransactionData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -54,13 +57,13 @@ function TransactionDataCSV ({ rerender }) {
     return (
         <>
             {isLoading ? (
-                <button style={NoDataOrLoading} disabled>Loading...</button>
+                <button style={NoDataOrLoading} disabled>{t('settings.export-loading')}</button>
             ) : transactionData.length > 0 ? (
                 <CsvDownloadButton data={transactionData} filename="transaction_data" style={buttonStyle}>
-                    Export Transaction Data
+                    {t('settings.export-transactions-csv')}
                 </CsvDownloadButton>
             ) : (
-                <button style={NoDataOrLoading} disabled>No Transaction Data</button>
+                <button style={NoDataOrLoading} disabled>{t('settings.export-no-transaction-data')}</button>
             )}
         </>
     );

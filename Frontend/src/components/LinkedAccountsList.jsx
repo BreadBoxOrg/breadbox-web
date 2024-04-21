@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getPlaidAccounts } from '../utils/http.js';
-import Popup from "reactjs-popup";
-import ClearIcon from '@mui/icons-material/Clear';
+//import Popup from "reactjs-popup";
+//import ClearIcon from '@mui/icons-material/Clear';
 
 function AccountList({ rerender }) {
     const [accounts, setAccounts] = useState([]);
-    const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
+    //const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
 
     useEffect(() => {
         async function fetchAccounts() {
@@ -24,6 +24,7 @@ function AccountList({ rerender }) {
         fetchAccounts();
     }, [rerender]);
 
+    /*
     const handleRemoveAccount = (removeIndex) => {
         setConfirmDeleteIndex(removeIndex);
     };
@@ -37,6 +38,7 @@ function AccountList({ rerender }) {
     const handleCancelDelete = () => {
         setConfirmDeleteIndex(null);
     };
+    */
 
     return (
         <div>
@@ -46,9 +48,10 @@ function AccountList({ rerender }) {
                         <span className='account-details'>
                             {account.name} - {account.mask}
                         </span>
-                        <ClearIcon className='remove-bank' onClick={() => handleRemoveAccount(index)} />
+                        {/*<ClearIcon className='remove-bank' onClick={() => handleRemoveAccount(index)} />*/}
                     </li>
                 ))}
+                {/*
                 <Popup open={confirmDeleteIndex !== null} onClose={handleCancelDelete}>
                     <div className='delete-account-pop-up'>
                         <p>Are you sure you want to delete this account?</p>
@@ -56,6 +59,7 @@ function AccountList({ rerender }) {
                         <button className='pop-up-button-no' onClick={handleCancelDelete}>No</button>
                     </div>
                 </Popup>
+                */}
             </ul>
         </div>
     );

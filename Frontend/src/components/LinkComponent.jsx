@@ -4,22 +4,27 @@ import Button from "plaid-threads/Button";
 import PlaidLogo from "../images/Plaid_Logo.png"
 import { AccessTokenContext } from "../App";
 import { useContext } from "react";
+import { useTranslation } from 'react-i18next';
 
 const LinkComponent = (props) => {
 const [linkToken, setLinkToken] = useState(null);
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 const { setAccessToken } = useContext(AccessTokenContext);
 
+const { t, i18n } = useTranslation();
+
 
 // Fetch the link token from your backend
 useEffect(() => {
   const fetchLinkToken = async () => {
     try {
+      const languageCode = i18n.language || 'en';
       const response = await fetch(`${backendURL}/link/create_link_token`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ languageCode }),
       });
       const data = await response.json();
       console.log(data);
@@ -31,7 +36,7 @@ useEffect(() => {
   };
 
   fetchLinkToken();
-}, [backendURL]);
+}, [backendURL, i18n.language]);
 
 const onSuccess = async (publicToken) => {
   // Send the public token to your server to exchange for an access token
@@ -65,7 +70,7 @@ const { open, ready } = usePlaidLink(config);
 return (
   <Button className="plaid-button" onClick={() => open()} disabled={!ready}>
     <img alt="Plaid Logo" src={PlaidLogo}></img>
-    Connect your accounts
+    {t('settings.plaid-link-button')}
   </Button>
 );
 };

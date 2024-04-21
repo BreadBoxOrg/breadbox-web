@@ -9,6 +9,7 @@ import AssetDetails from "../components/AssetDetails";
 import AccountBalances from "../components/AccountBalances";
 import PortfolioDiversity from "../components/PortfolioDiversity";
 import InvestmentGoals from "../components/InvestmentGoals";
+import { useTranslation } from 'react-i18next';
 import FirstTimeUserHints from './FirstTimeUserHints';
 
 const Finances = () => {
@@ -19,6 +20,7 @@ const Finances = () => {
   const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor));
   const [isEditMode, setIsEditMode] = useState(false);
   const [isNewUser, setIsNewUser] = useState(true);
+  const { t } = useTranslation();
 
   const widgetRefs = {
     totalInvestedNetEarned: useRef(null),
@@ -29,11 +31,11 @@ const Finances = () => {
   };
 
   const widgets = [
-    { id: "totalInvestedNetEarned", name: "Total Invested & Net Earned" },
-    { id: "assetDetails", name: "Asset Details" },
-    { id: "portfolioDiversity", name: "Portfolio Diversity" },
-    { id: "accountBalances", name: "Account Balances" },
-    { id: "investmentGoals", name: "Investment Goals" },
+    { id: "totalInvestedNetEarned", name: t('finances.total_and_net') },
+    { id: "assetDetails", name: t('finances.asset-details') },
+    { id: "portfolioDiversity", name: t('finances.portfolio-diversity') },
+    { id: "accountBalances", name: t('finances.account-balances') },
+    { id: "investmentGoals", name: t('finances.investment-goals') },
   ];
 
   useEffect(() => {
@@ -112,12 +114,12 @@ const Finances = () => {
       <div className="pt-[200px] md:pt-5 ml-1 md:ml-[2px] max-w-full overflow-x-auto">
         <div className="grid grid-cols-1 md:grid-cols-6 gap-9 md:gap-18 md:row-gap-5 p-2.5 mx-auto">
           <div className="col-start-1 md:col-start-2 md:col-span-5 flex justify-between items-center">
-            <h1 className="font-bold text-[#1ADBA9] text-xl md:text-3xl">Finances</h1>
+            <h1 className="font-bold text-[#1ADBA9] text-xl md:text-3xl">{t('finances.header')}</h1>
             <button
               className="hidden md:inline-block bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded-xl"
               onClick={() => setIsEditMode(!isEditMode)}
             >
-              {isEditMode ? 'Save' : 'Edit'}
+              {isEditMode ? `${t('finances.save-button')}` : `${t('finances.edit-button')}`}
             </button>
           </div>
           {isEditMode ? (

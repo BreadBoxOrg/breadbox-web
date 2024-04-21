@@ -12,23 +12,27 @@ import LinkComponent from '../components/LinkComponent.jsx';
 import AccountList from '../components/LinkedAccountsList.jsx';
 import AccountDataCSV from '../components/ExportAccountsCSV.jsx';
 import ProfilePicChange from '../components/ProfilePic.jsx';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from '../components/LanguageSelector.jsx';
 
 const Settings = () =>{
+
+    const { t } = useTranslation();
 
     const [rerenderSettings, setRerenderSettings] = useState(false);
 
     const [selectedNotificationWhen, setNotificationWhen] = useState('');
 
     const NotiWhenOptions = [
-        { value: 'low-funds', label: 'Low Funds'},
-        { value: 'deposited-funds', label: 'Deposited Funds'},
+        { value: 'low-funds', label: t('settings.notify-low-funds')},
+        { value: 'deposited-funds', label: t('settings.notify-deposited-funds')},
     ];
 
     const [selectedNotificationBy, setNotificationBy] = useState('');
 
     const NotificationBy = [
-        { value: 'email', label: 'Email'},
-        { value: 'phone-number', label: 'Phone Number'},
+        { value: 'email', label: t('settings.email')},
+        { value: 'phone-number', label: t('settings.notify-phone-number')},
     ];
 
     const [inputValue, setInputValue] = useState('');
@@ -43,10 +47,10 @@ const Settings = () =>{
         let message = "";
         if (selectedNotificationBy === 'email') {
             // Simulate email submission
-            message = `Email Submitted: ${inputValue}`;
+            message = `${t('settings.email-submit')}: ${inputValue}`;
         } else if (selectedNotificationBy === 'phone-number') {
             // Simulate phone number submission
-            message = `Phone Number Submitted: ${inputValue}`;
+            message = `${t('settings.phone-submit')}: ${inputValue}`;
         }
         setPopupMessage(message);
         setPopupOpen(true);
@@ -125,10 +129,12 @@ const Settings = () =>{
                 <NavbarLayout />
                 {/* Add lg:mb-[spacing] to this div for margin at desktop view */}
                 <div className="flex justify-between items-center text-[#1ADBA9] text-2xl sm:text-4xl mb-0 lg:mb-8">
-                    <h1 className="py-3 sm:py-0">Settings</h1>
+                    <h1 className="font-bold text-[#1ADBA9] text-xl md:text-3xl">{t('settings.settings-header')}</h1>
                     <div className="py-3 sm:py-0">
                         <Link to="/">
-                            <button className="w-40 h-8 text-white bg-[#651819] border-none rounded-full font-bold text-sm cursor-pointer sm:w-50 sm:h-10 sm:text-lg">Log Out</button>
+                            <button className="w-40 h-8 text-white bg-[#651819] border-none rounded-full font-bold text-sm cursor-pointer sm:w-50 sm:h-10 sm:text-lg">
+                                {t('settings.log-out')}
+                            </button>
                         </Link>
                     </div>
                 </div>
@@ -137,39 +143,47 @@ const Settings = () =>{
                     <div className="text-white font-bold">
                         <div className="bg-[#141516] rounded-2xl mb-6 p-4">
                             <h2 className="text-xl mb-4">
-                                Account
+                                {t('settings.account-header')}
                                 {isEditing ? (
                                     <>
-                                        <button className='ml-auto block bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold' onClick={handleSaveProfile}>Save</button>
-                                        <button className='bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold ml-2' onClick={handleCancelEdit}>Cancel</button>
+                                        <div className="flex">
+                                            <button className='ml-auto block bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold' onClick={handleSaveProfile}>
+                                                {t('settings.save-button')}
+                                            </button>
+                                            <button className='bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold ml-2' onClick={handleCancelEdit}>
+                                                {t('settings.cancel-button')}
+                                            </button>
+                                        </div>
                                     </>
                                 ) : (
-                                    <button className='ml-auto block bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold' onClick={handleEditProfile}>Edit Profile</button>
+                                    <button className='ml-auto block bg-[#109f7a] text-white rounded-lg px-3 py-1 font-bold' onClick={handleEditProfile}>
+                                        {t('settings.edit-profile')}
+                                    </button>
                                 )}
                             </h2>
                             <ProfilePicChange profilePic={profilePic} onProfilePicChange={handleProfilePicChange} isEditing={isEditing}/>
                             <div className='flex flex-col mb-4'>
-                                <span>First Name</span>
+                                <span>{t('settings.first-name')}</span>
                                 <ProfileInfoBox text={firstName} isEditable={isEditing} onChangeText={setFirstName}/>
                             </div>
                             <div className='flex flex-col mb-4'>
-                                <span>Last Name</span>
+                                <span>{t('settings.last-name')}</span>
                                 <ProfileInfoBox text={lastName} isEditable={isEditing} onChangeText={setLastName}/>
                             </div>
                             <div className='flex flex-col'>
-                                <span>Email</span>
+                                <span>{t('settings.email')}</span>
                                 <ProfileInfoBox text={email} isEditable={isEditing} onChangeText={setEmail}/>
                             </div>
                         </div>
                         <div className="bg-[#141516] rounded-2xl p-4">
-                            <span className='text-xl'>Linked Accounts</span>
+                            <span className='text-xl'>{t('settings.linked-accounts')}</span>
                             <LinkComponent onSuccess={handleAccountsRerender}/>
                             <AccountList rerender={rerenderSettings}/>
                         </div>
                     </div>
                     <div className="bg-[#141516] rounded-2xl p-4 mt-6 sm:mt-0">
                         <div className="mb-6">
-                            <h2 className=" font-bold text-white text-xl mb-4">General</h2>
+                            <h2 className=" font-bold text-white text-xl mb-4">{t('settings.general-header')}</h2>
                             <ul className="list-none flex flex-col items-center">
                                 <li className='flex items-center gap-10'>
                                     <AccountDataCSV rerender={rerenderSettings}/>
@@ -177,8 +191,8 @@ const Settings = () =>{
                             </ul>
                         </div>
                         <div className="notifications">
-                            <h2 className=" font-bold text-white text-xl mb-4">Notifications</h2>
-                            <span>Notify Me When...</span>
+                            <h2 className=" font-bold text-white text-xl mb-4">{t('settings.notifications-header')}</h2>
+                            <span>{t('settings.notification-notify')}</span>
                             <div className='flex flex-col sm:flex-row justify-between mt-4'>
                                 <NotificationOptions 
                                     value={selectedNotificationWhen}
@@ -201,17 +215,19 @@ const Settings = () =>{
                                                 onChange={handleInputChange}
                                                 placeholder={
                                                     selectedNotificationBy === 'email'
-                                                    ? 'Enter Email'
-                                                    : 'Enter Phone Number'
+                                                    ? t('settings.enter-email')
+                                                    : t('settings.enter-phone')
                                                 }
                                             />
-                                            <button className='bg-[#1ADBA9] text-white rounded-full px-3 py-1 font-bold' onClick={handleSubmit}>Submit</button>
+                                            <button className='bg-[#1ADBA9] text-white rounded-full px-3 py-1 font-bold' onClick={handleSubmit}>{t('settings.noti-submit')}</button>
                                         </div>
                                     )}
                                     <Popup open={popupOpen} onClose={() => setPopupOpen(false)}>
                                         {popupMessage}
                                     </Popup>
                                 </div>
+                                <h2 className=" font-bold text-white text-xl mb-4">{t('settings.select-language')}</h2>
+                                <LanguageSelector />
                             </div>
                         </div>
                     </div>

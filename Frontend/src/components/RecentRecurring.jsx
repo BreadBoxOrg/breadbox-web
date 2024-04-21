@@ -4,6 +4,7 @@ import Transactions from './Transactions';
 import { getPlaidTransactions } from '../utils/http';
 import { AccessTokenContext } from "../App";
 import { DataFetchContext } from '../context/DataFetchContext';
+import { useTranslation } from 'react-i18next';
 
 function RecentRecurring() {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -28,6 +29,8 @@ function RecentRecurring() {
 
     fetchData();
   }, [accessToken, setTransactionData]);
+  
+  const { t } = useTranslation();
 
 
   const onPieEnter = (_, index) => {
@@ -73,7 +76,7 @@ function RecentRecurring() {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <h2 style={{ margin: 0, fontSize: '24px' }}>Recurring Costs</h2>
+          <h2 style={{ margin: 0, fontSize: '24px' }}>{t('dashboard.recurring-costs')}</h2>
           <div style={{ position: 'relative' }}>
             <button onClick={toggleDropdown} style={{
               backgroundColor: '#2C2C2E',
@@ -97,9 +100,9 @@ function RecentRecurring() {
                 boxShadow: '0 2px 5px rgba(0, 0, 0, 0.5)',
                 zIndex: 3
               }}>
-                <div style={{ padding: '10px', cursor: 'pointer' }}>Monthly</div>
-                <div style={{ padding: '10px', cursor: 'pointer' }}>Quarterly</div>
-                <div style={{ padding: '10px', cursor: 'pointer' }}>Yearly</div>
+                <div style={{ padding: '10px', cursor: 'pointer' }}>{t('dashboard.monthly')}</div>
+                <div style={{ padding: '10px', cursor: 'pointer' }}>{t('dashboard.quarterly')}</div>
+                <div style={{ padding: '10px', cursor: 'pointer' }}>{t('dashboard.yearly')}</div>
               </div>
             )}
           </div>
@@ -181,7 +184,7 @@ function RecentRecurring() {
         borderTopRightRadius: '20px',
         zIndex: 4
       }}>
-        {drawerOpen ? 'Show Recent Transactions' : 'Hide Recent Transactions'}
+        {drawerOpen ? t('dashboard.show-recent') : t('dashboard.hide-recent')}
       </button>
     </div>
   );

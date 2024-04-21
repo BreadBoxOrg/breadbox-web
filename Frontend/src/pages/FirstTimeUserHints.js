@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import WidgetTooltip from "../components/WidgetToolTip";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
   const [currentWidgetIndex, setCurrentWidgetIndex] = useState(0);
@@ -11,6 +12,7 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
   });
   const navigate = useNavigate();
   const location = useLocation();
+  const {t} = useTranslation();
 
   useEffect(() => {
     if (isNewUser) {
@@ -77,33 +79,33 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-zinc-900 rounded-lg p-4 max-w-md">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-white">Welcome, New User!</h2>
+          <h2 className="text-xl font-bold text-white">{t('userHints.welcome')}</h2>
           <button
             className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-xl text-sm"
             onClick={handleClose}
           >
-            Got it!
+            {t('userHints.got-it')}
           </button>
         </div>
-        <p className="mb-2 text-sm text-white">Here are some hints to get you started:</p>
+        <p className="mb-2 text-sm text-white">{t('userHints.get-started')}:</p>
         <ul className="list-disc list-inside text-sm text-white">
           {currentPage === "dashboard" && (
             <>
-              <li>Drag and drop widgets to rearrange them.</li>
-              <li>Click "Edit" to enter edit mode.</li>
-              <li>Explore each widget for financial insights.</li>
+              <li>{t('userHints.drag-drop')}</li>
+              <li>{t('userHints.drag-edit')}</li>
+              <li>{t('userHints.explore')}</li>
             </>
           )}
           {currentPage === "expenses" && (
             <>
-              <li>View and manage your expenses in the list.</li>
-              <li>Use the sidebar to visually see where the majority of your expenses went for that period.</li>
+              <li>{t('userHints.expenses-view')}</li>
+              <li>{t('userHints.expenses-sidebar')}</li>
             </>
           )}
           {currentPage === "finances" && (
             <>
-              <li>Access your financial data and reports.</li>
-              <li>Analyze your income, expenses, and savings.</li>
+              <li>{t('userHints.finance-data')}</li>
+              <li>{t('userHints.finance-analyze')}</li>
             </>
           )}
         </ul>
@@ -121,7 +123,7 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
               className="bg-green-400 hover:bg-green-700 text-white font-bold py-1 px-2 rounded-xl text-sm"
               onClick={handleNextPage}
             >
-              Next &rarr;
+              {t('userHints.next')} &rarr;
             </button>
           )}
         </div>

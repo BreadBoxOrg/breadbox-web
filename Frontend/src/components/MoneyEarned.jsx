@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Button, Menu, MenuItem, Paper, Typography } from '@mui/material';
 import { AccessTokenContext } from "../App";
 import { DataFetchContext } from '../context/DataFetchContext';
+import { useTranslation } from 'react-i18next';
 
 function MoneyEarned() {
   const [anchorEl, setAnchorEl] = React.useState(null); 
@@ -10,6 +11,8 @@ function MoneyEarned() {
 
   const { accessToken } = useContext(AccessTokenContext);
   const { incomeData } = useContext(DataFetchContext);
+
+  const { t } = useTranslation();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -41,7 +44,7 @@ function MoneyEarned() {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <Typography variant="h5" sx={{ margin: 0, fontSize: '24px', color: 'white' }}>Money Earned</Typography>
+          <Typography variant="h5" sx={{ margin: 0, fontSize: '24px', color: 'white' }}>{t('dashboard.money-earned')}</Typography>
           <div>
             <Button
               aria-controls="simple-menu"
@@ -73,9 +76,9 @@ function MoneyEarned() {
                 },
               }}
             >
-              <MenuItem onClick={() => handleClose("Monthly")}>Monthly</MenuItem>
-              <MenuItem onClick={() => handleClose("Quarterly")}>Quarterly</MenuItem>
-              <MenuItem onClick={() => handleClose("Yearly")}>Yearly</MenuItem>
+              <MenuItem onClick={() => handleClose("Monthly")}>{t('dashboard.monthly')}</MenuItem>
+              <MenuItem onClick={() => handleClose("Quarterly")}>{t('dashboard.quarterly')}</MenuItem>
+              <MenuItem onClick={() => handleClose("Yearly")}>{t('dashboard.yearly')}</MenuItem>
             </Menu>
           </div>
         </div>
