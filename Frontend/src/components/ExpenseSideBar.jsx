@@ -51,7 +51,7 @@ const ExpenseSideBar = () => {
 
   return (
     <aside className={styles.sidebar}>
-      <h2 className={styles.title}>Where your money went:</h2>
+      <h2 className={styles.title}>{t('expenses.spending-by-category')}</h2>
       <ul className={styles.expensesList}>
         {Object.entries(expensesByCategory).map(([category, amount]) => (
           <li key={category} className={styles.expenseItem}>
