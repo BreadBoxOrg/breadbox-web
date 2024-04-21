@@ -10,6 +10,7 @@
     * Creates quick replies for the user to select.
 */
 import CustomChatStep from './CustomChatStep.jsx';
+import { useTranslation } from 'react-i18next';
 
 //steps array for the chatbot
 export const steps = [
@@ -85,3 +86,7 @@ export const steps = [
       end: true,
     },
 ];
+
+
+export default Steps;
+

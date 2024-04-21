@@ -12,6 +12,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { getPlaidAccounts } from '../utils/http.js';
+//import Popup from "reactjs-popup";
+//import ClearIcon from '@mui/icons-material/Clear';
+
 
 function AccountList({ rerender }) {
     const [accounts, setAccounts] = useState([]);

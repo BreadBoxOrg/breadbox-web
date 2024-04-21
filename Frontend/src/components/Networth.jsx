@@ -15,10 +15,13 @@ import React, { useEffect, useState } from 'react';
 import { getPlaidAccounts } from '../utils/http';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import { useTranslation } from 'react-i18next';
 
 function Networth() {
   const [netWorth, setNetWorth] = useState(0); // HOLDS DATA
   const [includeDebt, setIncludeDebt] = useState(false); // HOLDS TOGGLE STATE
+
+  const { t } = useTranslation();
   
   useEffect(() => {
     function calculateNetWorth() {
@@ -66,7 +69,7 @@ function Networth() {
         fontSize: '18px',
         marginBottom: '10px'
       }}>
-        Total Net Worth:
+        {t('dashboard.total-net')}:
       </div>
       <div style={{
         fontSize: '24px',
@@ -92,7 +95,7 @@ function Networth() {
             }}
           />
         }
-        label={includeDebt ? "Exclude Debt" : "Include Debt"}
+        label={includeDebt ? t('dashboard.exclude-debt') : t('dashboard.include-debt')}
       />
     </div>
   );

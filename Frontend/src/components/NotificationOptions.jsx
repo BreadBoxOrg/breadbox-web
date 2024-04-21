@@ -9,6 +9,7 @@
 */
 
 import Select from "react-select";
+import { useTranslation } from 'react-i18next';
 
 function NotificationOptions({ value, onChange, options }) {
 
@@ -53,10 +54,12 @@ function NotificationOptions({ value, onChange, options }) {
           }),
       };
 
+      const { t } = useTranslation();
+
     return(<>
     <Select
         styles={customStyles}
-        placeholder="Select"
+        placeholder={t('settings.notify-select')}
         defaultValue={value}
         onChange={onChange}
         options={options}

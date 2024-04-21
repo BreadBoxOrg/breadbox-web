@@ -10,8 +10,9 @@
 
 import React, { useContext } from 'react';
 import { RadialBarChart, RadialBar, ResponsiveContainer, LineChart, Line, Tooltip } from 'recharts';
-// import { useContext } from 'react';
 import { DataFetchContext } from '../context/DataFetchContext';
+import { useTranslation } from 'react-i18next';
+
 
 const investmentGoal = 200000; //user would set this
 
@@ -45,6 +46,9 @@ function InvestmentGoals() {
     },
   ];
 
+  const { t } = useTranslation();
+
+
   return (
     <div
       style={{
@@ -69,7 +73,7 @@ function InvestmentGoals() {
           width: '50%',
         }}
       > 
-        <div style={{ fontSize: '18px', marginBottom: '10px' }}>Investment Goals</div>
+        <div style={{ fontSize: '18px', marginBottom: '10px' }}>{t('finances.investment-goals')}</div>
         <div
             style={{
               position: 'absolute',
@@ -109,7 +113,7 @@ function InvestmentGoals() {
             marginBottom: '10px',
           }}
         > 
-          <div style={{ fontSize: '18px', marginBottom: '5px' }}>Goal: {formatCurrency(investmentGoal)}</div>
+          <div style={{ fontSize: '18px', marginBottom: '5px' }}>{t('finances.goal')}: {formatCurrency(investmentGoal)}</div>
           <hr style={{ width: '100%', color: 'white', marginBottom: '10px'}} />
           {portfolioWorths.map((worth, index) => (
             <div key={index} style={{ marginBottom: '5px' }}>

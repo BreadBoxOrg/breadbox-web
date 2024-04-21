@@ -16,6 +16,7 @@ import { DataFetchContext } from '../context/DataFetchContext';
 
 function AccountBalances() {
 
+
   const { accountData } = useContext(DataFetchContext);
 
   return (
@@ -30,7 +31,7 @@ function AccountBalances() {
     }}>
       <CardContent sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
         <Typography variant="h6" component="div" sx={{ mb: 2, fontSize: '1.25rem', fontWeight: 'bold' }}>
-          Account Balances
+          {t('finances.account-balances')}
         </Typography>
         <Divider sx={{ mb: 2, backgroundColor: 'rgba(255, 255, 255, 0.12)' }} />
         <List sx={{

@@ -17,7 +17,7 @@
 .NavBar {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  width: 230px;
+  width: 235px;
   background-color: black;
   position: fixed;
   top: 0;
@@ -52,6 +52,12 @@
   background-color: #1ADBA9;
   padding-bottom: 12px;
   border-bottom-right-radius: 20px;
+  transition: height 0.3s ease-in-out;
+  height: 70px;
+  z-index: 1;
+}
+.NavbarFooter.expanded {
+  height: 150px; /* expanded height */
 }
 .NavbarFooter .footer-profilePic{
   margin: 15px 15px 0px 15px;
@@ -77,7 +83,7 @@
   white-space: nowrap;
 }
 .NavBarIcons{
-  margin-right: 30px;
+  margin-right: 20px;
   color: white;
   transform: scale(1.8);
   vertical-align: text-bottom;

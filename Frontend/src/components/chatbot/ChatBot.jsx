@@ -14,12 +14,14 @@ import logo from '../../images/BreadBox_Logo.svg';
 import Draggable from 'react-draggable';
 import 'react-resizable/css/styles.css';
 import { StyledChatBot, theme } from './ChatBotStyles.jsx';
-import { steps }  from './ChatSteps.jsx';  
+import Steps from './ChatSteps.jsx';  
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function ChatBotAssistant() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const { t } = useTranslation();
 
   //resizes the chatbot according to the window width
   useEffect(() => {
@@ -50,11 +52,11 @@ function ChatBotAssistant() {
         <ThemeProvider theme={theme}>
           <StyledChatBot 
             headerTitle="AI BreadBot"
-            steps={steps}
+            steps={Steps()}
             botAvatar={logo}
             userAvatar="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" //get rid of the user default avatar
             floating={true}
-            placeholder="Type a message..."
+            placeholder={t('chatbot.placeholder')}
           />
         </ThemeProvider>
         </div>

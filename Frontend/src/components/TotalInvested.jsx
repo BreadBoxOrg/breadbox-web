@@ -1,3 +1,4 @@
+
 /*
   * File: 
     *TotalInvested.jsx
@@ -8,13 +9,16 @@
   * 
 */
 
-
 import { useContext} from "react";
 import { DataFetchContext } from "../context/DataFetchContext";
+import { useTranslation } from 'react-i18next';
 
 function TotalInvested() {
 
   const { totalInvestmentAmount  } = useContext(DataFetchContext);
+  const { t } = useTranslation();
+
+    
 
     return (
       <div style={{
@@ -35,7 +39,7 @@ function TotalInvested() {
           fontSize: '18px', 
           marginBottom: '10px' 
         }}>
-          Total Invested:
+          {t('finances.total-invested')}:
         </div>
         <div style={{
           fontSize: '24px', 

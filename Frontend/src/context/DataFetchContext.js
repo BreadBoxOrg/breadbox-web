@@ -9,10 +9,13 @@
 */
 import React, { createContext, useState, useEffect } from 'react';
 import { getPlaidTransactions, getPlaidMonthlyIncome, getPlaidRecurringIncome, getPlaidNetIncome, getPlaidAccounts } from '../utils/http'; // Import your fetch functions
+import { useTranslation } from 'react-i18next';
+
 
 export const DataFetchContext = createContext();
 
 export const DataFetchProvider = ({ children }) => {
+  const { t } = useTranslation();
   const [transactionData, setTransactionData] = useState([]);
   const [dropdownData, setDropdowndata] = useState([]); // [ {id: 1, title: "title", date: "date", amount: "amount"}, ...
   const [incomeData, setIncomeData] = useState([]);
@@ -88,10 +91,10 @@ export const DataFetchProvider = ({ children }) => {
       /**************************************************************************** */
       let incomeDisplayList = [];
           const monthNames = [
-            "January", "February", "March", 
-            "April", "May", "June", 
-            "July", "August", "September", 
-            "October", "November", "December"
+            t('dashboard.months.January'), t('dashboard.months.February'), t('dashboard.months.March'),
+            t('dashboard.months.April'), t('dashboard.months.May'), t('dashboard.months.June'),
+            t('dashboard.months.July'), t('dashboard.months.August'), t('dashboard.months.September'),
+            t('dashboard.months.October'), t('dashboard.months.November'), t('dashboard.months.December')
           ];
           
           for(let i = 0; i < 6; i++) {
@@ -115,7 +118,7 @@ export const DataFetchProvider = ({ children }) => {
     }
 
     fetchData();
-  }, []);
+  }, [t]);
 
   // return the context provider and data
   return (

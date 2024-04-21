@@ -12,9 +12,14 @@
 
 import React, { useState, useContext, useEffect } from 'react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { RecentRecurringMockData, MoneyEarnedMockData } from './mock_data/mockData';
+import { useTranslation } from 'react-i18next';
+import { AccessTokenContext } from "../App";
 import { DataFetchContext } from '../context/DataFetchContext';
 
 function CashFlow() {
+
+  const {t} = useTranslation();
   const { transactionData } = useContext(DataFetchContext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -50,7 +55,7 @@ function CashFlow() {
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <h2 style={{ margin: 0, fontSize: '24px' }}>Cash Flow</h2>
+        <h2 style={{ margin: 0, fontSize: '24px' }}>{t('dashboard.cash-flow')}</h2>
         <div style={{ position: 'relative' }}></div>
       </div>
 

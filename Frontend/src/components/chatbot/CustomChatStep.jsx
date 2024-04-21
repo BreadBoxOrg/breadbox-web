@@ -8,70 +8,81 @@
     * The CustomChatStep component is used to generate responses for the chatbot.
     * This is also used to send financial data to the chatbot.
 */
-
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { sendMessage } from './sendchat';
-import { RecentRecurringMockData, MoneyEarnedMockData, MockSavingsGoalData, ExpensesPeriodMockData } from '../mock_data/mockData.js';
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
+
+import { RecentRecurringMockData, MoneyEarnedMockData, MockSavingsGoalData, ExpensesPeriodMockData } from '../mock_data/mockData.js';
 
 const financialData = {
     RecentRecurring: RecentRecurringMockData,
     MoneyEarned: MoneyEarnedMockData,
     SavingsGoal: MockSavingsGoalData,
     ExpensesPeriod: ExpensesPeriodMockData
-  };
+};
 
-// Convert the financial data to a string
 const financialDataString = JSON.stringify(financialData);
 
-// Custom chat step component
-class CustomChatStep extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { loading: false, message: '' };
+const getFullLanguageName = (code) => {
+    switch (code) {
+        case 'en':
+            return 'English';
+        case 'es':
+            return 'Spanish';
+        // Add more cases as needed
+        case 'fr':
+            return 'French';
+        default:
+            return 'en'; // Return english if no match is found
     }
-    // Send the message to the backend when the component mounts
-    componentDidMount() {
-        const { trigger } = this.props;
-        const userMessage = this.props.steps.userInput ? this.props.steps.userInput.value : '';
-        console.log(trigger, userMessage);
+};
+
+const CustomChatStep = (props) => {
+    const { t, i18n} = useTranslation();
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        const { trigger, steps } = props;
+        const userMessage = steps.userInput ? steps.userInput.value : '';
+
         if (trigger === 'sendFinancialData') {
-            this.sendMessageToBackend("Analyze these financials and give a breakdown and summary of them. Highlight any trends that you see in the data and compare them to other trends to provided better analysis. Send the analysis in markdown language.", financialDataString);
+            const languageCode = i18n.language || 'en';;
+            const languageName = getFullLanguageName(languageCode);
+            const formattedMessage = t('Analyze these financials and give a breakdown and summary of them. Highlight any trends that you see in the data and compare them to other trends to provided better analysis. Send the analysis in markdown language. Respond in {{language}}.', { language: languageName });
+            sendMessageToBackend(formattedMessage, financialDataString);
         } else {
-            this.sendMessageToBackend(userMessage);
+            sendMessageToBackend(userMessage);
         }
-    }
-    // Send the message to the backend
-    async sendMessageToBackend(message, financialData) {
-        this.setState({ loading: true });
+    }, []);
+
+    const sendMessageToBackend = async (userMessage) => {
+        setLoading(true);
         try {
-            console.log(financialData);
-            const responseMessage = await sendMessage(message, financialData);
-            this.setState({ loading: false, message: responseMessage });
-            this.triggerNextStep();
+            const responseMessage = await sendMessage(userMessage, financialDataString);
+            setMessage(responseMessage);
         } catch (error) {
             console.error("Error sending message:", error);
-            this.setState({ loading: false, message: "Error communicating with the backend." });
-            this.triggerNextStep();
+            setMessage(t('Error communicating with the backend.'));
+        } finally {
+            setLoading(false);
+            triggerNextStep();
         }
     }
-    // Trigger the next step in the chatbot
-    triggerNextStep() {
-        // Trigger the next step in the chatbot
-        this.props.triggerNextStep({ trigger: 'askContinue' }); 
-    }
-    // Render the component - either loading or the message
-    render() {
-        const { loading, message } = this.state;
 
-        if (loading) {
-            return <div>...</div>;
-        }
-
-        return (
-            <ReactMarkdown>{message}</ReactMarkdown>
-        );
+    const triggerNextStep = () => {
+        props.triggerNextStep({ trigger: 'askContinue' });
     }
+
+    if (loading) {
+        return <div>...</div>;
+    }
+
+    return (
+        <ReactMarkdown>{message}</ReactMarkdown>
+    );
 }
 
 export default CustomChatStep;
+
