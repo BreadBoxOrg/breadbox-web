@@ -13,10 +13,11 @@ import React from 'react';
 import { Card, CardContent, Typography, List, ListItem, ListItemText, Divider } from '@mui/material';
 import { useContext } from 'react';
 import { DataFetchContext } from '../context/DataFetchContext';
+import { useTranslation } from 'react-i18next';
 
 function AccountBalances() {
 
-
+  const {t} = useTranslation();
   const { accountData } = useContext(DataFetchContext);
 
   return (

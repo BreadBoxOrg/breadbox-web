@@ -10,9 +10,9 @@
 */
 
 
-import React from 'react';
+// import React from 'react';
 import { ExpensesPeriodMockData } from '../components/mock_data/mockData';
-import styles from './ExpenseSideBar.module.css'; 
+// import styles from './ExpenseSideBar.module.css'; 
 import React, { useState, useEffect } from 'react';
 import styles from './ExpenseSideBar.module.css';
 import { getPlaidTransactions } from '../utils/http';

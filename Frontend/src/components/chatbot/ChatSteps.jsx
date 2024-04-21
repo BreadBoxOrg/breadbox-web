@@ -10,10 +10,10 @@
     * Creates quick replies for the user to select.
 */
 import CustomChatStep from './CustomChatStep.jsx';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 //steps array for the chatbot
-export const steps = [
+const Steps = [
     { id: '0', 
       message: 'Welcome to BreadBox! How can assist you on your financial journey today?🤖💰',
       trigger: 'tutorialOption',
@@ -86,7 +86,6 @@ export const steps = [
       end: true,
     },
 ];
-
 
 export default Steps;
 
