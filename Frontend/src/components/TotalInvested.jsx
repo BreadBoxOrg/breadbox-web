@@ -1,4 +1,20 @@
+/*
+  * File: 
+    *TotalInvested.jsx
+
+  * Description: 
+    * This component displays the total amount invested 
+    * The total amount invested is fetched from the DataFetchContext.
+  * 
+*/
+
+
+import { useContext} from "react";
+import { DataFetchContext } from "../context/DataFetchContext";
+
 function TotalInvested() {
+
+  const { totalInvestmentAmount  } = useContext(DataFetchContext);
 
     return (
       <div style={{
@@ -25,7 +41,7 @@ function TotalInvested() {
           fontSize: '24px', 
           fontWeight: 'bold' 
         }}>
-          $142,180
+          ${totalInvestmentAmount.toLocaleString()}
         </div>
       </div>
     );

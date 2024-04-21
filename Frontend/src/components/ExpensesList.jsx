@@ -1,3 +1,14 @@
+/*
+  * File: 
+    *ExpensesList.jsx
+
+  * Description: 
+    * This component displays a bar chart of the user's expenses over time.
+    * The user can click on a bar to view the transactions for that period.
+    * The user can also navigate between periods using the arrow buttons or clicking on the bar itself.
+  * 
+*/
+
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, Cell, ReferenceLine} from 'recharts';
 import { getPlaidTransactions } from '../utils/http';
@@ -46,7 +57,7 @@ const ExpensesList = () => {
         const formattedDate = `${dateObject.getMonth() + 1}/${dateObject.getDate() + 1}/${dateObject.getFullYear()}`;
         return formattedDate;
       }
-
+// Icons for each category
       const PlaidCategoryIcons = {
         'Bank Fees': <AccountBalance />,
         'Community': <People />,
@@ -71,7 +82,7 @@ const ExpensesList = () => {
     const processedArray = Object.values(processedData).sort((a, b) => a.period.localeCompare(b.period));
     setTransactionsData(processedArray);
   };
-
+// Functions to navigate to the next/prev bar
   const nextBar = () => {
     setActiveIndex(prevIndex => (prevIndex + 1) % transactionsData.length);
   };
@@ -85,7 +96,7 @@ const ExpensesList = () => {
     total: period.transactions.reduce((acc, transaction) => acc + Math.abs(transaction.amount), 0),
     index 
   }));
-
+// Bar chart with the transactions
   return (
     <div className={styles.container}>
       <BarChart

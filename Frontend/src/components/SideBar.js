@@ -1,3 +1,14 @@
+/*
+  * File: 
+    *SideBar.js
+
+  * Description: 
+    * Allow Users to Navigate BreadBox Pages
+    * Hovering Over Navbar footer will allow users to log out
+    * 4 Total Pages: Dashboard, Expense, Finances, Settings 
+  * 
+*/
+
 import React from 'react';
 import{Link, useLocation} from 'react-router-dom';
 import './SideBar.css'

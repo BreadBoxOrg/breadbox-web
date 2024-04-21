@@ -1,3 +1,4 @@
+// transactions object class 
 class TransactionRecuringObject  {
     constructor(accountId, amount, first_date, last_date, frequency, catagory,
         merchantName, isActive, currency, description) {

@@ -1,3 +1,12 @@
+/*
+  * File: 
+    *account.js
+
+  * Description: 
+    *This file is responsible for handling the routes for the account page.
+  * 
+*/
+
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();

@@ -1,3 +1,14 @@
+/*
+  * File: 
+    * CustomChatStep.jsx
+
+  * Description: 
+    * This file contains the custom chat step component for the chatbot.
+    * It uses the ChatStep component from the react-simple-chatbot library.
+    * The CustomChatStep component is used to generate responses for the chatbot.
+    * This is also used to send financial data to the chatbot.
+*/
+
 import React, { Component } from 'react';
 import { sendMessage } from './sendchat';
 import { RecentRecurringMockData, MoneyEarnedMockData, MockSavingsGoalData, ExpensesPeriodMockData } from '../mock_data/mockData.js';
@@ -10,15 +21,16 @@ const financialData = {
     ExpensesPeriod: ExpensesPeriodMockData
   };
 
-
+// Convert the financial data to a string
 const financialDataString = JSON.stringify(financialData);
 
+// Custom chat step component
 class CustomChatStep extends Component {
     constructor(props) {
         super(props);
         this.state = { loading: false, message: '' };
     }
-
+    // Send the message to the backend when the component mounts
     componentDidMount() {
         const { trigger } = this.props;
         const userMessage = this.props.steps.userInput ? this.props.steps.userInput.value : '';
@@ -29,7 +41,7 @@ class CustomChatStep extends Component {
             this.sendMessageToBackend(userMessage);
         }
     }
-
+    // Send the message to the backend
     async sendMessageToBackend(message, financialData) {
         this.setState({ loading: true });
         try {
@@ -43,12 +55,12 @@ class CustomChatStep extends Component {
             this.triggerNextStep();
         }
     }
-
+    // Trigger the next step in the chatbot
     triggerNextStep() {
         // Trigger the next step in the chatbot
         this.props.triggerNextStep({ trigger: 'askContinue' }); 
     }
-
+    // Render the component - either loading or the message
     render() {
         const { loading, message } = this.state;
 

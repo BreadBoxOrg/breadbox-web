@@ -1,3 +1,8 @@
+/* 
+    This file contains the routes for the chatbot completion.
+    The routes will be used to send messages to the chatbot and get responses.
+*/
+
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');

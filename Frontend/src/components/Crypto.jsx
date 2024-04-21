@@ -1,3 +1,14 @@
+/*
+  * File: 
+    *Crypto.jsx
+
+  * Description: 
+    *This file defines the Crypto component which displays the historical price trend of a cryptocurrency over the past 30 days.
+    *The component fetches the data from the CoinGecko API and displays the data using a recharts AreaChart.
+    * Recharts is used to create the chart and display price trend of the cryptocurrency.
+  * 
+*/
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
@@ -47,7 +58,7 @@ function Crypto() {
   useEffect(() => {
     fetchData();
   }, []);
-
+// CustomTooltip component to display the date and price of the cryptocurrency
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (

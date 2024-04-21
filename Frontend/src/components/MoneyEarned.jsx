@@ -1,14 +1,23 @@
+/*
+  * File: 
+    *MoneyEarned.jsx
+
+  * Description: 
+    * This component displays the money earned by the user in the form of a bar chart.
+    * The user can select the time period for which they want to view the money earned.
+    * The data for the bar chart is fetched from the backend using the DataFetchContext.
+  * 
+*/
+
 import React, { useContext } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Button, Menu, MenuItem, Paper, Typography } from '@mui/material';
-import { AccessTokenContext } from "../App";
 import { DataFetchContext } from '../context/DataFetchContext';
 
 function MoneyEarned() {
   const [anchorEl, setAnchorEl] = React.useState(null); 
   const [selectedOption, setSelectedOption] = React.useState("Monthly");
 
-  const { accessToken } = useContext(AccessTokenContext);
   const { incomeData } = useContext(DataFetchContext);
 
   const handleClick = (event) => {
@@ -96,7 +105,7 @@ function MoneyEarned() {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Bar dataKey="amt" fill="#8884d8" />
+        <Bar dataKey="amt" fill="#8884d8" radius={[15, 15, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   </div>

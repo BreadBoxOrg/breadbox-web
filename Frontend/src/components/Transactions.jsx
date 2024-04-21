@@ -1,9 +1,19 @@
-import React, { useState, useEffect } from 'react';
+/*
+  * File: 
+    *InvestmentGoals.jsx
+
+  * Description: 
+    * This component displays the user's investment goals and allows the user to add new goals.
+    * The user can also view the transactions made in the last 30 days.
+  * 
+*/
+
+import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 // import { getPlaidTransactions } from '../utils/http';
-import { useContext } from "react";
+import { useContext } from 'react';
 import { DataFetchContext } from '../context/DataFetchContext';
 
 

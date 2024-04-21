@@ -1,4 +1,23 @@
-// Dashboard.js
+/*
+  * File: 
+    *Dashboard.js
+
+  * Description: 
+    * The Dashboard page is the main page of the application. It displays the user's financial information in the form of widgets. The user can customize the layout of the widgets by dragging and dropping them. The user can also edit the widgets by clicking the "Edit" button. The user can also access the chatbot assistant from this page.
+    * The Dashboard page is composed of the following components:
+    *  - NavbarLayout: The navigation bar of the application.
+    * - ChatBotAssistant: The chatbot assistant that provides financial advice and assistance to the user.
+    * - MoneyEarned: A widget that displays the user's total earnings.
+    * - RecentRecurring: A widget that displays the user's recent recurring transactions.
+    * - Crypto: A widget that displays the user's cryptocurrency holdings.
+    * - Networth: A widget that displays the user's net worth.
+    * - SavingsGoal: A widget that displays the user's savings goal.
+    * - CashFlow: A widget that displays the user's cash flow.
+    * - FirstTimeUserHints: A component that provides hints to the user on how to use the application for the first time.
+    * The Dashboard page uses the DndContext and SortableContext components from the @dnd-kit/core and @dnd-kit/sortable libraries to enable drag-and-drop functionality for the widgets.
+  * 
+*/
+
 import React, { useState, useEffect, useRef } from 'react';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';

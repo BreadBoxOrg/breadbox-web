@@ -1,3 +1,14 @@
+/*
+  * File: 
+    *server.js
+
+  * Description: 
+    * This file is the main server file for the backend. It contains all the server configurations and endpoints.
+    * It contains the connection to the mongoDB database.
+    * It also contains the routes for the different API endpoints.
+  * 
+*/
+
 'use strict';
 
 // instantiates express
@@ -8,25 +19,22 @@ const AppError = require('./middleware/appError')
 const globalErrorhandler = require('./middleware/errorHandler');
 const {createToken, exchangeToken, getTransactions, getBalance, getAccounts} = require('./api/plaid/link-controller')
 
-const uri = process.env.MONGO_URL; //connect to mongo
+// connect to mongo
+const uri = process.env.MONGO_URL; 
 console.log(uri);
 mongoose.connect(uri).then(con => {
     console.log(con.connections);
     console.log('DB connection successful!')
 });
 
-
-
 const app = express();
-// const { Configuration, PlaidApi, Products, PlaidEnvironments} = require('plaid');
-// const util = require('util');
 const bodyParser = require('body-parser');
-// const moment = require('moment');
 const cors = require('cors');
 
 
 const PORT1 = process.env.BACKEND_PORT;
 
+// SERVER configs
 app.use(
   bodyParser.urlencoded({
     extended: false,
@@ -35,6 +43,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
+// SERVER ENDPOINTS
 // read
 app.get("/", (req, res) => {
     console.log("Getting");
@@ -82,6 +91,9 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+/*****************************************************************
+* SERVER ROUTES
+*******************************************************************/
 const incomeRouter = require('./routes/income');
 app.use('/income', incomeRouter);
 
@@ -106,7 +118,7 @@ app.all('*', (req, res, next)=> {
 
 app.use(globalErrorhandler);
 
-// listeners
+// SERVER listening Port
 app.listen(PORT1, () => {
     console.log(`Listening on Port: ${PORT1}`)
 });

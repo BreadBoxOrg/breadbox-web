@@ -1,3 +1,4 @@
+// transactions object class
 class TransactionObject  {
     constructor(accountId, accountOwner, amount, date, catagory,
         merchantName, paymentChannel, paymentMeta, currency) {

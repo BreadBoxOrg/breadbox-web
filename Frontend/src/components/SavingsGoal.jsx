@@ -1,3 +1,14 @@
+/*
+  * File: 
+    *SavingsGoal.jsx
+
+  * Description: 
+    * The SavingsGoal component displays a savings goal progress bar.
+    * The progress bar displays the percentage of the goal amount that has been saved.
+    * The progress bar also displays milestones at 25%, 50%, 75%, and 100% of the goal amount.
+  * 
+*/
+
 import React, { useState, useEffect } from 'react';
 import { getPlaidAccounts } from '../utils/http';
 import { Select, MenuItem, FormControl, InputLabel, ThemeProvider, createTheme } from '@mui/material';

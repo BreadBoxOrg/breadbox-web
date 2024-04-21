@@ -1,3 +1,13 @@
+/*
+  * File: 
+    *sendchat.js
+
+  * Description: 
+    * This file sends the message to the backend and recieves a response
+    * It uses the fetch API to send the message to the backend
+    * It uses the response from the backend to get the response from the chatbot
+    * Sends the message and the financial data when needed to the backend.
+*/
 async function sendMessage(message, financialData) {
     const backendURL = process.env.REACT_APP_BACKEND_URL;
     const response = await fetch(`${backendURL}/chat/sendmessage`, {

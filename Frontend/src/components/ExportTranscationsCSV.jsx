@@ -1,3 +1,8 @@
+/*
+    File: ExportTransactionsCSV.jsx
+    Description: Button Component that allows users to download their Transaction data as a CSV
+*/
+
 import React, { useState, useEffect } from "react";
 import CsvDownloadButton from 'react-json-to-csv';
 import { getPlaidTransactions } from "../utils/http.js";
@@ -7,6 +12,7 @@ function TransactionDataCSV ({ rerender }) {
     const [transactionData, setTransactionData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
+    //Fetch Transaction Data from Plaid Accounts
     useEffect(() => {
         async function fetchTransactions() {
             try {
@@ -32,6 +38,7 @@ function TransactionDataCSV ({ rerender }) {
         fetchTransactions();
     }, [rerender]);
 
+    //Button Style for Transaction Data Export Button
     const buttonStyle = {
       backgroundColor: '#007bff',
       color: '#fff',
@@ -45,6 +52,7 @@ function TransactionDataCSV ({ rerender }) {
       textAlign: 'center'
     };
 
+    //Different styling for loading button
     const NoDataOrLoading = {
         ...buttonStyle,
         opacity: 0.5, 

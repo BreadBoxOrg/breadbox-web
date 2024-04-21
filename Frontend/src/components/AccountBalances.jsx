@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
+/*
+  * File: 
+    *AccountBalances.jsx
+
+  * Description: 
+    * This file contains the code for the AccountBalances component, which displays the user's account balances.
+    * The component fetches the account data from the DataFetchContext and displays it in a list format.
+    * The account data is fetched from the Plaid API using the getPlaidAccounts function from the utils/http.js file.
+  * 
+*/
+
+import React from 'react';
 import { Card, CardContent, Typography, List, ListItem, ListItemText, Divider } from '@mui/material';
-import { getPlaidAccounts } from '../utils/http';
+import { useContext } from 'react';
+import { DataFetchContext } from '../context/DataFetchContext';
 
 function AccountBalances() {
-  const [accountData, setAccountData] = useState([]);
 
-  useEffect(() => {
-    const fetchAccounts = async () => {
-      const result = await getPlaidAccounts();
-      if (result && result.accounts) {
-        const filteredAccounts = result.accounts.filter(account => account.type !== 'loan' && account.subtype !== 'credit card');
-        const formattedAccounts = filteredAccounts.map(account => ({
-          name: `${account.name} (${account.mask})`,
-          balance: `$${account.balances.current.toLocaleString()}`,
-        }));
-        setAccountData(formattedAccounts);
-      }
-    };
-
-    fetchAccounts();
-  }, []);
+  const { accountData } = useContext(DataFetchContext);
 
   return (
     <Card sx={{

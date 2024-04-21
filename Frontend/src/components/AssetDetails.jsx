@@ -1,3 +1,15 @@
+/*
+  * File: 
+    *AssetDetails.jsx
+
+  * Description: 
+    * This file contains the code for the stocks widget shown in the finances page
+    * It talks to the FinancialManagementGroup API to obtain stock information
+    * It uses recharts for the visualization of the stock trends
+    * Has a mini side bar on the left side for quick access to five given stocks
+  * 
+*/
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, } from 'recharts';
