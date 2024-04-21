@@ -11,81 +11,78 @@
 */
 
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { usePlaidLink } from "react-plaid-link";
 import Button from "plaid-threads/Button";
-import PlaidLogo from "../images/Plaid_Logo.png"
+import PlaidLogo from "../images/Plaid_Logo.png";
 import { AccessTokenContext } from "../App";
-import { useContext } from "react";
 import { useTranslation } from 'react-i18next';
 
 const LinkComponent = (props) => {
-const [linkToken, setLinkToken] = useState(null);
-const backendURL = process.env.REACT_APP_BACKEND_URL;
-const { setAccessToken } = useContext(AccessTokenContext);
-
-const { t, i18n } = useTranslation();
-
+    const [linkToken, setLinkToken] = useState(null);
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
+    const { setAccessToken } = useContext(AccessTokenContext);
+    const { t, i18n } = useTranslation();
 
 // Fetch the link token from your backend
-useEffect(() => {
-  const fetchLinkToken = async () => {
-    try {
-      const languageCode = i18n.language || 'en';
-      const response = await fetch(`${backendURL}/link/create_link_token`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ languageCode }),
-      });
-      const data = await response.json();
-      console.log(data);
-      setLinkToken(data.link_token);
-      // setAccessToken(data.access_token); 
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    useEffect(() => {
+        const fetchLinkToken = async () => {
+            const languageCode = i18n.language || 'en'; // Ensure a default of 'en' if language is not set
+            const supportedLanguages = ['en', 'fr', 'es']; // Example of supported languages
+            const effectiveLanguage = supportedLanguages.includes(languageCode) ? languageCode : 'en';
+            try {
+                const response = await fetch(`${backendURL}/link/create_link_token`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ languageCode: effectiveLanguage }),
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    setLinkToken(data.link_token);
+                } else {
+                    console.error('Error fetching link token:', data);
+                }
+            } catch (error) {
+                console.error('Network error when fetching link token:', error);
+            }
+        };
 
-  fetchLinkToken();
-}, [backendURL]);
+        fetchLinkToken();
+    }, [backendURL, i18n.language]);
 
-const onSuccess = async (publicToken) => {
-  // Send the public token to your server to exchange for an access token
-  const response = await fetch(`${backendURL}/link/exchange_link_token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ public_token: publicToken }),
-  });
+    const onSuccess = async (publicToken) => {
+        const response = await fetch(`${backendURL}/link/exchange_link_token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ public_token: publicToken }),
+        });
 
-  if (response.ok) {
-    const data = await response.json();
-    console.log('Access Token:', data.access_token);
-    // You can now use the access token to make Plaid requests
-    setAccessToken(data.accessToken);
-    props.onSuccess();
-  } else {
-    console.error('Failed to exchange public token');
-  }
-};
+        if (response.ok) {
+            const data = await response.json();
+            setAccessToken(data.access_token);
+            props.onSuccess();
+        } else {
+            console.error('Failed to exchange public token');
+        }
+    };
 
-const config = {
-  token: linkToken,
-  onSuccess,
-  // Add other necessary configuration options here
-};
+    const config = {
+        token: linkToken,
+        onSuccess,
+    };
 
-const { open, ready } = usePlaidLink(config);
+    const { open, ready } = usePlaidLink(config);
 
-return (
-  <Button className="plaid-button" onClick={() => open()} disabled={!ready}>
-    <img alt="Plaid Logo" src={PlaidLogo}></img>
-    {t('settings.plaid-link-button')}
-  </Button>
-);
+    return (
+        <Button className="plaid-button" onClick={() => open()} disabled={!ready}>
+            <img alt="Plaid Logo" src={PlaidLogo} />
+            {t('settings.plaid-link-button')}
+        </Button>
+    );
 };
 
 export default LinkComponent;

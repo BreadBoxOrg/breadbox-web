@@ -45,6 +45,8 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
       setCurrentPage("expenses");
     } else if (path === "/finances") {
       setCurrentPage("finances");
+    } else if (path === "/settings") {
+      setCurrentPage("settings");
     }
   }, [location]);
 
@@ -57,6 +59,9 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
         navigate("/finances");
         break;
       case "finances":
+        navigate("/settings");
+        break;
+      case "settings":
         handleClose();
         break;
       default:
@@ -72,6 +77,9 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
         break;
       case "finances":
         navigate("/expenses");
+        break;
+      case "settings":
+        navigate("/finances");
         break;
       default:
         break;
@@ -119,6 +127,12 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
               <li>{t('userHints.finance-analyze')}</li>
             </>
           )}
+          {currentPage === "settings" && (
+            <>
+              <li>Manage your account settings and preferences.</li>
+              <li>Link your financial accounts to track your data.</li>
+            </>
+          )}
         </ul>
         <div className="flex justify-between mt-4">
           {currentPage !== "dashboard" && (
@@ -129,7 +143,7 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
               &larr; Back
             </button>
           )}
-          {currentPage !== "finances" && (
+          {currentPage !== "settings" && (
             <button
               className="bg-green-400 hover:bg-green-700 text-white font-bold py-1 px-2 rounded-xl text-sm"
               onClick={handleNextPage}
