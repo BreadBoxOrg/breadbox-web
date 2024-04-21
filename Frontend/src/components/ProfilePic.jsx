@@ -1,3 +1,13 @@
+/*
+  * File: 
+    *ProfilePic.jsx
+
+  * Description: 
+    * This component displays the user's profile picture.
+    * The user can click on the profile picture to change it.
+    * The user can only change the profile picture when editing their profile.
+    * The new profile picture is stored in sessionStorage.
+*/
 import React from 'react';
 
 function ProfilePicChange({ profilePic, onProfilePicChange, isEditing}) {

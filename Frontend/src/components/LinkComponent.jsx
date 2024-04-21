@@ -1,3 +1,16 @@
+/*
+  * File: 
+    *LinkComponenet.jsx
+
+  * Description: 
+    * This file contains the code for the LinkComponent component.
+    * This component is responsible for rendering the Plaid Link button.
+    * The Plaid Link button is used to connect the user's bank account to the application.
+    * The component fetches the link token from the backend and uses it to create the Plaid Link button.
+  * 
+*/
+
+
 import React, { useEffect, useState } from "react";
 import { usePlaidLink } from "react-plaid-link";
 import Button from "plaid-threads/Button";
@@ -36,7 +49,7 @@ useEffect(() => {
   };
 
   fetchLinkToken();
-}, [backendURL, i18n.language]);
+}, [backendURL]);
 
 const onSuccess = async (publicToken) => {
   // Send the public token to your server to exchange for an access token

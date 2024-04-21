@@ -1,3 +1,13 @@
+/*
+  * File: 
+    *WidgetToolTip.jsx
+
+  * Description: 
+    *This file contains the code for the widget tooltip component for the first time user hints.
+  * 
+*/
+
+
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -15,7 +25,7 @@ const WidgetTooltip = ({ widget, isActive, widgetRef }) => {
       setTooltipPosition((prevPosition) => ({ ...prevPosition, opacity: 0 }));
     }
   }, [isActive, widgetRef]);
-
+// Tooltip text for each widget
   const tooltipText = {
     dashboard: {
       moneyEarned: t('userHints.tooltipText.moneyEarned'),
@@ -45,7 +55,7 @@ const WidgetTooltip = ({ widget, isActive, widgetRef }) => {
   };
 
   const currentPage = getCurrentPage();
-
+// Tooltip component
   return (
     <div
       className="text-white absolute p-4 bg-white rounded-lg shadow-lg transition-all duration-500 transform -translate-x-1/2 bg-zinc-800" 

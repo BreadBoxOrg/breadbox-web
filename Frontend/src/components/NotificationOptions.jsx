@@ -1,3 +1,13 @@
+/*
+  * File: 
+    *NotificationOptions.jsx
+
+  * Description: 
+    * Dropdown menu for selecting notification options
+    * Used in NotificationSettings.jsx
+  * 
+*/
+
 import Select from "react-select";
 import { useTranslation } from 'react-i18next';
 

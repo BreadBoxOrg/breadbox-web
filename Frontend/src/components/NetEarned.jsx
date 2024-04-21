@@ -1,3 +1,13 @@
+
+/*
+  * File: 
+    *NetEarned.jsx
+
+  * Description: 
+    * This component displays the total amount of money earned by the user.
+  * 
+*/
+
 import { useTranslation } from "react-i18next";
 
 function NetEarned() {

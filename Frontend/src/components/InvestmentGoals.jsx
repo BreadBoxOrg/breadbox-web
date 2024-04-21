@@ -1,24 +1,24 @@
-import React from 'react';
+/*
+  * File: 
+    *InvestmentGoals.jsx
+
+  * Description: 
+    * This component displays the user's investment goals and their progress towards that goal.
+    * The component displays a radial bar chart that shows the user's progress towards their investment goal.
+  * 
+*/
+
+import React, { useContext } from 'react';
 import { RadialBarChart, RadialBar, ResponsiveContainer, LineChart, Line, Tooltip } from 'recharts';
+import { DataFetchContext } from '../context/DataFetchContext';
 import { useTranslation } from 'react-i18next';
 
-const investmentGoal = 200000;
-const currentAmount = 102400;
 
-const data = [
-  {
-    name: 'Goal',
-    value: investmentGoal,
-    fill: '#8884d8', 
-  },
-  {
-    name: 'Current Progress',
-    value: currentAmount,
-    fill: '#ffc658', 
-  },
-];
+const investmentGoal = 200000; //user would set this
 
-const portfolioWorths = [
+
+
+const portfolioWorths = [ //placeholder
   { date: '2023-01-01', value: 98000 },
   { date: '2023-02-01', value: 104000 },
   { date: '2023-03-01', value: 110000 },
@@ -26,11 +26,28 @@ const portfolioWorths = [
 ];
 
 function InvestmentGoals() {
+  
+  const { totalInvestmentAmount } = useContext(DataFetchContext);
+
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
   };
 
+  const data = [
+    {
+      name: 'Goal',
+      value: investmentGoal,
+      fill: '#8884d8', 
+    },
+    {
+      name: 'Current Progress',
+      value: totalInvestmentAmount,
+      fill: '#ffc658', 
+    },
+  ];
+
   const { t } = useTranslation();
+
 
   return (
     <div
@@ -68,7 +85,7 @@ function InvestmentGoals() {
               left: '17%',
             }}
           >
-        {formatCurrency(currentAmount)} <br /> of <br /> {formatCurrency(investmentGoal)}
+        {formatCurrency(totalInvestmentAmount)} <br /> of <br /> {formatCurrency(investmentGoal)} 
         </div>
         <ResponsiveContainer width="100%" height="90%">
           <RadialBarChart cx="50%" cy="50%" innerRadius="80%" outerRadius="80%" barSize={10} data={data}>

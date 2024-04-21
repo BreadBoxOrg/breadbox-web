@@ -1,3 +1,17 @@
+/*
+  * File: 
+    *Finances.js
+
+  * Description: 
+    * This file creates the Finances page of the application.
+    * The Finances page is a dashboard that displays the user's financial information.
+    * The user can edit the layout of the dashboard by dragging and dropping the widgets.
+    * The user can also edit the content of the widgets by clicking the edit button.
+    * The user can view the total invested and net earned, asset details, portfolio diversity, account balances, and investment goals.
+    * The user can also view hints for first time users.
+  * 
+*/
+
 import React, { useState, useEffect, useRef } from "react";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';

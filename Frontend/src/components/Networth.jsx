@@ -1,3 +1,16 @@
+/*
+  * File: 
+    *InvestmentGoals.jsx
+
+  * Description: 
+    * Networth component is a React functional component used to display the total net worth of the user.
+    * The component fetches the user's account data from the Plaid API and calculates the total net worth.
+    * The user can toggle between including and excluding debts from the net worth calculation.
+    * The component uses the getPlaidAccounts function from the http.js file to fetch the user's account data.
+  * 
+*/
+
+
 import React, { useEffect, useState } from 'react';
 import { getPlaidAccounts } from '../utils/http';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -36,6 +49,7 @@ function Networth() {
     calculateNetWorth();
   }, [includeDebt]); // ADD includeDebt TO DEPENDENCY ARRAY
   
+  
   return (
     <div style={{
       backgroundColor: '#141516',
@@ -60,8 +74,8 @@ function Networth() {
       <div style={{
         fontSize: '24px',
         fontWeight: 'bold'
-      }}>
-        ${netWorth.toLocaleString()}
+      }}> ${netWorth.toLocaleString()}
+       
       </div>
       <FormControlLabel
         control={

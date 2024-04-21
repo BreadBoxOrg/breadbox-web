@@ -1,3 +1,8 @@
+/*
+File: SignUpSignIn.js
+Description: Page for Logging In and Signing Up
+*/
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../images/BreadBox_Logo.png";
@@ -16,6 +21,7 @@ function SignUpSignIn() {
 
     return (
         <>
+            {/* Layout of Sign In Page */}
             <div className='min-h-screen flex flex-col items-center justify-center bg-[#26292B]'>
                 <img className="h-[168px] w-[168px] mb-8" src={logo} alt="BreadBox Logo" />
                 <div className='text-white bg-gradient-to-b from-[#189172] to-[#26292B] flex flex-col items-center p-10 w-11/12 md:w-2/3 lg:w-1/2 xl:w-2/5 h-3/4 rounded-3xl'>

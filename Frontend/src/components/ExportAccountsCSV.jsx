@@ -1,3 +1,8 @@
+/*
+    File: ExportAccountsCSV.jsx
+    Description: Button Component that allows users to download their account data as a CSV
+*/
+
 import React, { useState, useEffect } from "react";
 import CsvDownloadButton from 'react-json-to-csv';
 import { getPlaidAccounts } from "../utils/http.js";
@@ -9,8 +14,9 @@ function AccountDataCSV({ rerender }) {
     const [isLoading, setIsLoading] = useState(false);
     const [fetchCompleted, setFetchCompleted] = useState(false);
 
-    const { t } = useTranslation();
 
+    //Fetch Plaid Accounts that are linked
+    const { t } = useTranslation();
 
     useEffect(() => {
         async function fetchData() {
@@ -36,6 +42,7 @@ function AccountDataCSV({ rerender }) {
         fetchData();
     }, [rerender]);
 
+    //Styling for the Button
     const buttonStyle = {
         backgroundColor: '#007bff',
         color: '#fff',
@@ -49,6 +56,7 @@ function AccountDataCSV({ rerender }) {
         textAlign: 'center'
     };
 
+    //Different styling when button is loading or no data is found
     const NoDataOrLoading = {
         ...buttonStyle,
         opacity: 0.5,

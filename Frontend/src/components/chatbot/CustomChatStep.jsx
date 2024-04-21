@@ -1,3 +1,13 @@
+/*
+  * File: 
+    * CustomChatStep.jsx
+
+  * Description: 
+    * This file contains the custom chat step component for the chatbot.
+    * It uses the ChatStep component from the react-simple-chatbot library.
+    * The CustomChatStep component is used to generate responses for the chatbot.
+    * This is also used to send financial data to the chatbot.
+*/
 import React, { useState, useEffect } from 'react';
 import { sendMessage } from './sendchat';
 import { useTranslation } from 'react-i18next';
@@ -75,3 +85,4 @@ const CustomChatStep = (props) => {
 }
 
 export default CustomChatStep;
+

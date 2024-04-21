@@ -1,3 +1,14 @@
+/*
+  * File: 
+    *FirstTimeUserHints.js
+
+  * Description: 
+    * This file contains the FirstTimeUserHints component that displays hints to new users on how to use the application.
+    * The component is displayed when a new user logs in for the first time, then a boolean is flagged in local storage to not show it again.
+    * The component displays hints for the dashboard, expenses, finances and settings pages.
+  * 
+*/
+
 import React, { useState, useEffect } from "react";
 import WidgetTooltip from "../components/WidgetToolTip";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -74,7 +85,7 @@ const FirstTimeUserHints = ({ onClose, widgets, widgetRefs }) => {
   };
 
   if (!isNewUser) return null;
-
+// Display hints for the dashboard, expenses, finances and settings pages
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-zinc-900 rounded-lg p-4 max-w-md">

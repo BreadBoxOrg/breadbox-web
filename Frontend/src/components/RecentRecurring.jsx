@@ -1,3 +1,15 @@
+/*
+  * File: 
+    *RecentRecurring.jsx
+
+  * Description: 
+    * This file displays a pie chart of recent recurring costs.
+    * The pie chart shows the user's recurring costs and the percentage of their total costs.
+    * User can click on a slice of the pie chart to view the transactions for that category.
+    * User can also toggle a drawer to view their recent transactions.
+    * User can also toggle a dropdown to view their recurring costs by month, quarter, or year.
+*/
+
 import React, { useState, useEffect, useContext } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import Transactions from './Transactions';
@@ -14,6 +26,7 @@ function RecentRecurring() {
   const { transactionData, setTransactionData } = useContext(DataFetchContext);
   const [isLoading, setIsLoading] = useState(true);
 
+  //set transaction data or sets loading to true
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -32,30 +45,36 @@ function RecentRecurring() {
   
   const { t } = useTranslation();
 
-
+  //on pie enter
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
   };
 
+  //on pie leave
   const onPieLeave = () => {
     setActiveIndex(-1);
   };
 
+  //toggle drawer
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
 
+  //toggle dropdown
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  //generate color for each slice of the pie chart
   const generateColor = (index, isActive) => {
     const hue = (360 * index) / transactionData.length;
     const lightness = isActive ? 85 : 70;
     return `hsl(${hue}, 100%, ${lightness}%)`;
   };
 
+  //returns the widget
   return (
+    /* Styling for the widget and dropdown */
     <div style={{ position: 'relative', width: '100%', margin: 'auto' }}>
       <div style={{
         position: 'relative',
@@ -106,8 +125,8 @@ function RecentRecurring() {
               </div>
             )}
           </div>
-        </div>
-
+        </div> 
+        {/* Loading animation for the widget, uses tailwind pulse animation with a skeleton loader */}
         {isLoading ? (
           <div role="status" class="w-full p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700" style={{ height: '250px' }}>
             <div class="flex items-center justify-center w-2/3 h-12 mb-4 bg-gray-300 rounded dark:bg-gray-700">
@@ -124,6 +143,7 @@ function RecentRecurring() {
     </div>
     <span class="sr-only">Loading...</span>
 </div>
+        /* Pie chart for the widget */
         ) : (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <ResponsiveContainer width="100%" height={250}>
@@ -167,6 +187,7 @@ function RecentRecurring() {
           </div>
         )}
       </div>
+      {/* drop down drawer that displays recent transaction */}
       <Drawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
       <button onClick={toggleDrawer} style={{
         position: 'absolute',

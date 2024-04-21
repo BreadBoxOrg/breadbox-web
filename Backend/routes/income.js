@@ -1,3 +1,12 @@
+/*
+  * File: 
+    *income.js
+
+  * Description: 
+    *This file contains the routes for the income API.
+    *The income API is used to get, post, put, patch, and delete income data.
+  * 
+*/
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();

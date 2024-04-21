@@ -1,14 +1,24 @@
+/*
+    *File: chat-completion.js
+    *Description: 
+        *This file is responsible for sending a message to the OpenAI chatbot and receiving a response.
+        *The messages array contains the messages and the system promt that gets sent to the chatbot.
+        *This uses the "chat completion" endpoint from the OpenAI API to send messages to the chatbot.
+    *Functions: sendMessage
+*/
+
 const {OpenAI} = require('openai');
 const AppError = require('../../middleware/appError');
 require("dotenv").config({ path: '../../.env' })
 
-
+//configure OpenAI API
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
     // organization: process.env.OPENAI_ORG_KEY,
     assistantId: process.env.OPENAI_ASSISTANT_ID
     });
 
+    //send message to OpenAI chatbot
     const sendMessage = async (req, res, next) => {
         let message = req.body.message;
         let financialData = req.body.financialData;
@@ -16,7 +26,7 @@ const openai = new OpenAI({
         if (financialData) {
             message += financialData;
         }
-
+        //append message to messages array
         console.log(message);
         let completion;
         try {
@@ -27,17 +37,16 @@ const openai = new OpenAI({
                 {"role": "user", "content": message}
             ];
     
-            // if (financialData) {
-            //     const financialDataString = JSON.stringify(financialData);
-            //     messages.push({"role": "user", "content": financialDataString});
-            // }
-    
+            //create chat completion with messages
             completion = await openai.chat.completions.create({
                 model: "gpt-3.5-turbo",
                 messages: messages
             });
+
             console.log(completion);
+            //send completion to frontend
             res.json({completion: completion, status: 200});
+
         } catch (error) {  
             return next(new AppError("Error in sending message", 500));
         }

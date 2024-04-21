@@ -1,3 +1,12 @@
+/*
+  * File: 
+    *user.js
+
+  * Description: 
+    *This file is a route for the user. It contains the CRUD operations for the user.
+  * 
+*/
+
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();

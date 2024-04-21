@@ -1,3 +1,15 @@
+/*
+  * File: 
+    *PortfilioDiversity.jsx
+
+  * Description: 
+    * This file contains the code for the PortfolioDiversity component.
+    * This component displays a pie chart that shows the diversity of the user's portfolio.
+    * The user can click on a section of the pie chart to view the details of that category.
+    * The details of the selected category are displayed in a list format.
+  * 
+*/
+
 import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import { detailedData } from './mock_data/mockData';

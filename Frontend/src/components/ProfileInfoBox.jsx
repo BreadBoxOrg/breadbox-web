@@ -1,3 +1,15 @@
+/*
+  * File: 
+    *ProfileInfoBox.jsx
+
+  * Description: 
+    * This file defines the ProfileInfoBox component which is used to display user information in the profile page.
+    * The component is a text input field that can be edited by the user if the isEditable prop is set to true.
+    * The onChangeText prop is a function that is called when the text in the input field is changed.
+    * The component uses the useState hook to manage the state of the input field.
+  * 
+*/
+
 import React, { useState } from 'react';
 
 const ProfileInfoBox = ({ text, isEditable, onChangeText }) => {

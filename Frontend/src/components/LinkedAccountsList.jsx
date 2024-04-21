@@ -1,7 +1,20 @@
+/*
+  * File: 
+    *LinkedAccountsList.jsx
+
+  * Description: 
+    * Displays a list of linked bank accounts.
+    * Allows user to remove linked bank accounts.
+    * Uses Plaid API to fetch linked bank accounts.
+  * 
+*/
+
+
 import React, { useState, useEffect } from 'react';
 import { getPlaidAccounts } from '../utils/http.js';
 //import Popup from "reactjs-popup";
 //import ClearIcon from '@mui/icons-material/Clear';
+
 
 function AccountList({ rerender }) {
     const [accounts, setAccounts] = useState([]);
@@ -10,14 +23,17 @@ function AccountList({ rerender }) {
     useEffect(() => {
         async function fetchAccounts() {
             try {
+                // Fetch accounts using getPlaidAccounts function
                 const allAccounts = await getPlaidAccounts();
                 const accountList = allAccounts.accounts.map(item => ({
                     id: item.account_id,
                     name: item.name,
                     mask: item.mask
                 }));
+                // Update accounts state with fetched accounts
                 setAccounts(accountList);
             } catch (error) {
+                // Log error if fetching accounts fails
                 console.error('Error fetching accounts:', error);
             }
         }

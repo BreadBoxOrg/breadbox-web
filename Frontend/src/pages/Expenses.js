@@ -1,3 +1,16 @@
+/*
+  * File: 
+    *Expenses.js
+
+  * Description: 
+    * This file creates the Expenses page of the website.
+    * It contains the ExpensesList and ExpenseSideBar components.
+    * It also contains the FirstTimeUserHints component for first time users.
+    * The Expenses page is accessible to authenticated users only.
+  * 
+*/
+
+
 import React, { useRef, useState } from "react";
 import NavbarLayout from "../components/SideBar";
 import ExpensesList from "../components/ExpensesList";

@@ -1,3 +1,14 @@
+/*
+  * File: 
+    * ChatBotStyles.jsx
+
+  * Description: 
+    * This file contains the styling for the chatbot component.
+    * It uses styled-components to style the chatbot.
+    * The theme object is used to style the chatbot.
+    * The StyledChatBot component is used to style the chatbot.
+*/
+
 import logo from '../../images/BreadBox_Logo.svg';
 import styled from 'styled-components';
 import ChatBot from 'react-simple-chatbot';

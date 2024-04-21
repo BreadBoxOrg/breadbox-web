@@ -1,3 +1,4 @@
+// database driver
 const mongoose = require('mongoose');
 require('dotenv').config();
 costModel = require('../models/costs-schema');

@@ -1,3 +1,11 @@
+/*
+  * File: errorHandler.js
+
+  * Description: 
+    * This file is the middleware responsible for handling errors in the application.
+    * The error handling middleware sends the status code and error message to the client.
+    * The error handling middleware is used in the server.js file.
+*/
 module.exports = (err, req, res, next) =>  { //error handling middleware
 
     err.statusCode = err.statusCode || 500;

@@ -1,3 +1,14 @@
+/*
+  * File: 
+    *costs.js
+
+  * Description: 
+    * This file contains the routes for the costs endpoint.
+    * The costs endpoint is used to interact with the costs collection in the database.
+    * The costs endpoint is used to get, post, put, patch, and delete costs in the database.
+  * 
+*/
+
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');

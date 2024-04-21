@@ -1,3 +1,9 @@
+/*
+File: Settings.js
+Description: Layout of Settings Page.
+Functions: Edit Profiles, Linked Accounts, Export Data
+*/
+
 import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import NavbarLayout from "../components/SideBar";
@@ -7,7 +13,6 @@ import { Link } from 'react-router-dom';
 import NotificationOptions from '../components/NotificationOptions.jsx';
 import ProfileInfoBox from '../components/ProfileInfoBox.jsx';
 import { userInfo } from '../components/mock_data/mockData.js';
-//import { userlinkedAccounts } from '../components/mock_data/mockData.js';
 import LinkComponent from '../components/LinkComponent.jsx';
 import AccountList from '../components/LinkedAccountsList.jsx';
 import AccountDataCSV from '../components/ExportAccountsCSV.jsx';
@@ -17,6 +22,7 @@ import LanguageSelector from '../components/LanguageSelector.jsx';
 
 const Settings = () =>{
 
+    // State for re-rendering linked accounts list
     const { t } = useTranslation();
 
     const [rerenderSettings, setRerenderSettings] = useState(false);
@@ -35,6 +41,7 @@ const Settings = () =>{
         { value: 'phone-number', label: t('settings.notify-phone-number')},
     ];
 
+    // State for input value and popup message
     const [inputValue, setInputValue] = useState('');
     const [popupOpen, setPopupOpen] = useState(false);
     const [popupMessage, setPopupMessage] = useState('');
@@ -43,6 +50,7 @@ const Settings = () =>{
         setInputValue(e.target.value);
     };
 
+    // Handle form submission for notification settings
     const handleSubmit = () => {
         let message = "";
         if (selectedNotificationBy === 'email') {
@@ -56,6 +64,7 @@ const Settings = () =>{
         setPopupOpen(true);
     };
 
+    // Handle changes to notification options
     const handleNotificationByChange = (selectedOption) => {
         setNotificationBy(selectedOption.value);
     };
@@ -68,28 +77,7 @@ const Settings = () =>{
         setRerenderSettings(prevState => !prevState);
     };
 
-    /*const [accounts, setAccounts] = useState([]);
-    const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
-    
-    useEffect(() => {
-        setAccounts(userlinkedAccounts);
-    }, []);
-
-    
-    const handleRemoveAccount = (removeIndex) => {
-        setConfirmDeleteIndex(removeIndex);
-    };
-
-    const handleConfirmDelete = () => {
-        const updatedAccounts = accounts.filter((_, i) => i !== confirmDeleteIndex);
-        setAccounts(updatedAccounts);
-        setConfirmDeleteIndex(null);
-    }
-    const handleCancelDelete = () => {
-        setConfirmDeleteIndex(null);
-    }
-    */
-
+    // State and functions for editing user profile
     const [firstName, setFirstName] = useState(sessionStorage.getItem('firstName') || userInfo.find(item => item.firstName)?.firstName);
     const [lastName, setLastName] = useState(sessionStorage.getItem('lastName') || userInfo.find(item => item.lastName)?.lastName);
     const [email, setEmail] = useState(sessionStorage.getItem('email') || userInfo.find(item => item.email)?.email);
@@ -125,9 +113,10 @@ const Settings = () =>{
 
     return (
         <>
+            {/* Main settings page layout */}
             <div className="pt-48 overflow-x-auto px-4 sm:px-10 sm:ml-[275px] lg:pt-12">
                 <NavbarLayout />
-                {/* Add lg:mb-[spacing] to this div for margin at desktop view */}
+                {/* Header with title and logout button */}
                 <div className="flex justify-between items-center text-[#1ADBA9] text-2xl sm:text-4xl mb-0 lg:mb-8">
                     <h1 className="font-bold text-[#1ADBA9] text-xl md:text-3xl">{t('settings.settings-header')}</h1>
                     <div className="py-3 sm:py-0">
@@ -141,6 +130,7 @@ const Settings = () =>{
                 {/* This is your main settings content */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                     <div className="text-white font-bold">
+                        {/* Account settings */}
                         <div className="bg-[#141516] rounded-2xl mb-6 p-4">
                             <h2 className="text-xl mb-4">
                                 {t('settings.account-header')}
@@ -161,6 +151,7 @@ const Settings = () =>{
                                     </button>
                                 )}
                             </h2>
+                            {/* Profile picture and info boxes */}
                             <ProfilePicChange profilePic={profilePic} onProfilePicChange={handleProfilePicChange} isEditing={isEditing}/>
                             <div className='flex flex-col mb-4'>
                                 <span>{t('settings.first-name')}</span>
@@ -175,21 +166,25 @@ const Settings = () =>{
                                 <ProfileInfoBox text={email} isEditable={isEditing} onChangeText={setEmail}/>
                             </div>
                         </div>
+                        {/* Linked Accounts Section */}
                         <div className="bg-[#141516] rounded-2xl p-4">
                             <span className='text-xl'>{t('settings.linked-accounts')}</span>
                             <LinkComponent onSuccess={handleAccountsRerender}/>
                             <AccountList rerender={rerenderSettings}/>
                         </div>
                     </div>
+                    {/* General settings */}
                     <div className="bg-[#141516] rounded-2xl p-4 mt-6 sm:mt-0">
                         <div className="mb-6">
                             <h2 className=" font-bold text-white text-xl mb-4">{t('settings.general-header')}</h2>
                             <ul className="list-none flex flex-col items-center">
+                                {/* Export account data */}
                                 <li className='flex items-center gap-10'>
                                     <AccountDataCSV rerender={rerenderSettings}/>
                                 </li>
                             </ul>
                         </div>
+                        {/* Notification Settings */}
                         <div className="notifications">
                             <h2 className=" font-bold text-white text-xl mb-4">{t('settings.notifications-header')}</h2>
                             <span>{t('settings.notification-notify')}</span>
@@ -222,6 +217,7 @@ const Settings = () =>{
                                             <button className='bg-[#1ADBA9] text-white rounded-full px-3 py-1 font-bold' onClick={handleSubmit}>{t('settings.noti-submit')}</button>
                                         </div>
                                     )}
+                                    {/* Popup for notification submission confirmation */}
                                     <Popup open={popupOpen} onClose={() => setPopupOpen(false)}>
                                         {popupMessage}
                                     </Popup>

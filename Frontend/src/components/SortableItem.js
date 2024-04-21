@@ -1,3 +1,13 @@
+/*
+  * File: 
+    *Expenses.js
+
+  * Description: 
+    * This file is a component for the layout editor functionality.
+    * It uses the useSortable hook from the @dnd-kit/sortable package to create a sortable item.
+  * 
+*/
+
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 

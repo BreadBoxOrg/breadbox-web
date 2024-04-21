@@ -1,7 +1,23 @@
+/*
+  * File: 
+    *ExpensesSideBar.jsx
+
+  * Description: 
+    * Sidebar component that displays a list of expenses by category and a bar chart to visualize the amount spent in each category.
+    * The data is fetched from the mock data file and the expenses are summed by category.
+    * The maximum expense amount is calculated to set the width of the bars in the bar chart.
+  * 
+*/
+
+
+// import React from 'react';
+import { ExpensesPeriodMockData } from '../components/mock_data/mockData';
+// import styles from './ExpenseSideBar.module.css'; 
 import React, { useState, useEffect } from 'react';
 import styles from './ExpenseSideBar.module.css';
 import { getPlaidTransactions } from '../utils/http';
 import { useTranslation } from 'react-i18next';
+
 
 const ExpenseSideBar = () => {
   const [expensesByCategory, setExpensesByCategory] = useState({});
