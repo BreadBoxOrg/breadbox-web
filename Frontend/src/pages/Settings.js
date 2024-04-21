@@ -4,7 +4,8 @@ Description: Layout of Settings Page.
 Functions: Edit Profiles, Linked Accounts, Export Data
 */
 
-import React, { useState } from 'react';
+// Settings.js
+import React, { useState, useRef } from 'react';
 import Popup from 'reactjs-popup';
 import NavbarLayout from "../components/SideBar";
 import './Settings.css';
@@ -19,6 +20,8 @@ import AccountDataCSV from '../components/ExportAccountsCSV.jsx';
 import ProfilePicChange from '../components/ProfilePic.jsx';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../components/LanguageSelector.jsx';
+import FirstTimeUserHints from './FirstTimeUserHints';
+
 
 const Settings = () =>{
 
@@ -111,27 +114,56 @@ const Settings = () =>{
         setProfilePic(newProfilePic); // Update profile pic in state
     };
 
-    return (
+    const widgetRefs = {
+        linkComponent: useRef(null),
+      };
+    
+      const widgets = [
+        { id: 'linkComponent', name: 'Link Component' },
+      ];
+    
+      const [isHintsVisible, setIsHintsVisible] = useState(() => {
+        const hasSeenHints = localStorage.getItem('hasSeenHints');
+        return hasSeenHints ? false : true;
+      });
+      const [isButtonClicked, setIsButtonClicked] = useState(() => {
+        const buttonClicked = localStorage.getItem('buttonClicked');
+        return buttonClicked ? true : false;
+      });
+    
+      const handleCloseHints = () => {
+        setIsHintsVisible(false);
+        localStorage.setItem('hasSeenHints', 'true');
+      };
+    
+      const handleButtonClick = () => {
+        setIsButtonClicked(true);
+        setIsHintsVisible(false);
+        localStorage.setItem('buttonClicked', 'true');
+        localStorage.setItem('hasSeenHints', 'true');
+      };
+    
+      return (
         <>
-            {/* Main settings page layout */}
-            <div className="pt-48 overflow-x-auto px-4 sm:px-10 sm:ml-[275px] lg:pt-12">
-                <NavbarLayout />
-                {/* Header with title and logout button */}
-                <div className="flex justify-between items-center text-[#1ADBA9] text-2xl sm:text-4xl mb-0 lg:mb-8">
-                    <h1 className="font-bold text-[#1ADBA9] text-xl md:text-3xl">{t('settings.settings-header')}</h1>
-                    <div className="py-3 sm:py-0">
-                        <Link to="/">
-                            <button className="w-40 h-8 text-white bg-[#651819] border-none rounded-full font-bold text-sm cursor-pointer sm:w-50 sm:h-10 sm:text-lg">
-                                {t('settings.log-out')}
-                            </button>
-                        </Link>
-                    </div>
-                </div>
-                {/* This is your main settings content */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
-                    <div className="text-white font-bold">
-                        {/* Account settings */}
-                        <div className="bg-[#141516] rounded-2xl mb-6 p-4">
+          {/* Main settings page layout */}
+          <div className="pt-48 overflow-x-auto px-4 sm:px-10 sm:ml-[275px] lg:pt-12">
+            <NavbarLayout />
+            {/* Header with title and logout button */}
+            <div className="flex justify-between items-center text-[#1ADBA9] text-2xl sm:text-4xl mb-0 lg:mb-8">
+              <h1 className="font-bold text-[#1ADBA9] text-xl md:text-3xl">{t('settings.settings-header')}</h1>
+              <div className="py-3 sm:py-0">
+                <Link to="/">
+                  <button className="w-40 h-8 text-white bg-[#651819] border-none rounded-full font-bold text-sm cursor-pointer sm:w-50 sm:h-10 sm:text-lg">
+                    {t('settings.log-out')}
+                  </button>
+                </Link>
+              </div>
+            </div>
+            {/* This is your main settings content */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+              <div className="text-white font-bold">
+                {/* Account settings */}
+                <div className="bg-[#141516] rounded-2xl mb-6 p-4">
                             <h2 className="text-xl mb-4">
                                 {t('settings.account-header')}
                                 {isEditing ? (
@@ -166,13 +198,25 @@ const Settings = () =>{
                                 <ProfileInfoBox text={email} isEditable={isEditing} onChangeText={setEmail}/>
                             </div>
                         </div>
-                        {/* Linked Accounts Section */}
-                        <div className="bg-[#141516] rounded-2xl p-4">
-                            <span className='text-xl'>{t('settings.linked-accounts')}</span>
-                            <LinkComponent onSuccess={handleAccountsRerender}/>
-                            <AccountList rerender={rerenderSettings}/>
-                        </div>
-                    </div>
+            {/* Linked Accounts Section */}
+            <div className="bg-[#141516] rounded-2xl p-4">
+        <span className='text-xl'>{t('settings.linked-accounts')}</span>
+        <div
+          ref={widgetRefs.linkComponent}
+          className={`${isHintsVisible && !isButtonClicked ? 'relative' : ''}`}
+        >
+          <LinkComponent
+            onSuccess={handleAccountsRerender}
+            className={`${isHintsVisible && !isButtonClicked ? 'relative z-10' : ''}`}
+            onClick={handleButtonClick}
+          />
+          {isHintsVisible && !isButtonClicked && (
+            <div className="absolute inset-0 bg-transparent border-4 border-blue-400 rounded-2xl pulsate"></div>
+          )}
+        </div>
+        <AccountList rerender={rerenderSettings} />
+      </div>
+          </div>
                     {/* General settings */}
                     <div className="bg-[#141516] rounded-2xl p-4 mt-6 sm:mt-0">
                         <div className="mb-6">
@@ -228,8 +272,15 @@ const Settings = () =>{
                         </div>
                     </div>
                 </div>
-            </>
-        );
-    }
+                {isHintsVisible && (
+        <FirstTimeUserHints
+          onClose={handleCloseHints}
+          widgets={widgets}
+          widgetRefs={widgetRefs}
+        />
+      )}
+    </>
+  );
+};
 
 export default Settings;

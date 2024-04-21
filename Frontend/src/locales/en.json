@@ -43,7 +43,8 @@
             "assetDetails": "Get detailed information about your assets.",
             "portfolioDiversity": "Analyze the diversity of your investment portfolio.",
             "accountBalances": "Check your account balances here.",
-            "investmentGoals": "Set and track your investment goals with this widget."
+            "investmentGoals": "Set and track your investment goals with this widget.",
+            "linkComponent": "Start linking your bank accounts now"
         }
     },
     "dashboard": {

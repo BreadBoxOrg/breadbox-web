@@ -26,24 +26,28 @@ const WidgetTooltip = ({ widget, isActive, widgetRef }) => {
     }
   }, [isActive, widgetRef]);
 // Tooltip text for each widget
-  const tooltipText = {
-    dashboard: {
-      moneyEarned: t('userHints.tooltipText.moneyEarned'),
-      recentRecurring: t('userHints.tooltipText.recentRecurring'),
-      networthSavingsGoal: t('userHints.tooltipText.networthSavingsGoal'),
-      crypto: t('userHints.tooltipText.crypto'),
-      cashFlow: t('userHints.tooltipText.cashFlow'),
+const tooltipText = {
+  dashboard: {
+    moneyEarned: t('userHints.tooltipText.moneyEarned'),
+    recentRecurring: t('userHints.tooltipText.recentRecurring'),
+    networthSavingsGoal: t('userHints.tooltipText.networthSavingsGoal'),
+    crypto: t('userHints.tooltipText.crypto'),
+    cashFlow: t('userHints.tooltipText.cashFlow'),
+  },
+  expenses: {
+    expensesList: t('userHints.tooltipText.expensesList'),
+    expenseSideBar: t('userHints.tooltipText.expenseSideBar'),
+  },
+  finances: {
+    totalInvestedNetEarned: t('userHints.tooltipText.totalInvestedNetEarned'),
+    assetDetails: t('userHints.tooltipText.assetDetails'),
+    portfolioDiversity: t('userHints.tooltipText.portfolioDiversity'),
+    accountBalances: t('userHints.tooltipText.accountBalances'),
+    investmentGoals: t('userHints.tooltipText.investmentGoals'),
+
     },
-    expenses: {
-      expensesList: t('userHints.tooltipText.expensesList'),
-      expenseSideBar: t('userHints.tooltipText.expenseSideBar'),
-    },
-    finances: {
-      totalInvestedNetEarned: t('userHints.tooltipText.totalInvestedNetEarned'),
-      assetDetails: t('userHints.tooltipText.assetDetails'),
-      portfolioDiversity: t('userHints.tooltipText.portfolioDiversity'),
-      accountBalances: t('userHints.tooltipText.accountBalances'),
-      investmentGoals: t('userHints.tooltipText.investmentGoals'),
+    settings: {
+      linkComponent: t('userHints.tooltipText.linkComponent'),
     },
   };
 
@@ -51,6 +55,7 @@ const WidgetTooltip = ({ widget, isActive, widgetRef }) => {
     if (location.pathname === "/dashboard") return "dashboard";
     if (location.pathname === "/expenses") return "expenses";
     if (location.pathname === "/finances") return "finances";
+    if (location.pathname === "/settings") return "settings";
     return "";
   };
 
@@ -58,7 +63,7 @@ const WidgetTooltip = ({ widget, isActive, widgetRef }) => {
 // Tooltip component
   return (
     <div
-      className="text-white absolute p-4 bg-white rounded-lg shadow-lg transition-all duration-500 transform -translate-x-1/2 bg-zinc-800" 
+    className="text-white absolute p-4 bg-white rounded-lg shadow-lg transition-all duration-500 transform -translate-x-1/2 bg-zinc-800" 
       style={{
         top: tooltipPosition.top,
         left: tooltipPosition.left,

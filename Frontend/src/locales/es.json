@@ -43,7 +43,8 @@
             "assetDetails": "Obtén información detallada sobre tus activos.",
             "portfolioDiversity": "Analiza la diversidad de tu cartera de inversiones.",
             "accountBalances": "Consulta tus saldos de cuenta aquí.",
-            "investmentGoals": "Establece y sigue tus objetivos de inversión con este widget."
+            "investmentGoals": "Establece y sigue tus objetivos de inversión con este widget.",
+            "linkComponent": "Comience a vincular sus cuentas bancarias ahora"
           }
     },
     "dashboard": {
