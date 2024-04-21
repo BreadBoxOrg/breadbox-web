@@ -1,4 +1,24 @@
 {
+    "chatbot": {
+        "welcome": "Bienvenue chez BreadBox ! Comment puis-je vous aider dans votre parcours financier aujourd'hui?🤖💰",
+        "placeholder": "Tapez un message...",
+        "labels": {
+            "chatbot-tt": "Tutoriel du Chatbot",
+            "breadBox": "Tutoriel BreadBox",
+            "analyze": "Analyser Mes Finances",
+            "continue": "Continuer à Poser des Questions"
+        },
+        "tutorials": {
+            "chatTutorial": "Je suis votre assistant financier personnel. Vous pouvez me poser des questions sur vos finances, et je ferai de mon mieux pour vous aider!",
+            "bbTutorial": "BreadBox est un outil de gestion financière qui vous aide à suivre vos dépenses, vos revenus et vos économies en un seul endroit sur plusieurs banques. Vous pouvez également l'utiliser pour définir des objectifs financiers et suivre vos progrès. Nous proposons également un chatbot pour vous aider avec toutes les questions que vous pourriez avoir.",
+            "continueBBTutorial": "Pour Alpha, nous avons configuré un compte de test pour vous. Accédez aux paramètres en cliquant sur le bouton \"connecter votre compte\". Sélectionnez n'importe quelle institution bancaire et saisissez \"user_good\" et \"password_good\" comme mot de passe lorsqu'on vous le demande. Saisissez \"1111\" pour le code MFA et sélectionnez les comptes bancaires à lier. Acceptez les termes et conditions. Une fois terminé, cliquez à l'extérieur et consultez vos transactions, vos revenus et vos comptes sur le tableau de bord."
+        },
+        "sure": "Bien sûr!",
+        "askContinue": "Puis-je vous aider davantage?",
+        "yes": "Oui, s'il vous plaît.😃",
+        "no": "Non, merci!😁",
+        "endConversation": "Merci d'avoir discuté avec nous. Passez une excellente journée! 🤍"
+    },    
     "userHints": {
         "welcome": "Bienvenue, Nouvel Utilisateur !",
         "got-it": "J'ai compris !",
@@ -82,7 +102,7 @@
             "travel": "Voyage",
             "transfer": "Transfert"
         },
-        "spending-by-category": "Gastos por Categorías:"
+        "spending-by-category": "Dépenses par catégories:"
     },
     "finances" : {
         "header": "Finances",

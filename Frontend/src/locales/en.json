@@ -1,4 +1,24 @@
 {
+    "chatbot": {
+        "welcome": "Welcome to BreadBox! How can assist you on your financial journey today?🤖💰",
+        "placeholder": "Type a message...",
+        "labels": {
+            "chatbot-tt": "Chatbot Tutorial",
+            "breadBox": "BreadBox Tutorial",
+            "analyze": "Analyze My Financials",
+            "continue": "Continue Asking Questions"
+        },
+        "tutorials": {
+            "chatTutorial": "I am your personal financial assistant. You can ask me questions about your finances, and I will do my best to help you out!",
+            "bbTutorial": "BreadBox is a financial management tool that helps you track your spending, income, and savings in one spot across multiple banks. You can also use it to set financial goals and track your progress. We also provide a chatbot to help you with any questions you may have.",
+            "continueBBTutorial": "For Alpha, we have set up a test account for you to use. Access through settings by clicking the \"connect your account\" button. Select any banking institution and enter \"user_good\" and \"password_good\" for the password when prompted. Enter \"1111\" for the MFA code and select any bank accounts to link. Agree to terms and conditions. When done, click out and view your transactions, income, and accounts on the dashboard."
+        },
+        "sure": "Sure!",
+        "askContinue": "Can I provide further assistance?",
+        "yes": "Yes, please.😃",
+        "no": "No, thanks!😁",
+        "endConversation": "Thank you for chatting with us. Have a great day! 🤍"
+    },
     "userHints": {
         "welcome": "Welcome, New User!",
         "got-it": "Got it!",
