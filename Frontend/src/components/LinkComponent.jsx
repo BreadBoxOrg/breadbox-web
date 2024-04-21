@@ -49,7 +49,7 @@ useEffect(() => {
   };
 
   fetchLinkToken();
-}, [backendURL, i18n.language]);
+}, [backendURL]);
 
 const onSuccess = async (publicToken) => {
   // Send the public token to your server to exchange for an access token
