@@ -81,7 +81,8 @@
             "tax": "Taxe",
             "travel": "Voyage",
             "transfer": "Transfert"
-        }
+        },
+        "spending-by-category": "Gastos por Categorías:"
     },
     "finances" : {
         "header": "Finances",
