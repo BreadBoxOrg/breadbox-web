@@ -31,6 +31,8 @@
         "finance-data": "Accede a tus datos y informes financieros.",
         "finance-analyze": "Analiza tus ingresos, gastos y ahorros.",
         "next": "Siguiente",
+        "manage-settings": "Administra tus ajustes de cuenta y preferencias.",
+        "link-accounts": "Vincula tus cuentas financieras para rastrear tus datos.",
         "tooltipText": {
             "moneyEarned": "Este widget muestra el total de dinero ganado.",
             "recentRecurring": "Aquí puedes ver tus transacciones recurrentes recientes.",
