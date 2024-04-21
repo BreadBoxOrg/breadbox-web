@@ -52,7 +52,7 @@ function ChatBotAssistant() {
         <ThemeProvider theme={theme}>
           <StyledChatBot 
             headerTitle="AI BreadBot"
-            steps={Steps}
+            steps={Steps()}
             botAvatar={logo}
             userAvatar="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" //get rid of the user default avatar
             floating={true}
