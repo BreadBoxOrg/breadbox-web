@@ -17,6 +17,7 @@ const mongoose = require("mongoose");
 const express = require('express');
 const AppError = require('./middleware/appError')
 const globalErrorhandler = require('./middleware/errorHandler');
+
 const {createToken, exchangeToken, getTransactions, getBalance, getAccounts} = require('./api/plaid/link-controller')
 
 // connect to mongo
@@ -84,6 +85,15 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
     next();
 });
+// CORS middleware function
+const corsMiddleware = (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+};
+
+app.use(corsMiddleware); // Apply the middleware to all routes
+
 
 //routers
 
@@ -96,6 +106,9 @@ app.use(express.json());
 *******************************************************************/
 const incomeRouter = require('./routes/income');
 app.use('/income', incomeRouter);
+
+const cryptoRouter = require('./routes/crypto');
+app.use('/crypto', cryptoRouter);
 
 const accountRouter = require('./routes/account');
 app.use('/account', accountRouter);
