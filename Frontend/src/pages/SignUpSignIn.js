@@ -6,6 +6,8 @@ Description: Page for Logging In and Signing Up
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../images/BreadBox_Logo.png";
+import feature1 from "../images/undraw_dashboard_re_3b76.svg";
+import feature2 from "../images/undraw_pay_online_re_aqe6.svg"
 import { useTranslation } from 'react-i18next';
 import PickLanguageSignIn from '../components/PickLanguageSignIn.jsx';
 
@@ -72,7 +74,7 @@ function SignUpSignIn() {
                 <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   <li className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6">
                     <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full p-4 mb-4">
-                      {/* Add an icon or image for the feature */}
+                    <img src={feature1} alt="Feature 1 Graphics" className="h-40 w-40 mb-8" />
                     </div>
                     <h3 className="font-heading text-xl mb-2 text-[#26292B]">
                       {t('signup_login.feature1-title')}
@@ -83,7 +85,7 @@ function SignUpSignIn() {
                   </li>
                   <li className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6">
                     <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full p-4 mb-4">
-                      {/* Add an icon or image for the feature */}
+                    <img src={feature2} alt="Feature 2 Graphics" className="h-40 w-40 mb-8" />
                     </div>
                     <h3 className="font-heading text-xl mb-2 text-[#26292B]">
                       {t('signup_login.feature2-title')}
