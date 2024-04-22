@@ -10,28 +10,29 @@
 */
 
 import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, Cell, ReferenceLine} from 'recharts';
+import { BarChart, Bar, Cell, ReferenceLine } from 'recharts';
 import { getPlaidTransactions } from '../utils/http';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import styles from './ExpensesList.module.css';
 import { AccountBalance, AttachMoney, People, Fastfood, 
-        MedicalInformation, Paid, HomeRepairService, Store, Map, Terrain} from '@mui/icons-material';
+  MedicalInformation, Paid, HomeRepairService, Store, Map, Terrain} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 const ExpensesList = () => {
-
   const [transactionsData, setTransactionsData] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredBarIndex, setHoveredBarIndex] = useState(-1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOption, setSortOption] = useState('date');
 
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
         const fetchedTransactions = await getPlaidTransactions();
         processFetchedTransactions(fetchedTransactions);
-        setActiveIndex(0); 
+        setActiveIndex(0);
       } catch (error) {
         console.error('Failed to fetch transactions:', error);
       }
@@ -84,22 +85,29 @@ const ExpensesList = () => {
     const processedArray = Object.values(processedData).sort((a, b) => a.period.localeCompare(b.period));
     setTransactionsData(processedArray);
   };
-// Functions to navigate to the next/prev bar
+  // Functions to navigate to the next/prev bar
   const nextBar = () => {
-    setActiveIndex(prevIndex => (prevIndex + 1) % transactionsData.length);
+    setActiveIndex((prevIndex) => (prevIndex + 1) % transactionsData.length);
   };
 
   const prevBar = () => {
-    setActiveIndex(prevIndex => (prevIndex - 1 + transactionsData.length) % transactionsData.length);
+    setActiveIndex((prevIndex) => (prevIndex - 1 + transactionsData.length) % transactionsData.length);
   };
 
   const dataForChart = transactionsData.map((period, index) => ({
     name: period.period,
     total: period.transactions.reduce((acc, transaction) => acc + Math.abs(transaction.amount), 0),
-    index 
+    index,
   }));
+ // Bar chart with the transaction
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
-  // Bar chart with the transaction
+  const handleSortChange = (event) => {
+    setSortOption(event.target.value);
+  };
+
   const { t } = useTranslation();
 
   return (
@@ -128,7 +136,7 @@ const ExpensesList = () => {
           ))}
         </Bar>
       </BarChart>
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
         <IconButton onClick={prevBar} aria-label="previous" sx={{ color: 'white' }}>
           <ArrowBackIosIcon />
         </IconButton>
@@ -139,20 +147,49 @@ const ExpensesList = () => {
       {activeIndex >= 0 && activeIndex < transactionsData.length && (
         <div className={styles.transactionList} style={{ maxHeight: '600px', overflowY: 'auto', maxWidth: '100%' }}>
           <h3 className={styles.period}>{transactionsData[activeIndex].period}</h3>
-          {transactionsData[activeIndex].transactions.map((transaction, idx) => (
-            <div key={idx} className={styles.transaction}>
-              <div className={`${styles.transactionIcon} ${styles[transaction.category.toLowerCase().replace(/\s/g, '')]}`}>
-                <span className={styles.icon}>{transaction.icon}</span>
-              </div>
-              <div className={styles.transactionDetails}>
-                <p className={styles.transactionCategory}>{t(`expenses.category.${transaction.category.toLowerCase().replace(/\s/g, '')}`)}</p>
-                <div className={styles.transactionAmountAndTime}>
-                  <span className={styles.transactionTime}>{transaction.time} - {transaction.place}</span>
-                  <span className={styles.transactionAmount}>${Math.abs(transaction.amount).toFixed(2)}</span>
+          <div className={styles.searchAndSort}>
+            <input
+              type="text"
+              placeholder="Search transactions..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className={styles.searchInput}
+            />
+            <select value={sortOption} onChange={handleSortChange} className={styles.sortSelect}>
+              <option value="date">Date</option>
+              <option value="amount">Amount</option>
+              <option value="category">Category</option>
+            </select>
+          </div>
+          {transactionsData[activeIndex].transactions
+            .filter(
+              (transaction) =>
+                transaction.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                transaction.place.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .sort((a, b) => {
+              if (sortOption === 'date') {
+                return new Date(a.time) - new Date(b.time);
+              } else if (sortOption === 'amount') {
+                return b.amount - a.amount;
+              } else if (sortOption === 'category') {
+                return a.category.localeCompare(b.category);
+              }
+            })
+            .map((transaction, idx) => (
+              <div key={idx} className={styles.transaction}>
+                <div className={`${styles.transactionIcon} ${styles[transaction.category.toLowerCase().replace(/\s/g, '')]}`}>
+                  <span className={styles.icon}>{transaction.icon}</span>
+                </div>
+                <div className={styles.transactionDetails}>
+                  <p className={styles.transactionCategory}>{t(`expenses.category.${transaction.category.toLowerCase().replace(/\s/g, '')}`)}</p>
+                  <div className={styles.transactionAmountAndTime}>
+                    <span className={styles.transactionTime}>{transaction.time} - {transaction.place}</span>
+                    <span className={styles.transactionAmount}>${Math.abs(transaction.amount).toFixed(2)}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       )}
     </div>
