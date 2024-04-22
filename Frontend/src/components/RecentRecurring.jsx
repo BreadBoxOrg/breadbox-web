@@ -22,8 +22,9 @@ function RecentRecurring() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [transactions, setTransactions] = useState([]);
   const { accessToken } = useContext(AccessTokenContext);
-  const { transactionData, setTransactionData } = useContext(DataFetchContext);
+  const { transactionData } = useContext(DataFetchContext);
   const [isLoading, setIsLoading] = useState(true);
 
   //set transaction data or sets loading to true
@@ -31,8 +32,8 @@ function RecentRecurring() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const transactions = await getPlaidTransactions(accessToken);
-        setTransactionData(transactions);
+        // const transactions = await getPlaidTransactions(accessToken);
+        setTransactions(transactionData);
       } catch (error) {
         console.error('Error fetching transaction data:', error);
       } finally {
@@ -41,7 +42,7 @@ function RecentRecurring() {
     };
 
     fetchData();
-  }, [accessToken, setTransactionData]);
+  }, [accessToken]);
   
   const { t } = useTranslation();
 
