@@ -102,3 +102,22 @@
     justify-content: space-between;
     width: 100%;
   }
+
+  .searchAndSort {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .searchInput {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .sortSelect {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
