@@ -19,8 +19,9 @@ function AssetDetails() {
   const [currentPrice, setCurrentPrice] = useState(null);
   const [stockSymbol, setStockSymbol] = useState('AAPL');
   const [priceTrend, setPriceTrend] = useState('');
-
-  const stockOptions = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB'];
+  const [savedStocks, setSavedStocks] = useState(['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB']);
+  const [inputSymbol, setInputSymbol] = useState('');
+  const [replaceMode, setReplaceMode] = useState(false);
 
   const fetchData = async (symbol) => {
     try {
@@ -28,7 +29,7 @@ function AssetDetails() {
         params: {
           serietype: 'line',
           timeseries: 30,
-          apikey: process.env.REACT_APP_FMP_API, //env
+          apikey: process.env.REACT_APP_FMP_API,
         },
       });
 
@@ -55,7 +56,30 @@ function AssetDetails() {
   }, [stockSymbol]);
 
   const handleStockSelection = (symbol) => {
-    setStockSymbol(symbol);
+    if (!replaceMode) {
+      setStockSymbol(symbol);
+    } else {
+      let newSavedStocks = [...savedStocks];
+      const index = savedStocks.indexOf(symbol);
+      newSavedStocks[index] = stockSymbol; // Replace with the new stock symbol
+      setSavedStocks(newSavedStocks);
+      setReplaceMode(false); // Exit replace mode
+    }
+  };
+
+  const handleSaveStock = () => {
+    setReplaceMode(true); // Enter replace mode
+  };
+
+  const handleInputChange = (e) => {
+    setInputSymbol(e.target.value.toUpperCase());
+  };
+
+  const handleSearch = () => {
+    if (inputSymbol) {
+      setStockSymbol(inputSymbol);
+      setReplaceMode(false);  // Make sure replace mode is off when searching a new symbol
+    }
   };
 
   const gradientId = `priceTrendGradient-${priceTrend}`;
@@ -63,36 +87,40 @@ function AssetDetails() {
   return (
     <div style={{ display: 'flex', backgroundColor: '#0a0a0a', padding: '0.5vw', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', position: 'relative', width: '100%', height:'100%'}}>
       <div style={{ marginRight: '2vw' }}>
-        {stockOptions.map((symbol) => (
-          <div key={symbol} onClick={() => handleStockSelection(symbol)} style={{ cursor: 'pointer', color: 'white', padding: '0.5vw', borderBottom: '1px solid grey' }}>
+        {savedStocks.map((symbol) => (
+          <div key={symbol} onClick={() => handleStockSelection(symbol)} style={{ cursor: 'pointer', color: 'white', padding: '0.5vw', borderBottom: '1px solid grey', backgroundColor: replaceMode ? 'rgba(128, 128, 128, 0.2)' : 'transparent' }}>
             {symbol}
           </div>
         ))}
       </div>
       <div style={{ flex: 1, height: '100%' }}>
-        <div style={{ color: 'white'}}>
+        <div style={{ color: 'white', marginBottom: '20px' }}>
+          <input type="text" placeholder="Enter stock symbol" value={inputSymbol} onChange={handleInputChange} style={{ marginRight: '10px', color: 'white', backgroundColor: 'transparent', border: '1px solid white' }} />
+          <button onClick={handleSearch}>Search</button>
+          <button onClick={handleSaveStock} style={{ marginLeft: '10px' }}>Save</button>
           <h2>{stockSymbol}</h2>
           <h3>${currentPrice ? currentPrice.toLocaleString() : 'Loading...'}</h3>
         </div>
 
-        <ResponsiveContainer width="100%" height="70%">
-          <AreaChart data={stockData} margin={{ top: 5, right: 0, left: 10, bottom: 0 }}>
-            <defs>
-              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0.8}/>
-                <stop offset="95%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0}/>
-              </linearGradient>
-            </defs>
-            <XAxis dataKey="date" axisLine={false} tickLine={false} />
-            <YAxis domain={['dataMin', 'dataMax']} axisLine={false} tickLine={false} tickFormatter={(value) => `$${value.toLocaleString()}`} />
-            <Tooltip content={<CustomTooltip />} cursor={false} />
-            <Area type="monotone" dataKey="price" stroke={priceTrend === 'up' ? 'green' : 'red'} fillOpacity={1} fill={`url(#${gradientId})`} strokeWidth={2} />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-    </div>
-  );
-}
+            <ResponsiveContainer width="100%" height="70%">
+            <AreaChart data={stockData} margin={{ top: 5, right: 0, left: 10, bottom: 0 }}>
+      <defs>
+        <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0.8}/>
+          <stop offset="95%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0}/>
+        </linearGradient>
+      </defs>
+      <XAxis dataKey="date" axisLine={false} tickLine={false} />
+      <YAxis domain={['dataMin', 'dataMax']} axisLine={false} tickLine={false} tickFormatter={(value) => `$${value.toLocaleString()}`} />
+      <Tooltip content={<CustomTooltip />} cursor={false} />
+      <Area type="monotone" dataKey="price" stroke={priceTrend === 'up' ? 'green' : 'red'} fillOpacity={1} fill={`url(#${gradientId})`} strokeWidth={2} />
+    </AreaChart>
+
+            </ResponsiveContainer>
+          </div>
+        </div>
+      );
+    }
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {

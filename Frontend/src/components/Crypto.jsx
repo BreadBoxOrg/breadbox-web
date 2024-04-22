@@ -1,12 +1,13 @@
 /*
-  * File: 
-    *Crypto.jsx
+ * File:
+   *Crypto.jsx
 
-  * Description: 
-    *This file defines the Crypto component which displays the historical price trend of a cryptocurrency over the past 30 days.
-    *The component fetches the data from the CoinGecko API and displays the data using a recharts AreaChart.
-    * Recharts is used to create the chart and display price trend of the cryptocurrency.
-  * 
+ * Description:
+   *This file defines the Crypto component which displays the historical price trend of a cryptocurrency over the past 30 days and its current price.
+   *The component fetches the data from the CoinGecko API and displays the data using a recharts AreaChart.
+   * Recharts is used to create the chart and display price trend of the cryptocurrency.
+   * It includes a search form to allow the user to search for a specific cryptocurrency by entering the coin ID and pressing Enter or clicking the "Search" button.
+ *
 */
 
 import React, { useState, useEffect } from 'react';
@@ -19,18 +20,20 @@ function Crypto() {
   const [coinName, setCoinName] = useState('');
   const [coinSymbol, setCoinSymbol] = useState('');
   const [priceTrend, setPriceTrend] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
-  const fetchData = async () => {
+  const fetchData = async (coinId) => {
     try {
-      const [historicalResponse, detailsResponse] = await Promise.all([
-        axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart', {
+      const [historicalResponse, detailsResponse, currentPriceResponse] = await Promise.all([
+        axios.get(`http://localhost:3001/crypto/${coinId}/market_chart`, {
           params: {
             vs_currency: 'usd',
             days: '30',
             interval: 'daily',
           },
         }),
-        axios.get('https://api.coingecko.com/api/v3/coins/bitcoin')
+        axios.get(`http://localhost:3001/crypto/${coinId}`),
+        axios.get(`http://localhost:3001/crypto/${coinId}/price`),
       ]);
 
       const historicalData = historicalResponse.data.prices;
@@ -38,27 +41,27 @@ function Crypto() {
       setCoinName(detailsResponse.data.name);
       setCoinSymbol(detailsResponse.data.symbol.toUpperCase());
 
-      if (historicalData.length > 1) { // price trend using historical data
+      if (historicalData.length > 1) {
         const trend = historicalData[historicalData.length - 1][1] > historicalData[0][1] ? 'up' : 'down';
         setPriceTrend(trend);
       }
 
-      const currentPriceResponse = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
-        params: {
-          ids: 'bitcoin',
-          vs_currencies: 'usd',
-        },
-      });
-      setCurrentPrice(currentPriceResponse.data.bitcoin.usd);
+      setCurrentPrice(currentPriceResponse.data.price);
     } catch (error) {
-      console.error('Error fetching data: ', error);
+      console.error('Error fetching data:', error);
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetchData(inputValue);
+  };
+
   useEffect(() => {
-    fetchData();
+    fetchData('bitcoin');
   }, []);
-// CustomTooltip component to display the date and price of the cryptocurrency
+
+  // CustomTooltip component to display the date and price of the cryptocurrency
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
@@ -83,20 +86,41 @@ function Crypto() {
       width: '100%',
       height: '350px'
     }}>
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-        <span style={{ fontSize: '1.2em', fontWeight: 'bold', color: 'white', padding: '10px'}}>
-          {`${coinName} (${coinSymbol}) `}
-          <span style={{ color: priceTrend === 'up' ? 'green' : 'red' }}>
-            {priceTrend === 'up' ? '▲' : '▼'}
+      <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <span style={{ fontSize: '1.2em', fontWeight: 'bold', color: 'white' }}>
+            {`${coinName} (${coinSymbol}) `}
+            <span style={{ color: priceTrend === 'up' ? 'green' : 'red' }}>
+              {priceTrend === 'up' ? '▲' : '▼'}
+            </span>
           </span>
-        </span>
-        {currentPrice && (
-          <span style={{ fontSize: '1.5em', fontWeight: 'bold', color: 'white', marginLeft: '10px'}}> ${currentPrice.toLocaleString()}
-          </span>
-        )}
+          {currentPrice && (
+            <span style={{ fontSize: '1.2em', fontWeight: 'bold', color: 'white' }}>
+              ${currentPrice.toLocaleString()}
+            </span>
+          )}
+        </div>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center' }}>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="Enter coin ID (e.g., bitcoin, ethereum, litecoin)"
+            style={{
+              backgroundColor: '#0a0a0a',
+              color: 'white',
+              width: '100%',
+              padding: '8px',
+              fontSize: '16px',
+              borderRadius: '4px',
+              border: '1px solid white',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+            }}
+          />
+          <button type="submit" style={{ padding: '8px 16px', fontSize: '16px' }}>
+            Search
+          </button>
+        </form>
       </div>
 
       <ResponsiveContainer width={"100%"} height={250}>
@@ -107,13 +131,13 @@ function Crypto() {
         }}>
           <defs>
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0.8}/>
-              <stop offset="79%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0}/>
+              <stop offset="5%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0.8} />
+              <stop offset="79%" stopColor={priceTrend === 'up' ? 'green' : 'red'} stopOpacity={0} />
             </linearGradient>
           </defs>
           <XAxis axisLine={false} dataKey="date" tick={false} />
           <YAxis axisLine={false} domain={['dataMin', 'dataMax']} tick={false} tickFormatter={(value) => value.toLocaleString()} />
-          <Tooltip content={<CustomTooltip />} cursor={false}/>
+          <Tooltip content={<CustomTooltip />} cursor={false} />
           <Area type="monotone" dataKey="price" stroke={priceTrend === 'up' ? 'green' : 'red'} fillOpacity={1} fill={`url(#${gradientId})`} strokeWidth={2} />
         </AreaChart>
       </ResponsiveContainer>
