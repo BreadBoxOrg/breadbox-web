@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import logo from "../images/BreadBox_Logo.png";
 import feature1 from "../images/undraw_dashboard_re_3b76.svg";
 import feature2 from "../images/undraw_pay_online_re_aqe6.svg"
+import feature3 from "../images/undraw_projections_re_ulc6_1.svg";
 import { useTranslation } from 'react-i18next';
 import PickLanguageSignIn from '../components/PickLanguageSignIn.jsx';
 
@@ -73,7 +74,7 @@ function SignUpSignIn() {
               <div>
                 <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   <li className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6">
-                    <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full p-4 mb-4">
+                  <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full w-64 h-64 flex items-center justify-center mb-5">
                     <img src={feature1} alt="Feature 1 Graphics" className="h-40 w-40 mb-8" />
                     </div>
                     <h3 className="font-heading text-xl mb-2 text-[#26292B]">
@@ -84,7 +85,7 @@ function SignUpSignIn() {
                     </p>
                   </li>
                   <li className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6">
-                    <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full p-4 mb-4">
+                  <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full w-64 h-64 flex items-center justify-center mb-5">
                     <img src={feature2} alt="Feature 2 Graphics" className="h-40 w-40 mb-8" />
                     </div>
                     <h3 className="font-heading text-xl mb-2 text-[#26292B]">
@@ -95,8 +96,8 @@ function SignUpSignIn() {
                     </p>
                   </li>
                   <li className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6">
-                    <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full p-4 mb-4">
-                      {/* Add an icon or image for the feature */}
+                  <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full w-64 h-64 flex items-center justify-center mb-5">
+                    <img src={feature3} alt="Feature 3 Graphics" className="h-40 w-40 mb-8" />
                     </div>
                     <h3 className="font-heading text-xl mb-2 text-[#26292B]">
                       {t('signup_login.feature3-title')}
