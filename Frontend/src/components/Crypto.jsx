@@ -13,6 +13,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
+const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 function Crypto() {
   const [cryptoData, setCryptoData] = useState([]);
@@ -25,15 +26,15 @@ function Crypto() {
   const fetchData = async (coinId) => {
     try {
       const [historicalResponse, detailsResponse, currentPriceResponse] = await Promise.all([
-        axios.get(`http://localhost:3001/crypto/${coinId}/market_chart`, {
+        axios.get(`${backendURL}/crypto/${coinId}/market_chart`, {
           params: {
             vs_currency: 'usd',
             days: '30',
             interval: 'daily',
           },
         }),
-        axios.get(`http://localhost:3001/crypto/${coinId}`),
-        axios.get(`http://localhost:3001/crypto/${coinId}/price`),
+        axios.get(`${backendURL}/crypto/${coinId}`),
+        axios.get(`${backendURL}/crypto/${coinId}/price`),
       ]);
 
       const historicalData = historicalResponse.data.prices;
