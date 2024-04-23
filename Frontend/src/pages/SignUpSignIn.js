@@ -126,7 +126,56 @@ function SignUpSignIn() {
                   {t('signup_login.cta-description')}
                 </p>
 
-                    {t('signup_login.end-card-description')}
+                    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  <li className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6">
+                  <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full w-64 h-64 flex items-center justify-center mb-5">
+                    {/* <img src={feature1} alt="Feature 1 Graphics" className="h-40 w-40 mb-8" /> */}
+                    </div>
+                    <h3 className="font-heading text-xl mb-2 text-[#26292B]">
+                      {t('signup_login.user1')}
+                    </h3>
+                    <p className="text-[#26292B] text-center">
+                      {t('signup_login.user1-desc')}
+                    </p>
+                  </li>
+                  <li className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6">
+                  <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full w-64 h-64 flex items-center justify-center mb-5">
+                    {/* <img src={feature2} alt="Feature 2 Graphics" className="h-40 w-40 mb-8" /> */}
+                    </div>
+                    <h3 className="font-heading text-xl mb-2 text-[#26292B]">
+                      {t('signup_login.user2')}
+                    </h3>
+                    <p className="text-[#26292B] text-center">
+                      {t('signup_login.user2-desc')}
+                    </p>
+                  </li>
+                  <li className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6">
+                  <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full w-64 h-64 flex items-center justify-center mb-5">
+                    {/* <img src={feature3} alt="Feature 3 Graphics" className="h-40 w-40 mb-8" /> */}
+                    </div>
+                    <h3 className="font-heading text-xl mb-2 text-[#26292B]">
+                      {t('signup_login.user3')}
+                    </h3>
+                    <p className="text-[#26292B] text-center">
+                      {t('signup_login.user3-desc')}
+                    </p>
+                    
+                  </li>
+
+                  <li className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6">
+                  <div className="bg-gradient-to-br from-[#189172] to-[#26292B] rounded-full w-64 h-64 flex items-center justify-center mb-5">
+                    {/* <img src={feature3} alt="Feature 3 Graphics" className="h-40 w-40 mb-8" /> */}
+                    </div>
+                    <h3 className="font-heading text-xl mb-2 text-[#26292B]">
+                      {t('signup_login.user4')}
+                    </h3>
+                    <p className="text-[#26292B] text-center">
+                      {t('signup_login.user4-desc')}
+                    </p>
+                    
+                  </li>
+                  
+                </ul>
 
               </div>
             </div>
