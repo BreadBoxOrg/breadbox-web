@@ -16,29 +16,28 @@ const PLAID_CLIENT_ID = process.env.PLAID_CLIENT_ID;
 const PLAID_SECRET = process.env.PLAID_SECRET;
 const PLAID_ENV = process.env.PLAID_ENV || 'sandbox';
 const PLAID_COUNTRY_CODES = process.env.PLAID_COUNTRY_CODES;
-const PLAID_PRODUCTS = (process.env.PLAID_PRODUCTS || Products.Transactions).split(
-    ',',
-  );
-  
+const PLAID_PRODUCTS = (process.env.PLAID_PRODUCTS || Products.Transactions).split(',');
+
+
 const PLAID_REDIRECT_URI = process.env.PLAID_REDIRECT_URI || '';
 
 // creates environment configurations for plaid
 const configuration = new Configuration({
-    basePath: PlaidEnvironments[PLAID_ENV],
-    baseOptions: {
-      headers: {
-        'PLAID-CLIENT-ID': PLAID_CLIENT_ID,
-        'PLAID-SECRET': PLAID_SECRET,
-        'Plaid-Version': '2020-09-14',
-      },
+  basePath: PlaidEnvironments[PLAID_ENV],
+  baseOptions: {
+    headers: {
+      'PLAID-CLIENT-ID': PLAID_CLIENT_ID,
+      'PLAID-SECRET': PLAID_SECRET,
+      'Plaid-Version': '2020-09-14',
     },
-  });
+  },
+});
 
 // builds client connection with Plaid API
 const client = new PlaidApi(configuration);
 
 // express route configuretions
-  const app = express();
+const app = express();
 app.use(
   bodyParser.urlencoded({
     extended: false,
@@ -54,12 +53,12 @@ app.use(cors());
  * @returns {Object} returns a response object   
  */
 app.post('/api/info', function (request, response, next) {
-    response.json({
-      item_id: ITEM_ID,
-      access_token: ACCESS_TOKEN,
-      products: PLAID_PRODUCTS,
-    });
+  response.json({
+    item_id: ITEM_ID,
+    access_token: ACCESS_TOKEN,
+    products: PLAID_PRODUCTS,
   });
+});
 
 
 /**
@@ -74,41 +73,47 @@ app.post('/api/info', function (request, response, next) {
  * @returns {Promise} A promise that resolves to sending an HTTP response with the created token or an error.
  */
 const createToken = async (req, res, next) => {
-    Promise.resolve()
-      .then(async function () {
-        const { languageCode } = req.body;
-        const configs = {
-          user: {
-            // This should correspond to a unique id for the current user.
-            client_user_id: 'user-id',
-          },
-          client_name: 'Plaid Quickstart',
-          products: ["transactions"],
-          country_codes: ["US"],
-          language: languageCode || 'en',
-          "client_id": PLAID_CLIENT_ID,
-          "secret": PLAID_SECRET,
-        };
-        if (PLAID_REDIRECT_URI !== '') {
-          configs.redirect_uri = PLAID_REDIRECT_URI;
+  Promise.resolve()
+    .then(async function () {
+      const { languageCode, updateMode } = req.body;
+      const configs = {
+        user: {
+        // This should correspond to a unique id for the current user.
+          client_user_id: 'user-id',
+        },
+        client_name: 'Plaid Quickstart',
+        products: ["transactions"],
+        country_codes: ["US"],
+        language: languageCode || 'en',
+        "client_id": PLAID_CLIENT_ID,
+        "secret": PLAID_SECRET,
+      };
+      // update 6/6/2024 -- added conditional to handle when the token needs to be updated to refresh stale data (since that was the error that was causing the data to not populate widgets)
+      if (updateMode) {
+        const user = await User.findOne({ id: 1 });
+        if (user) {
+          configs.access_token = user.token;
         }
-        let createTokenResponse;
-        try {
+      }
+      if (PLAID_REDIRECT_URI !== '') {
+        configs.redirect_uri = PLAID_REDIRECT_URI;
+      }
+      try {
 
-          createTokenResponse = await client.linkTokenCreate(configs);
-          res.status(200).json(createTokenResponse.data);
+        const createTokenResponse = await client.linkTokenCreate(configs);
+        res.status(200).json(createTokenResponse.data);
 
-        } catch (error) { 
+      } catch (error) {
 
-          console.log("CREATE_TOKEN_DEBUG:", error);
-          return next(new AppError('Could not generate token response'));
+        console.log("CREATE_TOKEN_DEBUG:", error);
+        return next(new AppError('Could not generate token response'));
 
-        }
-      })
-      .catch(next);
+      }
+    })
+    .catch(next);
 }
 
-  let ACCESS_TOKEN;
+let ACCESS_TOKEN;
 
   /**
  * Exchanges a public token for an access token using the Plaid API. This function is crucial for securely upgrading
@@ -125,33 +130,33 @@ const createToken = async (req, res, next) => {
  * @returns {Promise} A promise that resolves by sending an HTTP response indicating successful token exchange or
  * an error if the exchange fails.
  */
-  const exchangeToken = async (req, res, next) => {
+const exchangeToken = async (req, res, next) => {
 
-    const publicToken = req.body.public_token;
-    try {
-        const tokenResponse = await client.itemPublicTokenExchange({
-        public_token: publicToken,
-      });
-    
-      const accessToken = tokenResponse.data.access_token;
+  const publicToken = req.body.public_token;
+  try {
+    const tokenResponse = await client.itemPublicTokenExchange({
+      public_token: publicToken,
+    });
+
+    const accessToken = tokenResponse.data.access_token;
 
       // save token to database user
-      let user = await User.create({
-        id: 1,
-        token: accessToken});
-      // user.token = accessToken;
-      user.save()
-      .then(doc => console.log('Document saved:', doc))
-      .catch(err => console.error('Error saving document:', err));
-      
-      ACCESS_TOKEN = accessToken;
-      res.status(200).json({ public_token_exchange: 'complete' });
-    } catch (error) {
-      console.log("Error:", error);
-      return next(new AppError('Could not generate exchange token'));
-      // handle error
-    }
-  } 
+      // update 6/7/2024 -- using findOneAndUpdate to update the user's token if it exists or create a new entry if it doesn't.
+    let user = await User.findOneAndUpdate(
+      { id: 1 },
+      { token: accessToken },
+      { upsert: true, new: true }
+    );
+
+
+    ACCESS_TOKEN = accessToken;
+    res.status(200).json({ public_token_exchange: 'complete' });
+  } catch (error) {
+    console.log("Error:", error);
+    return next(new AppError('Could not generate exchange token'));
+     // handle error
+  }
+}
 
 /**
  * Retrieves and synchronizes transactions via the Plaid API, 
@@ -170,96 +175,96 @@ const createToken = async (req, res, next) => {
  */
 const plaidGetTransactions = async (req, res, next) => {
   Promise.resolve()
-      .then(async function () {
-        
-        // Set cursor to empty to receive all historical updates
-        let cursor = null;
-        let added = [];
-        let modified = [];
-        let removed = [];
-        let hasMore = true;
-        let user = await User.findOne({id: 1});
-        let accessToken = user.token;
-        
-        // Iterate through each page of new transaction updates for item
-        while (hasMore) {
-          const req = {
-            access_token: accessToken,
-            cursor: cursor,
-          };
-          try {
+    .then(async function () {
 
-            const res = await client.transactionsSync(req);
-            const data = res.data;
+      // Set cursor to empty to receive all historical updates
+      let cursor = null;
+      let added = [];
+      let modified = [];
+      let removed = [];
+      let hasMore = true;
+      let user = await User.findOne({id: 1});
+      let accessToken = user.token;
 
-            added = added.concat(data.added);
-            modified = modified.concat(data.modified);
-            removed = removed.concat(data.removed);
-            hasMore = data.has_more;
-            cursor = data.next_cursor;
-
-          } catch (error) {
-
-            console.log("Error:", error);
-            return next(new AppError('Could sync transactions'));
-
-          }
-        }
-  
-        const compareTxnsByDateAscending = (a, b) => (a.date > b.date) - (a.date < b.date);
-        const recently_added = [...added].sort(compareTxnsByDateAscending);
-
-        let transactionList = [];
-        let i = 0;
-        
-        recently_added.forEach(plaidTransactions => {
-        
-          console.log(`${plaidTransactions.date}`);
-          let name = plaidTransactions.name;
-          if (name === "") {
-            name = plaidTransactions.merchant_name;
-          }
-        
-          let breadboxTransaction = new Transaction({
-            accountId: plaidTransactions.account_id, 
-            accountOwner: plaidTransactions.account_owner,
-            amount: plaidTransactions.amount,
-            date: plaidTransactions.date,
-            catagory: plaidTransactions.category,
-            merchantName: name,
-            paymentChannel: plaidTransactions.payment_channel, 
-            paymentMeta: plaidTransactions.payment_meta.payee,
-            currency: plaidTransactions.iso_currency_code,
-          });
-         
-          console.log(`Transaction #[${++i}]: ${breadboxTransaction}`);
-          transactionList.push(breadboxTransaction);
-        });
-
-        req = {
+      // Iterate through each page of new transaction updates for item
+      while (hasMore) {
+        const req = {
           access_token: accessToken,
+          cursor: cursor,
         };
-        
-        let transactionRecuringList = [];
         try {
 
-          const response = await client.transactionsRecurringGet(req);
-          let inflowStreams = response.data.inflow_streams;
-          let outflowStreams = response.data.outflow_streams;
+          const res = await client.transactionsSync(req);
+          const data = res.data;
 
-          console.log(outflowStreams);
+          added = added.concat(data.added);
+          modified = modified.concat(data.modified);
+          removed = removed.concat(data.removed);
+          hasMore = data.has_more;
+          cursor = data.next_cursor;
 
-         
-          outflowStreams.forEach(outflowTransactions => {
+        } catch (error) {
+
+          console.log("Error:", error);
+          return next(new AppError('Could sync transactions'));
+
+       }
+      }
+
+      const compareTxnsByDateAscending = (a, b) => (a.date > b.date) - (a.date < b.date);
+      const recently_added = [...added].sort(compareTxnsByDateAscending);
+
+      let transactionList = [];
+      let i = 0;
+
+      recently_added.forEach(plaidTransactions => {
+
+        console.log(`${plaidTransactions.date}`);
+        let name = plaidTransactions.name;
+        if (name === "") {
+          name = plaidTransactions.merchant_name;
+        }
+
+        let breadboxTransaction = new Transaction({
+          accountId: plaidTransactions.account_id,
+          accountOwner: plaidTransactions.account_owner,
+          amount: plaidTransactions.amount,
+          date: plaidTransactions.date,
+          catagory: plaidTransactions.category,
+          merchantName: name,
+          paymentChannel: plaidTransactions.payment_channel,
+          paymentMeta: plaidTransactions.payment_meta.payee,
+          currency: plaidTransactions.iso_currency_code,
+        });
+
+        console.log(`Transaction #[${++i}]: ${breadboxTransaction}`);
+        transactionList.push(breadboxTransaction);
+      });
+
+      req = { 
+        access_token: accessToken,
+       };
+
+      let transactionRecuringList = [];
+      try {
+
+        const response = await client.transactionsRecurringGet(req);
+        let inflowStreams = response.data.inflow_streams;
+        let outflowStreams = response.data.outflow_streams;
+
+        console.log(outflowStreams);
+
+
+        outflowStreams.forEach(outflowTransactions => {
           let name = outflowTransactions.merchant_name;
-          
+
           if (name === "") {
             name = outflowTransactions.description;
-          } 
+          }
           if (name === "") {
             name = outflowTransactions.personal_finance_category.primary;
           }
-          
+
           let breadboxTransactionRecuring = {
             accountId: outflowTransactions.account_id,
             amount: outflowTransactions.average_amount.amount,
@@ -272,22 +277,22 @@ const plaidGetTransactions = async (req, res, next) => {
             currency: outflowTransactions.iso_currency_code,
             description: outflowTransactions.description,
           }
-          
+
           transactionRecuringList.push(breadboxTransactionRecuring);
         });
-        } catch (err)  {
-          console.log(`RECURING_TRANSACTION_DEBUG: ${err}`);
-          return res.status(500).json(err);
-        
-        }
+      } catch (err)  {
+        console.log(`RECURING_TRANSACTION_DEBUG: ${err}`);
+        return res.status(500).json(err);
 
-        res.status(200).json({
-          one_time_cost: transactionList,
-          recuring_cost: transactionRecuringList
-        });
+      }
 
-      })
-      .catch(next);
+      res.status(200).json({
+        one_time_cost: transactionList,
+        recuring_cost: transactionRecuringList
+      });
+
+    })
+    .catch(next);
 }
 
 /**
@@ -304,24 +309,24 @@ const plaidGetTransactions = async (req, res, next) => {
  * @returns {void} - Does not return a value but responds with a JSON object containing income transactions or an error message.
  */
 const plaidGetIncomeStream = async (req, res, next) => {
-  
+
   let inFlowTransactionList = [];
   let user = await User.findOne({id: 1});
   let accessToken = user.token;
 
   try {
-    req = {
-      access_token: accessToken,
+    req = { 
+      access_token: accessToken, 
     };
 
     const response = await client.transactionsRecurringGet(req);
     let inflowStreams = response.data.inflow_streams;
-    
+
     inflowStreams.forEach(inFlowTransaction => {
       let name = inFlowTransaction.merchant_name;
       if (name === "") {
         name = inFlowTransaction.personal_finance_category.primary;
-      } 
+      }
       if (name === "") {
         name = inFlowTransaction.category[0];
       }
@@ -358,16 +363,16 @@ const plaidGetIncomeStream = async (req, res, next) => {
  * @returns {void} - Sends a JSON response to the client with the balance data or an error message, does not return any value.
  */
 const plaidGetBalance = async (req, res, next ) => {
-    Promise.resolve()
-        .then(async function () {
-            let user = await User.findOne({id: 1});
-            let accessToken = user.token;
-            const balanceResponse = await client.accountsBalanceGet({
-            access_token: accessToken,
-            });
-            res.status(200).json(balanceResponse.data);
-        })
-        .catch(next);
+  Promise.resolve()
+    .then(async function () {
+      let user = await User.findOne({id: 1});
+      let accessToken = user.token;
+      const balanceResponse = await client.accountsBalanceGet({
+        access_token: accessToken,
+      });
+      res.status(200).json(balanceResponse.data);
+    })
+    .catch(next);
 }
 
 /**
@@ -383,24 +388,24 @@ const plaidGetBalance = async (req, res, next ) => {
  */ 
 const getIncomeForMonth = async (date) => {
   try {
- 
+
     let user = await User.findOne({id: 1});
     const accessToken = user.token;
     let monthTotal = 0;
     const searchYear = parseInt(date.substring(0, 4), 10);
     const searchMonth = parseInt(date.substring(5, 7), 10);
 
-    // Define the function to compare transactions by date
+     // Define the function to compare transactions by date
     const compareTxnsByDateAscending = (a, b) => (new Date(a.date) - new Date(b.date));
 
     try {
-      
+
       const response = await client.transactionsRecurringGet({ access_token: accessToken });
       let inflowStreams = response.data.inflow_streams;
 
-      // Filter and process inflow streams
+       // Filter and process inflow streams
       inflowStreams.forEach(inFlowTransaction => {
-        
+
         let transactionYear = new Date(inFlowTransaction.first_date).getFullYear();
         let transactionMonth = new Date(inFlowTransaction.first_date).getMonth() + 1; // getMonth() is 0-indexed
         if (transactionYear === searchYear && transactionMonth === searchMonth) {
@@ -447,24 +452,24 @@ const getIncomeForMonth = async (date) => {
  * @returns {void} - Sends a JSON response to the client with structured income data or an error message, does not return any value.
  */
 const plaidGetTotalMonthlyIncome = async (req, res, next) => {
-  
+
   const date = req.body.date;
   const searchYear = parseInt(date.substring(0, 4), 10); // Extract year
   const MONTHS = 12;
-  
+
   let monthlyIncomes = [];
   let totalAmountYear = 0;
-  
+
   try {
-    
+
     for (let i = 0; i < MONTHS; i++) {
-      
+
       let dateObject = new Date(searchYear, i, 1); // Set to first day of each month
       let dateString = `${dateObject.getFullYear()}-${String(dateObject.getMonth() + 1).padStart(2, '0')}-01`;
       let incomeForMonth = await getIncomeForMonth(dateString);
-      
+
       totalAmountYear += incomeForMonth.totalIncomeForMonth;
-      
+
       monthlyIncomes.push({
         month: i + 1,
         year: incomeForMonth.year,
@@ -490,19 +495,20 @@ const plaidGetTotalMonthlyIncome = async (req, res, next) => {
  * @param {Function} next - Middleware function for error handling.
  */
 const plaidGetAccounts = (req, res, next ) => {
-    Promise.resolve()
-        .then(async function () {
+  Promise.resolve()
+    .then(async function () {
 
-            // (TODO: REPLACE)          
-            let user = await User.findOne({id: 1});
-            let accessToken = user.token;
-            const balanceResponse = await client.accountsBalanceGet({
-            access_token: accessToken,
-            });
-            // console.log(balanceResponse);
-            res.json(balanceResponse.data);
-        })
-        .catch(next);
+      // (TODO: REPLACE)  
+      //update 6/6/2024 -- switched to accountsResponse and client.accountsGet()
+      let user = await User.findOne({id: 1});
+      let accessToken = user.token;
+      const accountsResponse = await client.accountsGet({
+        access_token: accessToken,
+      });
+      // console.log('Accounts fetched:', accountsResponse.data.accounts);  // DEBUG
+      res.json(accountsResponse.data);
+    })
+    .catch(next);
 }
 
 /**
@@ -516,21 +522,21 @@ const plaidGetAccounts = (req, res, next ) => {
  */
 const plaidGetCategories = (req, res, next) => {
   Promise.resolve()
-      .then(async function () {
-          const categoriesResponse = await client.categoriesGet({});
-          // console.log(categoriesResponse);
-          res.json(categoriesResponse.data);
-      })
-      .catch(next);
+    .then(async function () {
+      const categoriesResponse = await client.categoriesGet({});
+        // console.log(categoriesResponse);
+      res.json(categoriesResponse.data);
+    })
+    .catch(next);
 }
 
-    module.exports = {
-        createToken,
-        exchangeToken,
-        plaidGetBalance,
-        plaidGetAccounts,
-        plaidGetTransactions,
-        plaidGetIncomeStream,
-        plaidGetTotalMonthlyIncome,
-        plaidGetCategories
-  }
+module.exports = {
+  createToken,
+  exchangeToken,
+  plaidGetBalance,
+  plaidGetAccounts,
+  plaidGetTransactions,
+  plaidGetIncomeStream,
+  plaidGetTotalMonthlyIncome,
+  plaidGetCategories
+}
