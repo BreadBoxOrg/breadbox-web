@@ -8,12 +8,22 @@
 
 ### Screenshots
 
-![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/e94be178-fa6f-4ad5-a9b0-752d9fee7455)
-![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/74a6da2a-92d3-418a-bd61-5e4e0c1cdae2)
-![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/553cb6ef-c08d-4123-bf62-f3727c407546)
-![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/f0eb4b48-4e93-4a73-a20b-8c7bee185ee8)
-![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/349fe0ae-28c4-43c1-916b-8fa0a7ef83ff)
-![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/6a49bdf2-e000-410c-af82-716070f34a88)
+![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/1ed410a0-20ef-4bef-90ff-e66ab344469b)
+
+![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/932eddf4-374b-4e15-a458-4f95de8a1368)
+
+![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/e1c9fcdc-b8ce-4ba7-a9e3-d4fe2b526d74)
+
+![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/283f6607-041c-489c-a16e-bd0c268bbae3)
+
+![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/7fc80001-5594-4402-8eb6-a657811c8bb3)
+
+![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/ca93724a-cd4d-43ea-8e1a-6aca2af80e78)
+
+![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/d56e892c-a2eb-4539-8f0a-569a3c68a56d)
+
+![Image](https://github.com/BreadBoxOrg/breadbox-web/assets/67339817/edfa4ac7-8cb8-4b25-ae7c-fa1763322d6a)
+
 
 
 
