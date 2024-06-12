@@ -2,7 +2,7 @@
 
  
 
- [Body text Pending]   
+An AI integrated personal financial dashboard enabling users to connect multiple accounts and analyze their entire financial landscape. 
   
 #
 
